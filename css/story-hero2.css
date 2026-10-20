@@ -1,0 +1,182 @@
+/* Story hero, composed from layers instead of cropped from one still.
+   Background is a CSS gradient, the shapes are placed marks, the device is its
+   own transparent PNG. Nothing depends on the viewport aspect matching the
+   image aspect, so it holds from 360px to ultrawide. */
+
+.shero2 {
+  position: relative;
+  overflow: hidden;
+  color: var(--offwhite);
+  background:
+    radial-gradient(ellipse 70% 70% at 64% 46%,
+      #0a6143 0%, #075539 42%, #053f2a 78%, #032e1f 100%);
+}
+
+.shero2__inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  min-height: clamp(560px, 78vh, 840px);
+  padding-top: calc(var(--header-h) + clamp(24px, 4vw, 56px));
+  padding-bottom: clamp(40px, 6vw, 88px);
+}
+
+.shero2__copy {
+  width: min(46%, 600px);
+}
+
+/* The device is sized by a box it has to fit inside, not by a crop. A tall
+   kiosk hits the height limit, a wide laptop hits the width limit, and both
+   stay clear of the copy at any width. */
+.shero2__device {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: clamp(16px, 6%, 160px);
+  transform: translateY(-50%);
+  width: min(44%, 720px);
+  height: 76%;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 38px 50px rgba(1, 26, 17, .45));
+}
+
+/* Floating marks, placed rather than baked in, so they can thin out on small
+   screens instead of being scaled down into mush. */
+.shero2__shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shero2__shapes img {
+  position: absolute;
+  display: block;
+  width: auto;
+}
+
+/* The copy column is anchored to a centred container, so its position in
+   viewport percent slides as the window widens. Anything placed with left: %
+   will wander into the text at some width. So everything but two far-left
+   texture marks is anchored to the right edge, where the device is, and stays
+   clear of the copy at every width. */
+.s2a { left: 2.5%; top: 11%; height: 9%;  opacity: .26; }
+.s2b { left: 7%;  top: 72%; height: 7%;  opacity: .2; }
+.s2c { right: 44%; top: 87%; height: 6%;  opacity: .5; }
+.s2d { right: 37%; top: 9%;  height: 8%;  opacity: .85; }
+.s2e { right: 33%; top: 70%; height: 10%; opacity: .9; }
+.s2f { right: 2.5%; top: 14%; height: 7%; opacity: .8; }
+.s2g { right: 7%;  top: 83%; height: 9%;  opacity: .85; }
+.s2h { right: 47%; top: 44%; height: 5%;  opacity: .38; }
+.s2i { right: 17%; top: 4%;  height: 6%;  opacity: .55; }
+
+/* Just enough lift under the copy that a mark drifting behind it never costs
+   contrast. Far lighter than the scrim the baked-in version needed. */
+.shero2::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0 50% 0 0;
+  background: linear-gradient(90deg, rgba(3, 40, 27, .72), rgba(3, 40, 27, 0));
+}
+
+.shero2 .eyebrow { color: var(--mint); margin-bottom: 18px; }
+.shero2 .story-title { color: var(--offwhite); }
+.shero2 .story-headline { color: var(--mint); }
+.shero2 .story-lede p { color: rgba(245, 244, 239, .92); }
+
+/* Facts, under the blade on paper */
+.shero2-facts { padding-block: clamp(36px, 5vw, 64px); }
+
+.shero2-facts .story-facts {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 clamp(20px, 3vw, 48px);
+  border-top: 2px solid var(--charcoal);
+}
+
+.shero2-facts .story-facts>div {
+  border-bottom: 0;
+  padding-block: 20px 0;
+}
+
+@media (max-width: 1199px) {
+  .shero2__copy { width: min(52%, 520px); }
+  .shero2__device { width: min(42%, 560px); height: 70%; }
+}
+
+/* Stacked: the device gets its own band, the copy sits under it. Because the
+   device is a separate layer we just move it — no second crop to tune. */
+@media (max-width: 1023px) {
+  /* One band height drives both the spacer and the device box, so the device
+     can't spill under the copy block that paints over it. */
+  .shero2 {
+    display: flex;
+    flex-direction: column;
+    --band-h: clamp(300px, 50vw, 420px);
+  }
+
+  .shero2__band {
+    position: relative;
+    z-index: 2;
+    height: var(--band-h);
+    flex: 0 0 auto;
+  }
+
+  .shero2__device {
+    top: calc(var(--header-h) - 20px);
+    bottom: auto;
+    right: 50%;
+    transform: translateX(50%);
+    width: min(76%, 420px);
+    height: calc(var(--band-h) - var(--header-h) + 8px);
+    filter: drop-shadow(0 18px 26px rgba(1, 26, 17, .4));
+  }
+
+  .shero2::before { display: none; }
+
+  .shero2__inner {
+    min-height: 0;
+    padding-top: clamp(24px, 5vw, 40px);
+    padding-bottom: clamp(32px, 7vw, 52px);
+    background: #053f2a;
+  }
+
+  .shero2__copy { width: 100%; }
+
+  /* thin the field out rather than shrink every mark */
+  .s2c, .s2e, .s2h, .s2i { display: none; }
+  .s2a { height: 7%; top: 8%; }
+  .s2b { top: 20%; left: 6%; }
+  .s2f { height: 6%; }
+  .s2g { top: 24%; }
+
+  .shero2-facts .story-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 599px) {
+  .shero2-facts .story-facts { grid-template-columns: 1fr; }
+  .shero2-facts .story-facts>div { padding-block: 16px 0; }
+}
+
+/* Bar rides transparent over the blade, solid once it has gone by */
+body.shero2-page .story-header {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  color: var(--offwhite);
+}
+
+body.shero2-page .close-link { color: var(--offwhite); }
+
+body.shero2-page.is-past-hero .story-header {
+  background: rgba(245, 244, 239, .86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--line);
+  color: var(--ink);
+}
+
+body.shero2-page.is-past-hero .close-link { color: var(--ink-soft); }
