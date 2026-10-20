@@ -1034,6 +1034,14 @@ body.menu-open {
   fill: currentColor;
 }
 
+/* A phone's frame is portrait and the scene fits the device across the width,
+   so a full-height stage only adds empty room above and below it. */
+@media (max-width: 699px) {
+  .work--3d {
+    height: clamp(560px, 82vh, 760px);
+  }
+}
+
 /* Gate */
 .gate {
   position: relative;

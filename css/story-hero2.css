@@ -28,18 +28,22 @@
 
 /* The device is sized by a box it has to fit inside, not by a crop. A tall
    kiosk hits the height limit, a wide laptop hits the width limit, and both
-   stay clear of the copy at any width. */
+   stay clear of the copy at any width.
+
+   The art is cropped to the device, so these numbers are the device's own size
+   rather than the size of a frame it floats inside. The height limit is what a
+   portrait kiosk hits; a laptop or monitor hits the width. */
 .shero2__device {
   position: absolute;
   z-index: 2;
   top: 50%;
-  right: clamp(16px, 6%, 160px);
+  right: clamp(8px, 2.5%, 90px);
   transform: translateY(-50%);
-  width: min(44%, 720px);
-  height: 76%;
+  width: min(48%, 820px);
+  height: 90%;
   object-fit: contain;
   object-position: center;
-  filter: drop-shadow(0 38px 50px rgba(1, 26, 17, .45));
+  filter: drop-shadow(0 44px 58px rgba(1, 26, 17, .45));
 }
 
 /* Floating marks, placed rather than baked in, so they can thin out on small
@@ -103,7 +107,7 @@
 
 @media (max-width: 1199px) {
   .shero2__copy { width: min(52%, 520px); }
-  .shero2__device { width: min(42%, 560px); height: 70%; }
+  .shero2__device { width: min(48%, 620px); height: 88%; }
 }
 
 /* Stacked: the device gets its own band, the copy sits under it. Because the
@@ -114,7 +118,13 @@
   .shero2 {
     display: flex;
     flex-direction: column;
-    --band-h: clamp(300px, 50vw, 420px);
+    --band-h: clamp(360px, 92vw, 540px);
+  }
+
+  /* A kiosk is portrait, so the same band gives it half the device a laptop
+     gets. Tall devices get a taller band rather than a smaller device. */
+  .shero2--kiosk {
+    --band-h: clamp(440px, 118vw, 700px);
   }
 
   .shero2__band {
@@ -129,8 +139,10 @@
     bottom: auto;
     right: 50%;
     transform: translateX(50%);
-    width: min(76%, 420px);
-    height: calc(var(--band-h) - var(--header-h) + 8px);
+    width: min(94%, 480px);
+    /* short of the band's own edge, so the drop shadow lands inside the band
+       instead of being cut off by the copy block painted under it */
+    height: calc(var(--band-h) - var(--header-h) - 20px);
     filter: drop-shadow(0 18px 26px rgba(1, 26, 17, .4));
   }
 

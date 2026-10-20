@@ -273,8 +273,13 @@ async function startScene(stories, ui) {
     renderer.setSize(w, h, false);
     const a = w / h;
     camera.aspect = a;
-    // Pull the camera back on narrow screens so the devices still fit.
-    const dist = Math.min(20, 9.5 * Math.max(1, 1.5 / a));
+    /* A portrait canvas has to pull the camera back, but only as far as the
+       focused device's own width needs — the old rule backed off by aspect
+       alone, which framed the whole row and left a phone mostly empty space.
+       HALF_W is the world half-width worth keeping in frame; at desktop
+       aspects the 9.5 floor is what binds, so wide screens are unchanged. */
+    const HALF_W = 2.1;
+    const dist = Math.min(20, Math.max(9.5, HALF_W / (a * Math.tan(camera.fov * Math.PI / 360))));
     camera.position.set(0, 0.55, dist);
     camera.lookAt(0, -0.45, 0);
     camera.updateProjectionMatrix();

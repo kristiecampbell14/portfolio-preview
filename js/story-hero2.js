@@ -18,8 +18,13 @@
 
     document.body.classList.add("shero2-page");
 
+    // Which device this story is shown on decides how much height the stacked
+    // layout has to give it: a portrait kiosk needs a deeper band than a laptop.
+    const story = (window.SITE?.stories || []).find((s) => s.slug === slug);
+    const device = story?.device || "laptop";
+
     const blade = document.createElement("section");
-    blade.className = "shero2";
+    blade.className = "shero2 shero2--" + device;
     blade.innerHTML =
       '<div class="shero2__shapes" aria-hidden="true">' +
         MARKS.map(([c, f]) => '<img class="' + c + '" src="assets/clay/' + f + '.webp" alt="" loading="lazy" decoding="async">').join("") +
