@@ -11,7 +11,8 @@ Preview: **https://kristiecampbell14.github.io/portfolio-preview/**
 
 | | |
 | --- | --- |
-| **Work section** | The flat carousel is replaced by the 3D clay space: each story sits on a clay device in a deep green room (`js/workspace.js`, three.js in `js/vendor/`). It falls back to the carousel with no WebGL. |
+| **Work section** | The flat carousel is replaced by the 3D clay space: each story sits on a clay device in a deep green room (`js/workspace.js`, three.js in `js/vendor/`). Clicking the device in focus opens its story; clicking one behind brings it forward. It falls back to the carousel with no WebGL, and also if the GL context is lost and does not come back. |
+| **Screen textures** | `assets/work/*.webp`, 1600px wide, in place of the 3200px PNGs — 2,074 KB down to 339 KB. `screen:` in `js/content.js` points at them. |
 | **Story hero** | Rebuilt as layers instead of one baked image: a CSS gradient, placed clay marks, and the device as its own transparent PNG (`css/story-hero2.css`, `js/story-hero2.js`, art in `assets/clay/`). |
 | **Resume snapshot** | Section removed, along with its two nav entries. The timeline block in `js/main.js` now waits on its markup being on the page. |
 | **Password** | Off. `window.__kcUnlocked = true` is set before `js/gate.js`, so every link opens straight into the work. |

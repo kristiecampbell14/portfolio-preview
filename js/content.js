@@ -76,7 +76,7 @@ window.SITE = {
       tagline: "A job feed with no search bar, for people who don't know what to type.",
       cover: "assets/stories/job-explorer/cover.png",
       device: "monitor",
-      screen: "assets/work/job-explorer.png",
+      screen: "assets/work/job-explorer.webp",
       accent: "forest",
 
       facts: [
@@ -285,7 +285,7 @@ window.SITE = {
       tagline: "One place to keep your career data, and many places it pays off.",
       cover: "assets/stories/career-profile/career-profile-final.png",
       device: "laptop",
-      screen: "assets/work/career-profile.png",
+      screen: "assets/work/career-profile.webp",
       accent: "vibrant",
 
       facts: [
@@ -537,7 +537,7 @@ window.SITE = {
       tagline: "The first student-facing AI product, aimed at the one blocker nobody had named.",
       cover: "assets/stories/ai-resume/resume-editor.png",
       device: "laptop",
-      screen: "assets/work/ai-resume.png",
+      screen: "assets/work/ai-resume.webp",
       accent: "mint",
 
       facts: [
@@ -707,7 +707,7 @@ window.SITE = {
       tagline: "A kiosk platform redesign, then a custom build for the world's largest storage operator.",
       cover: "assets/stories/kiosk-public-storage/cover.jpg",
       device: "kiosk",
-      screen: "assets/work/kiosk-home.jpg",
+      screen: "assets/work/kiosk-home.webp",
       accent: "forest",
 
       facts: [

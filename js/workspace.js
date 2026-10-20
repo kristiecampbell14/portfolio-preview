@@ -62,7 +62,7 @@ function buildUI(stories) {
   host.className = "work3d__stage";
   host.tabIndex = 0;
   host.setAttribute("role", "group");
-  host.setAttribute("aria-label", "Product stories, use the arrow keys to move between them");
+  host.setAttribute("aria-label", "Product stories: arrow keys move between them, Enter opens the one in focus");
 
   const overlay = document.createElement("div");
   overlay.className = "work3d__overlay";
@@ -123,6 +123,15 @@ function buildUI(stories) {
     ui.next.disabled = ui.active === stories.length - 1;
   };
 
+  /* One way out of the section, wherever it is triggered from: the overlay
+     link, a tap on the device in focus, or Enter on the stage. A held modifier
+     means a new tab, the way it would on any other link. */
+  ui.open = (ev) => {
+    const href = ui.meta.getAttribute("href");
+    if (ev && (ev.metaKey || ev.ctrlKey || ev.shiftKey)) window.open(href, "_blank", "noopener");
+    else window.location.assign(href);
+  };
+
   ui.setPaused = (v) => {
     ui.paused = v;
     const label = v ? "Play motion" : "Pause motion";
@@ -145,6 +154,9 @@ function buildUI(stories) {
   SECTION.addEventListener("keydown", (ev) => {
     if (ev.key === "ArrowRight") { ev.preventDefault(); ui.go(ui.active + 1); }
     if (ev.key === "ArrowLeft") { ev.preventDefault(); ui.go(ui.active - 1); }
+    // only from the stage itself: the overlay's own buttons and link handle
+    // Enter for themselves, and this would fire twice on top of them
+    if (ev.key === "Enter" && ev.target === host) { ev.preventDefault(); ui.open(ev); }
   });
 
   ui.sync();
@@ -204,6 +216,7 @@ async function startScene(stories, ui) {
 
   const shadowTex = makeShadowTexture(T);
   const builders = { laptop: G.laptop, kiosk: G.kiosk, monitor: G.monitor };
+  const screens = [];   // one per device that carries a screenshot
   const devices = stories.map((s, i) => {
     const screenMat = new T.MeshBasicMaterial({ color: C.vibrant, toneMapped: false });
     const build = builders[s.device] || G.monitor;
@@ -219,9 +232,17 @@ async function startScene(stories, ui) {
     const holder = new T.Group();
     holder.add(g);
     sc.add(holder, shadow);
-    if (s.screen) loadScreen(T, renderer, s.screen, screenMat, g.userData.aspect, () => invalidate());
+    if (s.screen) {
+      screens.push({ url: s.screen, mat: screenMat, aspect: g.userData.aspect });
+    }
     return { holder, g, shadow };
   });
+
+  /* Every panel still waiting for its screenshot asks again. Called on the way
+     up, and later whenever the page comes back from somewhere it might have
+     dropped a request: leaving for a story page cancels whatever was still in
+     flight, and without this the panel keeps its flat colour for good. */
+  const ensureScreens = () => screens.forEach((s) => loadScreen(T, renderer, s, () => invalidate()));
 
   const shapes = buildShapes(T, G, clay, sc);
 
@@ -237,20 +258,31 @@ async function startScene(stories, ui) {
   };
   let down = null;
   const cv = renderer.domElement;
-  cv.addEventListener("pointerdown", (ev) => { down = ev.clientX; });
+  cv.addEventListener("pointerdown", (ev) => { down = { x: ev.clientX, y: ev.clientY }; });
   cv.addEventListener("pointerup", (ev) => {
-    if (down === null) return;
-    const dx = ev.clientX - down;
+    if (!down) return;
+    const dx = ev.clientX - down.x, dy = ev.clientY - down.y;
     down = null;
-    if (Math.abs(dx) > 50) return ui.go(ui.active + (dx < 0 ? 1 : -1));
+
+    // a deliberate sideways throw moves the row
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      return ui.go(ui.active + (dx < 0 ? 1 : -1));
+    }
+    // anything else that travelled was a drag or the start of a scroll, not a tap
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) return;
+
     const i = hit(ev);
-    if (i >= 0 && i !== ui.active) ui.go(i);
+    if (i < 0) return;
+    // The mock-up is what people reach for, so the one in focus is the link:
+    // tapping it opens the story, the same place the overlay arrow goes. The
+    // ones behind come forward instead, so the row stays navigable by pointer.
+    if (i === ui.active) ui.open(ev);
+    else ui.go(i);
   });
   cv.addEventListener("pointercancel", () => { down = null; });
   cv.addEventListener("pointermove", (ev) => {
     if (ev.pointerType !== "mouse") return;
-    const i = hit(ev);
-    cv.style.cursor = i >= 0 && i !== ui.active ? "pointer" : "grab";
+    cv.style.cursor = hit(ev) >= 0 ? "pointer" : "grab";
   });
 
   /* ---- Loop ----------------------------------------------------------
@@ -260,10 +292,13 @@ async function startScene(stories, ui) {
      rendering altogether until something asks for a frame. */
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   let visible = false, running = false, raf = 0, idle = false;
+  // set once we have handed the section back to the flat carousel, after which
+  // the canvas is detached and nothing here should ask for another frame
+  let retired = false;
   const clock = new T.Clock();
   let cur = ui.active;
 
-  const invalidate = () => { idle = false; start(); };
+  const invalidate = () => { if (retired) return; idle = false; start(); };
   ui.onChange = invalidate;
   reduced.addEventListener("change", invalidate);
 
@@ -334,12 +369,54 @@ async function startScene(stories, ui) {
   }
 
   new ResizeObserver(resize).observe(ui.host);
-  new IntersectionObserver(([en]) => { visible = en.isIntersecting; visible ? start() : stop(); }).observe(ui.host);
-  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+
+  /* These all come back to invalidate() rather than start(): an idle scene
+     ignores start() by design, and coming back to the page is exactly the case
+     where the canvas may have been emptied while we were away — a tab restored
+     from the back/forward cache can return with its drawing buffer cleared or
+     its GL context recycled. Asking for one fresh frame is cheap and it is the
+     difference between the work space being there and being a green band. */
+  new IntersectionObserver(([en]) => {
+    visible = en.isIntersecting;
+    visible ? invalidate() : stop();
+  }).observe(ui.host);
+
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : invalidate()));
+
+  window.addEventListener("pageshow", (ev) => {
+    if (!ev.persisted) return;
+    // Restored from the back/forward cache: any screenshot whose request was
+    // cancelled on the way out never finished, so sweep for those too.
+    ensureScreens();
+    invalidate();
+  });
+
+  /* A lost context takes every texture with it. three.js asks for it back and
+     re-uploads on its own, so all we owe it is a frame. If it never comes
+     back, hand over to the flat carousel rather than leave an empty band. */
+  let contextLost = false;
+  renderer.domElement.addEventListener("webglcontextlost", () => {
+    contextLost = true;
+    stop();
+    setTimeout(() => {
+      if (!contextLost) return;
+      retired = true;
+      ui.teardown();
+      SECTION.classList.remove("work--3d");
+      mounted = false;
+      window.workCarouselFallback?.(false);
+    }, 4000);
+  });
+  renderer.domElement.addEventListener("webglcontextrestored", () => {
+    contextLost = false;
+    ensureScreens();
+    invalidate();
+  });
 
   resize();
   visible = true;
   start();
+  ensureScreens();
 
   scene = { renderer, sc, camera };
 }
@@ -542,19 +619,30 @@ function buildShapes(T, G, clay, sc) {
 }
 
 /* ---- Screens and shadows --------------------------------------------- */
-function loadScreen(T, renderer, url, mat, panelAspect, done) {
-  new T.TextureLoader().load(url, (t) => {
+function loadScreen(T, renderer, screen, done, attempt = 0) {
+  if (screen.mat.map || screen.inFlight) return;
+  screen.inFlight = true;
+  new T.TextureLoader().load(screen.url, (t) => {
+    screen.inFlight = false;
     t.colorSpace = T.SRGBColorSpace;
     t.anisotropy = renderer.capabilities.getMaxAnisotropy();
     const ia = t.image.width / t.image.height;
     // Cover the panel, anchored to the top of the image: these are screenshots,
     // and the top is where the product identifies itself.
-    if (ia < panelAspect) { t.repeat.set(1, ia / panelAspect); t.offset.set(0, 1 - ia / panelAspect); }
-    else { t.repeat.set(panelAspect / ia, 1); t.offset.set((1 - panelAspect / ia) / 2, 0); }
-    mat.map = t;
-    mat.color.set(0xffffff);
-    mat.needsUpdate = true;
+    if (ia < screen.aspect) { t.repeat.set(1, ia / screen.aspect); t.offset.set(0, 1 - ia / screen.aspect); }
+    else { t.repeat.set(screen.aspect / ia, 1); t.offset.set((1 - screen.aspect / ia) / 2, 0); }
+    screen.mat.map = t;
+    screen.mat.color.set(0xffffff);
+    screen.mat.needsUpdate = true;
     done();
+  }, undefined, () => {
+    /* Leaving the page cancels whatever was still downloading, and that counts
+       as an error here. Without a retry the panel keeps its flat colour for the
+       rest of the session, so back out and try again a few times. */
+    screen.inFlight = false;
+    if (attempt < 3) {
+      setTimeout(() => loadScreen(T, renderer, screen, done, attempt + 1), 600 * (attempt + 1));
+    }
   });
 }
 
