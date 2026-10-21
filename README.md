@@ -16,7 +16,7 @@ Preview: **https://kristiecampbell14.github.io/portfolio-preview/**
 | **Story hero** | Rebuilt as layers instead of one baked image: a CSS gradient, placed clay marks, and the device as its own transparent PNG (`css/story-hero2.css`, `js/story-hero2.js`, art in `assets/clay/`). |
 | **Resume snapshot** | Section removed, along with its two nav entries. The timeline block in `js/main.js` now waits on its markup being on the page. |
 | **Password** | Same gate as the live site. `?k=<password>` on any link unlocks on arrival, so the link to share is `https://kristiecampbell14.github.io/portfolio-preview/?k=…`. |
-| **Analytics** | Not loaded, so feedback visits stay out of the live Clarity numbers. |
+| **Analytics** | Same Clarity project as the live site (`js/analytics.js`), since kristiecampbell.com now forwards here. |
 | **Search** | Both pages carry `noindex`. |
 
 Nothing else diverges: all the content still comes from `js/content.js`.
