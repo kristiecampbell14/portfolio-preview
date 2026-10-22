@@ -573,10 +573,9 @@ window.SITE = {
             "Previous experiments had taught me that **context mattered**: students were more willing to identify skills when it fit the task in front of them. When we added work history to Career Profile, I used the job title students were already entering to offer relevant skill suggestions.\n\nThe title was sent to Lightcast, which returned **10 associated skills not already on that student’s profile**. **Every chip was unselected by default.** Students decided which, if any, reflected their actual experience; we never silently added or claimed skills on their behalf.",
             {
               width: "inset",
-              label: "Suggested by title, chosen by the student",
               image: "assets/stories/career-profile/work-history-inferred-skills.png", w: 923, h: 743,
               alt: "The Career Profile work history form for a Graphic Designer, with ten related skills offered as chips. Typography and Social Media are selected; the other eight are not.",
-              caption: "Ten suggestions for Graphic Designer. The student picked two; the other eight never reach the profile."
+              caption: "Work history with suggested skills. Only the ones a student selects are added to their profile."
             },
             {
               label: "Early 2025 snapshot",
