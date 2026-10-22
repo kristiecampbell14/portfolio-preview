@@ -208,7 +208,9 @@
     if (f.carousel) return `<div class="chapter__media chapter__media--wide">${galleryHTML(f)}</div>`;
     const items = f.items || [f];
     const ratio = f.ratio ? ` chapter__media--${e(f.ratio)}` : "";
-    return `<div class="chapter__media chapter__media--${e(f.width || "wide")} chapter__media--${items.length}up${ratio}">
+    /* `stack` puts the items one under another, at one shared width */
+    const count = f.stack ? "stack" : `${items.length}up`;
+    return `<div class="chapter__media chapter__media--${e(f.width || "wide")} chapter__media--${count}${ratio}">
       ${items.map(chapterFigure).join("")}
     </div>`;
   }

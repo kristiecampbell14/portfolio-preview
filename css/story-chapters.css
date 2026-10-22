@@ -272,6 +272,11 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* one under another, so screenshots captured at one scale keep it */
+.chapter__media--stack {
+  gap: clamp(20px, 2.5vw, 32px);
+}
+
 .chapter__media--60-40 {
   grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
 }

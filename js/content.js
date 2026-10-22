@@ -438,11 +438,23 @@ window.SITE = {
           flow: [
             "The original university skills link sat inside an active-course component in the student portal. I noticed that students on leave and alumni could lose the route to their earned skills entirely. **I designed a permanent Skills Dashboard card and worked with the portal product team to secure placement and define its rules.**",
             {
-              width: "wide",
+              /* all four portal cards were captured at one scale, so they
+                 share one width to keep their type the same size */
+              width: "inset",
+              stack: true,
               items: [
-                { label: "Before", pending: "Course-level skills link", image: "assets/stories/career-profile/portal-course-link.png", w: 800, h: 600 },
-                { label: "2022", pending: "Permanent Skills Dashboard card", image: "assets/stories/career-profile/portal-card-2022.png", w: 800, h: 600 },
-                { label: "2023", pending: "Skills Profile card, both states", image: "assets/stories/career-profile/portal-card-2023.png", w: 800, h: 600 }
+                {
+                  label: "Before",
+                  image: "assets/stories/career-profile/portal-course-card.png", w: 1632, h: 866, bare: true,
+                  alt: "A portal course card for Principles of Accounting II, with a See course skills link under the course's skills, the instructor, the dates and a Go to class button.",
+                  caption: "The only route to earned skills: a link inside the active course card."
+                },
+                {
+                  label: "2022",
+                  image: "assets/stories/career-profile/portal-card-2022.png", w: 1630, h: 370, bare: true,
+                  alt: "A permanent Skills card: Your program is mapped to career-relevant skills. See how many skills you’ve demonstrated so far! Go to Skills Dashboard.",
+                  caption: "A permanent Skills card for students in skills-tagged programs."
+                }
               ]
             },
             {
@@ -455,6 +467,23 @@ window.SITE = {
                 "In 2022, the new portal card brought **10,361 visits and 6,234 unique visitors in its first 13 days**, compared with **3,300 visits and 2,240 unique visitors during the preceding 30 days**. That change still served only students in skills-tagged programs, but it removed the active-enrollment dependency."
             },
             "When Skills Profile launched in 2023, I designed **a second dynamic card state** so students without skills-tagged programs could also reach the new experience. The portal now offered a relevant entry point to students and alumni whether or not university-earned skills were available to them.",
+            {
+              width: "inset",
+              stack: true,
+              items: [
+                {
+                  label: "2023 · Skills-tagged programs",
+                  image: "assets/stories/career-profile/portal-card-2023-tagged.png", w: 1630, h: 370, bare: true,
+                  alt: "The Skills card for skills-tagged programs, with the same message as before and its link changed to Go to Skills Profile."
+                },
+                {
+                  label: "2023 · All other programs",
+                  image: "assets/stories/career-profile/portal-card-2023-other.png", w: 1630, h: 370, bare: true,
+                  alt: "The Skills card for other programs: Collecting all your skills in one place helps you be prepared to search for job opportunities. Go to Skills Profile.",
+                  caption: "One card, two messages, both leading to the new Skills Profile."
+                }
+              ]
+            },
             {
               label: "2023 · Skills Profile launch",
               stats: [
