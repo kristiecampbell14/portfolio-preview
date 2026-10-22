@@ -22,6 +22,8 @@
      closing    narrow reading column that ends on one large line
      prose      a short centered paragraph to set up what follows
      quote      one testimonial, styled like the homepage recommendations
+     chapter    a numbered, anchored section: label, heading, then a `flow`
+                of copy and media (story `layout: "chapters"` only)
    ===================================================================== */
 
 window.SITE = {
@@ -65,10 +67,14 @@ window.SITE = {
     {
       slug: "job-explorer",
       title: "Job Explorer",
-      eyebrow: "0→1 product · 2021–2026",
-      headline: "Rethinking job search for people who don't know what to search for.",
+      /* chapters: numbered sections with anchors, a section nav in the bar,
+         and the reduced type scale in css/story-chapters.css */
+      layout: "chapters",
+      eyebrow: "Overview",
+      headline:
+        "I designed a more useful way for students to discover jobs, return when they were ready, and evaluate their options.",
       intro:
-        "I led Job Explorer from its first release through five years of continuous evolution, creating a personalized, searchless way for working adults to discover relevant opportunities based on their program, skills, preferences, and career goals.",
+        "The university needed to replace a retiring third-party job board. I worked with my product manager to turn that requirement into something more meaningful for working adults who did not always know which job titles to search for.",
 
       /* card in the Work carousel */
       role: "Lead product designer",
@@ -79,11 +85,18 @@ window.SITE = {
       screen: "assets/work/job-explorer.webp",
       accent: "forest",
 
-      facts: [
-        { label: "Role", value: "Lead / sole product designer" },
-        { label: "Team", value: "Product trio: PM + tech lead + engineering" },
-        { label: "Responsibilities", value: "Discovery, research, experimentation, UX/UI" },
-        { label: "Impact", value: ["10K+ monthly unique users", "6% → 25% Apply Now conversion"] }
+      overview: [
+        {
+          label: "My role",
+          body:
+            "Hands-on product design, student interviews, interaction design, and ongoing product improvements over five years, including during my time managing designers. I partnered with product management and engineering while continuing to personally design the work shown here."
+        },
+        {
+          label: "At a glance",
+          value: "6% → 25%",
+          body:
+            "The percentage of Job Explorer visitors clicking Apply Now grew from approximately **6% to 25%** across five years of cumulative product improvements."
+        }
       ],
 
       next: {
@@ -94,177 +107,218 @@ window.SITE = {
 
       blocks: [
         {
-          type: "figure",
-          width: "full",
-          image: "assets/stories/job-explorer/cover.png", w: 1920, h: 1080,
-          alt:
-            "The mature Job Explorer page: Career Plan, remote, city and experience-level filters above a column of job cards showing skill-match counts and save hearts, beside a full job description with Apply now and Generate resumé actions.",
-          caption:
-            "The mature Job Explorer experience: personalized recommendations, user-controlled filters, saved jobs, skills matching and Career Plan alignment—without keyword search."
-        },
-
-        {
-          type: "split",
-          ratio: "40-60",
-          heading: "The problem wasn't search. It was knowing what to search for.",
-          body:
-            "Before Job Explorer, students were sent to a third-party job board that was buried in the experience and offered little personalization.\n\nUser interviews revealed something more fundamental: many people didn't know what job title to type into a search field. They searched broad concepts like “remote” or “entry level” because they knew the conditions they wanted, but not necessarily the career they were looking for.\n\nThat changed our question from “How do we improve job search?” to “How do we help someone discover relevant opportunities without requiring them to know what to search for?”",
-          image: "assets/stories/job-explorer/initial-launch.png", w: 998, h: 1044,
-          alt:
-            "The first Job Explorer release: a single remote-jobs toggle, job cards listing possible skills for each job, and a job description with an Apply now button.",
-          caption: "The first release matched jobs to a student's program and self-identified skills."
-        },
-
-        {
-          type: "statement",
-          heading: "I made a deliberate bet on searchless discovery.",
-          quote:
-            "A search bar doesn't improve the outcome when the user doesn't know what to search for.",
-          body:
-            "The absence of search was controversial. UX leadership repeatedly questioned whether a job feed could work without it. I defended the model because adding keyword search would have shifted the burden back to the user instead of solving the problem we had observed.\n\nThe alternative was harder: make the system underneath the feed increasingly good at understanding the user. Five years later, it still has no search bar."
-        },
-
-        {
-          type: "timeline",
-          heading: "Five years of making a simple experience smarter",
-          nodes: [
-            "Program + skills",
-            "Filters + preferences",
-            "Saved jobs",
-            "Talent Source",
-            "Career Plan alignment",
-            "Connected job system"
-          ]
-        },
-
-        {
-          type: "split",
-          ratio: "50-50",
-          heading: "Searchless discovery created a new problem.",
-          subhead: "People could find a great job—and then struggle to find it again.",
-          body:
-            "During interviews, I watched people try to show me a job they had seen previously and fail to locate it again. Without keyword search, the product needed a way for users to preserve opportunities they wanted to return to.\n\nBefore asking engineering to build the backend, we tested desirability with a false-door experiment. We added save hearts to job cards and descriptions and measured how often people interacted with them, and where.",
-          image: "assets/stories/job-explorer/save-falsedoor.jpg", w: 814, h: 322,
-          alt:
-            "A job description header with an Apply now button and a Save heart beside it, used as the false-door test.",
-          caption:
-            "The false door: a save affordance on job cards and descriptions, instrumented before any backend existed."
-        },
-
-        {
-          type: "steps",
-          items: [
-            { label: "Observed", body: "Users could not relocate jobs they had already found." },
-            { label: "Tested", body: "A false-door save interaction on cards and descriptions." },
-            { label: "Built", body: "Saved Jobs became a production feature." },
-            { label: "Measured", body: "Saved-job users showed stronger Apply Now behavior." }
-          ]
-        },
-
-        {
-          type: "metrics",
-          items: [
-            { value: "~20%", label: "Average Career Navigator Apply Now" },
-            { value: "~34%", label: "Apply Now among users who saved a job" }
-          ],
-          note: "Observed FullStory cohort behavior; not a controlled causal experiment."
-        },
-
-        {
-          type: "annotated",
-          heading: "The product became something we continuously observed.",
-          body:
-            "Job Explorer wasn't designed through a single research phase and then handed off. We regularly interviewed users, watched sessions in FullStory, and built quantitative dashboards to evaluate releases, identify friction, and decide where to investigate next.",
-          align: "center",
-          video: "assets/stories/job-explorer/Dashboard Zoom_JobExplorer.mp4", w: 1280, h: 720,
-          alt:
-            "A screen recording panning across the Job Explorer FullStory dashboard: Apply Now conversion, saved-job behavior, job-card engagement and error tracking.",
-          callouts: [
-            "Apply Now conversion",
-            "Saved-job behavior",
-            "Job-card engagement",
-            "Errors / experience health"
-          ],
-          kicker: "The dashboard didn't tell us what to design. It told us where to look."
-        },
-
-        {
-          type: "cards",
-          heading: "Some of the most important decisions weren't new screens.",
-          items: [
+          type: "chapter",
+          id: "discover",
+          nav: "Discover",
+          label: "01 · Discover",
+          heading: "I designed discovery around what students knew, not the titles they had to guess.",
+          flow: [
+            "My PM and I interviewed students about the **last time they searched for or applied to a job**. Many described typing broad terms like “remote jobs” or “entry-level jobs” into search engines and job boards. They often knew their constraints, but not the occupations their education was preparing them for.\n\nRather than require a search term, I designed a feed using occupational categories already associated with each student’s academic program. We used **Standard Occupational Classification (SOC)** mappings from Lightcast to surface program-aligned jobs, then showed possible matches to skills earned in class and, later, skills students identified through work history.",
             {
-              title: "Filters without recreating search",
+              label: "A deliberate bet",
+              pull: "A search bar doesn’t improve the outcome when the user doesn’t know what to search for.",
               body:
-                "I pushed to add user-controlled filters and used false-door methods to learn which controls mattered before investing in full functionality."
+                "The absence of search was controversial. UX leadership repeatedly questioned whether a job feed could work without it. I defended the model because adding keyword search would have shifted the burden back to the user instead of solving the problem we had observed.\n\nThe alternative was harder: make the system underneath the feed increasingly good at understanding the user. Five years later, it still has no search bar."
             },
             {
-              title: "Making Talent Source understandable",
-              body:
-                "Talent Source opportunities initially included a large legal disclosure. Interviews showed users couldn't explain what made those jobs different. I worked with Legal to preserve required disclosure while replacing the wall of text with clearer hierarchy, illustrations, and storytelling."
+              width: "inset",
+              label: "First release",
+              image: "assets/stories/job-explorer/initial-launch.png", w: 998, h: 1044,
+              alt:
+                "The first Job Explorer release: a single remote-jobs toggle, job cards listing possible skills for each job, and a job description with an Apply now button.",
+              caption: "Program-aligned jobs, possible skills for each, and a single Remote filter. No search bar."
             },
+            "**The filters evolved with the product.** We started with Remote, then introduced entry-level filtering. Later, students could enter a location different from the address on file, choose among entry-, mid-, and senior-level experience, and explore jobs related to careers they had saved. That last filter would eventually be replaced by a more purposeful Career Plan toggle.",
             {
-              title: "Accessibility as part of product development",
-              body:
-                "The earliest version predated a mature accessibility partnership. Over time, I worked directly with the ADA team so new components and changes were evaluated from design through development."
+              width: "wide",
+              label: "The filter bar, later",
+              strip: true,
+              image: "assets/stories/job-explorer/filters-mature.png", w: 1065, h: 102,
+              alt:
+                "The Job Explorer filter bar: an In my Career Plan toggle, a Remote toggle, a City field and an Experience level menu set to Entry-level (0-1 years)."
             }
           ]
         },
 
         {
-          type: "figure",
-          width: "wide",
-          image: "assets/stories/job-explorer/final-design.png", w: 714, h: 798,
-          alt:
-            "Job Explorer showing a Talent Source job card with a photo header, Talent Match and Tuition Benefit badges, and a job description explaining that the employer invites candidates with these skills to apply.",
-          caption:
-            "Talent Source in place: a photo-led card, plain-language Talent Match and Tuition Benefit badges, and the disclosure rewritten as hierarchy instead of a wall of legal text."
+          type: "chapter",
+          id: "return",
+          nav: "Return",
+          label: "02 · Return",
+          heading: "I gave students a way to pick up where they left off.",
+          flow: [
+            "In ongoing interviews, students sometimes tried to find a job they had seen earlier, could not locate it again, and assumed the posting had closed.\n\n**Discovering a job and being ready to apply did not always happen in the same sitting.** Students balanced jobs, classes, and family commitments. They might browse on a lunch break or after a long day, then need time to prepare or tailor a résumé.\n\nI introduced **saved job postings** so students could keep interesting opportunities and return later. During false-door research, students said they expected to find saved postings in **Career Profile**, which informed where the saved list lived.",
+            {
+              width: "inset",
+              items: [
+                {
+                  label: "Save from the feed",
+                  image: "assets/stories/job-explorer/saved-card.png", w: 460, h: 310,
+                  alt: "A Job Explorer job card with a save heart, under a legend reading: heart equals Saved job posting."
+                },
+                {
+                  label: "Save from the description",
+                  image: "assets/stories/job-explorer/save-falsedoor.jpg", w: 814, h: 322,
+                  alt: "A job description header with an Apply now button and a Save heart beside it, used as the false-door test.",
+                  caption: "The false door: a save affordance on job cards and descriptions, instrumented before any backend existed."
+                }
+              ]
+            }
+          ]
         },
 
         {
-          type: "annotated",
-          heading: "Eventually, Job Explorer became part of the fabric of Career Navigator.",
-          body:
-            "As Job Explorer matured, its job-card and job-description patterns became reusable components that could surface opportunities throughout the Career Navigator ecosystem.\n\nInstead of redesigning jobs for every new context, we created a connected design language so improvements could cascade across products.",
-          image: "assets/stories/job-explorer/figma-job-cards.png", w: 1410, h: 1273,
-          alt:
-            "A Figma component sheet showing job card variants: contents, selectable cards in default, hover and focus states, standalone cards, and Talent Source cards with imagery.",
-          caption:
-            "The job card as a component set: standard and selectable variants, Talent Source cards with imagery, and one shared skill treatment running through all of them."
+          type: "chapter",
+          id: "observe",
+          nav: "Observe",
+          label: "03 · Observe",
+          heading: "I used behavioral data to decide where to look next.",
+          flow: [
+            "Job Explorer was never a launch-and-leave product. I continued interviewing students about what they had actually done in the product and used **FullStory behavioral data** to spot patterns worth investigating.\n\n**The dashboard did not tell us what to design. It told us where to look.** Interviews helped explain what was happening; behavioral data helped us decide which questions deserved attention as we kept iterating.",
+            {
+              width: "wide",
+              video: "assets/stories/job-explorer/Dashboard Zoom_JobExplorer.mp4", w: 1280, h: 720,
+              alt:
+                "A screen recording panning across the Job Explorer FullStory dashboard: Apply Now conversion, saved-job behavior, job-card engagement and error tracking.",
+              notes: ["Apply Now conversion", "Saved-job behavior", "Job-card engagement", "Errors / experience health"]
+            }
+          ]
         },
 
         {
-          type: "figure",
-          width: "wide",
-          image: "assets/stories/job-explorer/figma-job-description.png", w: 1600, h: 883,
-          alt: "A Figma component sheet for the reusable job description layout and its variants.",
-          caption: "The job description, rebuilt as a component so any product could host a posting."
+          type: "chapter",
+          id: "connect",
+          nav: "Connect",
+          label: "04 · Connect",
+          heading: "I aligned job discovery with the careers students were actually targeting.",
+          flow: [
+            "When Career Plan introduced the ability to **target** a career, Job Explorer still filtered jobs using careers students had only **saved as interests**. I recognized the disconnect between the products and decided to change the filter.\n\nI replaced the saved-careers dropdown with an **“In My Career Plan” toggle** that used occupations associated with the student’s targeted career and job titles. Program-aligned jobs remained the default to meet compliance requirements. Students could choose the Career Plan view and save that preference in Career Profile.\n\nThe underlying job lists sometimes overlapped. The value was giving students control to explore the career they were actively pursuing, not just careers they had liked.",
+            {
+              width: "inset",
+              image: "assets/stories/job-explorer/filter-career-plan.png", w: 512, h: 102,
+              alt: "The In my Career Plan toggle, switched off, beside the Remote toggle in the Job Explorer filter bar.",
+              notes: ["Default: program-aligned jobs", "Optional: targeted-career jobs"]
+            }
+          ]
         },
 
         {
-          type: "figure",
-          width: "narrow",
-          image: "assets/stories/job-explorer/miro-inventory.png", w: 1400, h: 819,
-          alt:
-            "A Miro board inventorying every job card and job posting pattern found across the product suite.",
-          caption:
-            "Cross-team inventory used to consolidate job patterns into a shared component model."
+          type: "chapter",
+          id: "clarify",
+          nav: "Clarify",
+          label: "05 · Clarify",
+          heading: "I introduced AI summaries to make inconsistent job descriptions easier to evaluate.",
+          flow: [
+            "Our job descriptions came from Lightcast, and the underlying content often arrived with confusing labels and unreliable structure. We repeatedly pursued cleaner source data. I also suggested formatting templates for the major job boards in the feed, but that path was more complex to maintain.\n\n**I proposed AI-generated summaries** as a practical way to organize information we could not fix at the source. I made the experience **optional and collapsed by default**, while keeping the original job description immediately below it so students could verify the source and decide for themselves.\n\nDuring proof-of-concept work, engineering developed four summary categories: **compensation and benefits, requirements and qualifications, skills, and responsibilities**. Engineering evaluated output quality and hallucination risk. I liked the structure and we used it in the experience.",
+            {
+              /* the collapsed and expanded screenshots, sliced at the same
+                 lines so the panel can open between them the way it does live */
+              width: "inset",
+              unfold: {
+                w: 1024,
+                barClosed: {
+                  src: "assets/stories/job-explorer/ai-summary-bar-closed.png", h: 152,
+                  alt: "Under a job's posted date, a collapsed bar reading Summarize this job description with AI."
+                },
+                barOpen: { src: "assets/stories/job-explorer/ai-summary-bar-open.png", h: 152 },
+                panel: {
+                  src: "assets/stories/job-explorer/ai-summary-panel.png", h: 1148,
+                  alt: "The expanded AI summary for a Team Lead job: Compensation and benefits, Requirements and qualifications, Skills, and Responsibilities, each a short bulleted list."
+                },
+                rest: {
+                  src: "assets/stories/job-explorer/ai-summary-original.png", h: 468,
+                  alt: "The original job description below it, opening with a run of labels that have no values: Job Title, Location, Employee Group, Regular Shift, Day Travel."
+                }
+              },
+              notes: ["Collapsed by default", "Scannable categories", "Original description preserved"]
+            },
+            {
+              label: "Observed behavior",
+              stats: [
+                { value: "34%", label: "Apply Now · opened an AI summary" },
+                { value: "22%", label: "Apply Now · did not" }
+              ],
+              body:
+                "Users who opened an AI summary clicked Apply Now at **34%**, compared with **22%** among users who did not. Everyone had access. This was an observational comparison, **not a controlled test or proof of causation**."
+            }
+          ]
+        },
+
+        {
+          type: "chapter",
+          id: "scale",
+          nav: "Scale",
+          label: "06 · Scale",
+          heading: "I designed a reusable job-card system that worked across Career Navigator.",
+          flow: [
+            "Job opportunities eventually appeared in more Career Navigator experiences, not only inside Job Explorer. I personally designed the **job-card component library, its states and variants, and the rules for how cards behaved in different contexts**.\n\n**Inside Job Explorer**, selecting a job card worked like choosing a tab: the details changed in the adjacent pane so students could browse without leaving the page. **Elsewhere in Career Navigator**, selecting a card opened a job-description modal so students could examine an opportunity without losing their place.",
+            {
+              width: "wide",
+              ratio: "60-40",
+              items: [
+                {
+                  label: "Inside Job Explorer: the pane changes",
+                  image: "assets/stories/job-explorer/side-pane.png", w: 1380, h: 508,
+                  alt:
+                    "Job Explorer with a selected job card on the left, marked by a red edge, and that job's details in the pane beside it: Apply now, Generate resumé and possible skills."
+                },
+                {
+                  label: "Elsewhere: a modal opens",
+                  image: "assets/stories/job-explorer/modal-board.png", w: 600, h: 456,
+                  alt: "The Job Description Modal frames from the Figma component file, in four variants."
+                }
+              ]
+            },
+            "I worked with our sister product team to explain and implement those patterns across the ecosystem. This was a **Career Navigator-specific reusable component library**, not a formal part of our central MUI design system, although decisions here informed shared conventions for **chips, card shadows, and modals**.\n\nBringing these job cards into more product experiences created additional opportunities for students to encounter relevant openings as part of their broader career journey.",
+            {
+              carousel: true,
+              items: [
+                {
+                  image: "assets/stories/job-explorer/figma-job-cards.png", w: 1410, h: 1273,
+                  alt:
+                    "A Figma component sheet showing job card variants: contents, selectable cards in default, hover and focus states, standalone cards, and Talent Source cards with imagery.",
+                  caption: "The job card set: selectable and standalone variants, each in default, hover and focus states."
+                },
+                {
+                  image: "assets/stories/job-explorer/figma-job-description.png", w: 1600, h: 883,
+                  alt: "A Figma component sheet for the job description: skills, in-page descriptions and modal descriptions.",
+                  caption: "The job description, in the page for Job Explorer and as a modal everywhere else."
+                },
+                {
+                  image: "assets/stories/job-explorer/miro-inventory.png", w: 1400, h: 819,
+                  alt:
+                    "A Miro board inventorying every job card and job posting pattern found across the product suite.",
+                  caption: "Cross-team inventory used to consolidate job patterns into a shared component model."
+                }
+              ]
+            }
+          ]
         },
 
         {
           type: "impact",
-          heading: "Five years of iteration changed the outcome.",
-          primary: { value: "6% → 25%", label: "Apply Now conversion across Job Explorer's evolution" },
-          secondary: [{ value: "10K+", label: "monthly unique users" }],
+          id: "outcome",
+          nav: "Outcome",
+          label: "07 · Outcome",
+          heading: "Five years of iteration helped move Apply Now from 6% to 25%.",
+          primary: {
+            value: "6% → 25%",
+            label: "of Job Explorer visitors clicked Apply Now over the product’s five-year evolution"
+          },
           body:
-            "Apply Now became a recurring business KPI because it represented a measurable step toward career progression. Job Explorer also became the student-facing destination for Talent Source opportunities, supporting new B2B partnerships and expanding the role of the product beyond direct-to-student job discovery."
+            "Across five years, Job Explorer evolved from a replacement job board into a more connected experience for **discovering, saving, understanding, and acting on jobs**. The improvements accumulated over time: research-led discovery, more flexible controls, saved postings, Career Plan personalization, AI summaries, and job cards surfaced throughout Career Navigator.\n\nThis is the **overall visitor-to-Apply-Now rate**, not a claim that any single feature caused the change."
         },
 
         {
-          type: "closing",
-          heading: "What I would have built next",
-          body:
-            "The next opportunity was deeper algorithmic personalization.\n\nAs Career Profile, Career Plan, and the broader product family gave us richer signals about the user, I wanted Job Explorer to become increasingly capable of ranking the right opportunities without asking the user to do more work.",
-          end: "Be predictive, not predictable."
+          type: "chapter",
+          id: "next",
+          nav: "Next",
+          label: "What I would have built next",
+          heading: "Be predictive, not predictable.",
+          flow: [
+            "The experience still relied largely on what students explicitly told us: filters, career goals, and profile information. I wanted to take the next step toward **behavior-driven recommendations**.\n\n**The jobs students opened, scrolled through, and clicked Apply Now on could become signals of interest.** Instead of making students constantly adjust filters, an algorithmic feed could automatically find and surface **more jobs like the ones they actually engaged with**, learning and refining recommendations over time.\n\nThe ambition was to move from a job feed students had to configure to **one that learned from their behavior**. This was a future product vision, not a feature we shipped.",
+            { width: "inset", diagram: "learning-feed" }
+          ]
         }
       ]
     },

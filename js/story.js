@@ -9,13 +9,19 @@
   const index = stories.findIndex((s) => s.slug === id);
   const story = stories[index];
 
-  /* blank-line-separated text becomes paragraphs */
+  /* blank-line-separated text becomes paragraphs; **text** is bold. The
+     markers are matched after escaping, so they can't smuggle in markup. */
+  const inline = (t) => e(t).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   const paras = (text, cls) =>
     String(text || "")
       .split(/\n\s*\n/)
       .filter((t) => t.trim())
-      .map((t) => `<p${cls ? ` class="${cls}"` : ""}>${e(t.trim())}</p>`)
+      .map((t) => `<p${cls ? ` class="${cls}"` : ""}>${inline(t.trim())}</p>`)
       .join("");
+
+  /* "01 · Discover" keeps its dot in coral, the way .eyebrow styles a span */
+  const labelHTML = (text, cls) =>
+    `<p class="${cls}">${String(text).split(" · ").map(e).join('<span aria-hidden="true">·</span>')}</p>`;
 
   /* cap a screenshot's display width so it never blows past its own resolution */
   const cap = (w) => (w ? ` style="--imgw:${Math.round(w * 1.6)}px"` : "");
@@ -71,6 +77,118 @@
     !items || !items.length
       ? ""
       : `<ul class="callouts">${items.map((c) => `<li>${e(c)}</li>`).join("")}</ul>`;
+
+  /* a row of artifacts, or the same row as a sideways carousel */
+  function galleryHTML(b) {
+    return `${b.carousel ? `<div class="carousel" data-carousel>
+          <div class="carousel__nav">
+            <button type="button" class="carousel__btn" data-carousel-prev aria-label="Previous">←</button>
+            <button type="button" class="carousel__btn" data-carousel-next aria-label="Next">→</button>
+          </div>` : ""}
+        <div class="gallery ${b.carousel ? "gallery--carousel" : `gallery--${b.cols || 2}`}"${b.carousel ? ' tabindex="0" aria-label="Scrollable gallery"' : ""}>
+          ${(b.items || [])
+            .map(
+              (it) => `<figure class="gallery__item">
+                ${plate(it)}
+                ${caption(it)}
+              </figure>`
+            )
+            .join("")}
+        </div>
+        ${b.carousel ? "</div>" : ""}`;
+  }
+
+  /* ------------------------------------------------------------------
+     CHAPTERS: the pieces a `chapter` block's `flow` is made of
+     ------------------------------------------------------------------ */
+
+  /* stands in for a screenshot that hasn't been dropped into the repo yet */
+  const pendingPlate = (it) => `<div class="plate plate--pending"${it.w && it.h ? ` style="aspect-ratio:${it.w} / ${it.h}"` : ""}>
+      <p><strong>${e(it.pending)}</strong><span>${e(it.image || "")}</span></p>
+    </div>`;
+
+  /* drawn rather than screenshotted, for ideas that never shipped */
+  const DIAGRAMS = {
+    "learning-feed": () => {
+      const card = (tag, like) =>
+        `<div class="concept__card${like ? " is-like" : ""}"><i></i><i></i>${tag ? `<span>${e(tag)}</span>` : ""}</div>`;
+      return `<div class="concept" role="img" aria-label="Unbuilt concept: the jobs a student opened, scrolled through and clicked Apply Now on lead the feed to surface more jobs like them.">
+        <p class="concept__tag">Unbuilt concept</p>
+        <div class="concept__col">
+          <p class="concept__head">What a student engaged with</p>
+          ${card("Opened")}${card("Scrolled through")}${card("Clicked Apply Now")}
+        </div>
+        <svg class="concept__arrow" viewBox="0 0 48 24" aria-hidden="true"><path d="M2 12h40M32 4l10 8-10 8" /></svg>
+        <div class="concept__col">
+          <p class="concept__head">What the feed shows next</p>
+          ${card("More like these", true)}${card("", true)}${card("", true)}${card("")}
+        </div>
+      </div>`;
+    }
+  };
+
+  /* One screenshot that opens the way the product does: the bar, a panel
+     that unfolds under it, and the content it pushes down. Built from two
+     real states sliced at the same lines, so nothing in between is drawn. */
+  function unfoldPlate(u) {
+    const im = (s, cls) =>
+      `<img${cls ? ` class="${cls}"` : ""} src="${e(s.src)}" alt="${e(s.alt || "")}" width="${u.w}" height="${s.h}" loading="lazy" decoding="async" />`;
+    return `<div class="unfold__controls">
+        <div class="unfold__switch" role="group" aria-label="AI summary">
+          <button type="button" aria-pressed="true" data-unfold-to="closed">Collapsed</button>
+          <button type="button" aria-pressed="false" data-unfold-to="open">Expanded</button>
+        </div>
+        <p class="unfold__hint" aria-hidden="true">
+          <svg viewBox="0 0 40 24"><path d="M37 19C27 22 14 19 6 8" /><path d="M5 7l1.5 7.5M5 7l7.5 1.5" /></svg>
+          Try it
+        </p>
+      </div>
+      <div class="plate unfold__plate">
+        <div class="unfold__bar" data-unfold-bar>
+          ${im(u.barClosed, "unfold__bar-closed")}
+          ${im(u.barOpen, "unfold__bar-open")}
+        </div>
+        <div class="unfold__panel" aria-hidden="true"><div>${im(u.panel)}</div></div>
+        <div class="unfold__rest">${im(u.rest)}</div>
+      </div>`;
+  }
+
+  function chapterFigure(it) {
+    const art = it.pending ? pendingPlate(it) : it.diagram ? DIAGRAMS[it.diagram]() : it.unfold ? unfoldPlate(it.unfold) : plate(it);
+    return `<figure class="chapter__fig${it.strip ? " chapter__fig--strip" : ""}"${it.unfold ? " data-unfold" : ""}${cap(it.w)}>
+      ${it.label ? `<p class="chapter__fig-label">${e(it.label)}</p>` : ""}
+      ${art}
+      ${it.notes ? `<ul class="fig-notes">${it.notes.map((n) => `<li>${e(n)}</li>`).join("")}</ul>` : ""}
+      ${caption(it)}
+    </figure>`;
+  }
+
+  /* a string is copy; anything else is a pulled-out stance, media, a stat
+     pair or a carousel. Media is `wide` (both columns) or `inset` (under the
+     copy). */
+  function chapterFlow(f) {
+    if (typeof f === "string") return `<div class="chapter__text">${paras(f)}</div>`;
+    if (f.pull)
+      return `<div class="chapter__pull">
+        ${f.label ? `<p class="eyebrow">${e(f.label)}</p>` : ""}
+        <p class="chapter__pull-quote">${inline(f.pull)}</p>
+        ${paras(f.body)}
+      </div>`;
+    if (f.stats)
+      return `<div class="chapter__stats">
+        ${f.label ? `<p class="eyebrow">${e(f.label)}</p>` : ""}
+        <div class="chapter__stat-row">
+          ${f.stats.map((s) => `<div class="chapter__stat"><strong>${e(s.value)}</strong><span>${e(s.label)}</span></div>`).join("")}
+        </div>
+        ${paras(f.body)}
+      </div>`;
+    if (f.carousel) return `<div class="chapter__media chapter__media--wide">${galleryHTML(f)}</div>`;
+    const items = f.items || [f];
+    const ratio = f.ratio ? ` chapter__media--${e(f.ratio)}` : "";
+    return `<div class="chapter__media chapter__media--${e(f.width || "wide")} chapter__media--${items.length}up${ratio}">
+      ${items.map(chapterFigure).join("")}
+    </div>`;
+  }
 
   /* ------------------------------------------------------------------
      BLOCKS
@@ -168,22 +286,18 @@
       <section class="story-block story-gallery reveal">
         ${b.heading ? `<h2 class="story-h2">${e(b.heading)}</h2>` : ""}
         ${b.body ? `<div class="story-gallery__lede">${paras(b.body)}</div>` : ""}
-        ${b.carousel ? `<div class="carousel" data-carousel>
-          <div class="carousel__nav">
-            <button type="button" class="carousel__btn" data-carousel-prev aria-label="Previous">←</button>
-            <button type="button" class="carousel__btn" data-carousel-next aria-label="Next">→</button>
-          </div>` : ""}
-        <div class="gallery ${b.carousel ? "gallery--carousel" : `gallery--${b.cols || 2}`}"${b.carousel ? ' tabindex="0" aria-label="Scrollable gallery"' : ""}>
-          ${(b.items || [])
-            .map(
-              (it) => `<figure class="gallery__item">
-                ${plate(it)}
-                ${caption(it)}
-              </figure>`
-            )
-            .join("")}
-        </div>
-        ${b.carousel ? "</div>" : ""}
+        ${galleryHTML(b)}
+      </section>`,
+
+    /* one section of a chaptered case study: a label, a heading that says what
+       I did, then copy and media in the order `flow` lists them */
+    chapter: (b) => `
+      <section class="story-block chapter reveal" id="${e(b.id)}">
+        <header class="chapter__head">
+          ${b.label ? labelHTML(b.label, "eyebrow chapter__label") : ""}
+          <h2 class="story-h2">${e(b.heading)}</h2>
+        </header>
+        ${(b.flow || []).map(chapterFlow).join("")}
       </section>`,
 
     cards: (b) => `
@@ -203,9 +317,9 @@
       </section>`,
 
     impact: (b) => `
-      <section class="story-impact">
+      <section class="story-impact"${b.id ? ` id="${e(b.id)}"` : ""}>
         <div class="container">
-          <p class="eyebrow">Impact</p>
+          ${labelHTML(b.label || "Impact", "eyebrow")}
           ${b.heading ? `<h2 class="story-impact__h reveal">${e(b.heading)}</h2>` : ""}
           <div class="impact-primary reveal">
             <strong>${e(b.primary.value)}</strong>
@@ -405,25 +519,37 @@
         wrap.classList.add("is-done");
       };
 
+      const setLabel = (text, aria) => {
+        if (label) label.textContent = text;
+        if (replay) replay.setAttribute("aria-label", aria);
+      };
+
+      /* picks up where a pause left it; only a finished clip starts over */
       const play = () => {
         wrap.classList.add("is-playing");
         wrap.classList.remove("is-done");
-        if (video.readyState > 0) video.currentTime = 0;
+        if (video.readyState > 0 && video.ended) video.currentTime = 0;
         const p = video.play();
         if (p && p.catch) p.catch(stall);
       };
 
+      /* a click while it runs stops it, so nobody has to sit through it */
+      const pause = () => {
+        video.pause();
+        wrap.classList.remove("is-playing");
+        wrap.classList.add("is-done");
+        setLabel("Play", "Play the dashboard walkthrough");
+      };
+      const toggle = () => (wrap.classList.contains("is-playing") ? pause() : play());
+
       video.addEventListener("ended", () => {
         wrap.classList.remove("is-playing");
         wrap.classList.add("is-done");
-        if (label) label.textContent = "Replay";
-        if (replay) replay.setAttribute("aria-label", "Replay the dashboard walkthrough");
+        setLabel("Replay", "Replay the dashboard walkthrough");
       });
 
-      if (replay) replay.addEventListener("click", play);
-      video.addEventListener("click", () => {
-        if (!wrap.classList.contains("is-playing")) play();
-      });
+      if (replay) replay.addEventListener("click", toggle);
+      video.addEventListener("click", toggle);
 
       /* autoplay is only honoured muted, and only once the clip is on screen */
       if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -441,6 +567,49 @@
         { threshold: 0.45 }
       );
       io.observe(wrap);
+    });
+  }
+
+  /* An unfolding screenshot opens once when it scrolls into view, then the
+     switch, or the bar in the screenshot itself, flips it either way. With
+     reduced motion it waits to be asked and changes without the slide. */
+  function wireUnfolds(scope) {
+    scope.querySelectorAll("[data-unfold]").forEach((fig) => {
+      const panel = fig.querySelector(".unfold__panel");
+      const btns = [...fig.querySelectorAll("[data-unfold-to]")];
+      let touched = false;
+      const set = (open) => {
+        fig.classList.toggle("is-open", open);
+        panel.setAttribute("aria-hidden", String(!open));
+        btns.forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.unfoldTo === "open") === open)));
+      };
+      btns.forEach((b) =>
+        b.addEventListener("click", () => {
+          touched = true;
+          set(b.dataset.unfoldTo === "open");
+        })
+      );
+      fig.querySelector("[data-unfold-bar]").addEventListener("click", () => {
+        touched = true;
+        set(!fig.classList.contains("is-open"));
+      });
+
+      if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          io.disconnect();
+          /* a beat first, so the closed state registers before it opens; once
+             it has, the "try it" arrow nudges toward the switch */
+          setTimeout(() => {
+            if (touched) return;
+            set(true);
+            setTimeout(() => fig.classList.add("is-nudged"), 1000);
+          }, 900);
+        },
+        { threshold: 0.6 }
+      );
+      io.observe(fig.querySelector(".unfold__plate"));
     });
   }
 
@@ -469,20 +638,58 @@
     });
   }
 
+  /* Chaptered stories put their sections in the bar and track them as you
+     read. On narrow screens the list scrolls sideways, so the current one is
+     kept in view. */
+  function buildNav(p) {
+    const header = document.querySelector("[data-header]");
+    if (!header) return;
+    const links = [{ id: "overview", nav: "Overview" }, ...(p.blocks || []).filter((b) => b.id && b.nav)];
+    const nav = document.createElement("nav");
+    nav.className = "story-nav";
+    nav.setAttribute("aria-label", "Case study sections");
+    nav.innerHTML = `<ul>${links.map((l) => `<li><a href="#${e(l.id)}">${e(l.nav)}</a></li>`).join("")}</ul>`;
+    header.insertBefore(nav, header.querySelector(".close-link"));
+    document.documentElement.classList.add("has-story-nav");
+    window.wireNavSpy(nav, (a) => {
+      if (!a || nav.scrollWidth <= nav.clientWidth) return;
+      nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
+    });
+  }
+
   function render() {
     const p = story;
     document.title = `${p.title} · Kristie Campbell`;
 
     const facts = p.facts || [];
     const blocks = p.blocks || [];
+    const chaptered = p.layout === "chapters";
+    if (chaptered) document.body.classList.add("story-chapters");
 
     /* the hero image is the first block when it's a full-width figure, so it
        can render eagerly and sit tight under the intro */
     const heroFigure = blocks[0] && blocks[0].type === "figure" ? blocks[0] : null;
     const rest = heroFigure ? blocks.slice(1) : blocks;
 
+    /* a chaptered story trades the facts list for two plain statements: what
+       I did, and the one number worth remembering */
+    const overview = (p.overview || []).length
+      ? `<section class="story-overview container" aria-label="Overview">
+           ${p.overview
+             .map(
+               (o) => `<div class="story-overview__item">
+                 <p class="eyebrow">${e(o.label)}</p>
+                 ${o.value ? `<p class="story-overview__value">${e(o.value)}</p>` : ""}
+                 ${paras(o.body)}
+               </div>`
+             )
+             .join("")}
+         </section>`
+      : "";
+
     root.innerHTML = `
       <article class="story">
+        ${chaptered ? '<div id="overview">' : ""}
         <header class="story-hero container">
           <div class="story-hero__intro">
             ${p.eyebrow ? `<p class="eyebrow">${e(p.eyebrow)}</p>` : ""}
@@ -502,6 +709,8 @@
               : ""
           }
         </header>
+        ${overview}
+        ${chaptered ? "</div>" : ""}
 
         ${
           heroFigure
@@ -519,7 +728,9 @@
 
     window.observeReveals(root);
     wireFilms(root);
+    wireUnfolds(root);
     wireCarousels(root);
+    if (chaptered) buildNav(p);
     window.scrollTo(0, 0);
   }
 

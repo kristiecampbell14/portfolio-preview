@@ -1,0 +1,718 @@
+/* Chaptered case study: a story with `layout: "chapters"` in js/content.js.
+
+   Type is held to two families and six styles. Every piece of text on the
+   page is one of these; when something new seems to need its own style, it
+   should borrow one of these instead.
+
+     Display   Space Grotesk 700, tight     page title, headline numbers
+     Heading   Space Grotesk 700            section headings
+     Lead      Inter 400, large             the summary sentence under the title
+     Body      Inter 400, bold is 600       everything you read
+     Label     Inter 600, caps, tracked     section labels, field names, image labels
+     Caption   Inter 400, small             captions, notes, the section nav
+
+   Space Grotesk is only ever 700 and Inter only ever 400 or 600. */
+
+.story-chapters {
+  --display: 700 clamp(48px, 6.4vw, 88px) / .95 var(--font-display);
+  --heading: 700 clamp(28px, 2.7vw, 38px) / 1.14 var(--font-display);
+  --lead: 400 clamp(19px, 1.7vw, 23px) / 1.45 var(--font-body);
+  --body: 400 18px / 1.65 var(--font-body);
+  --label: 600 12px / 1.4 var(--font-body);
+  --caption: 400 14px / 1.5 var(--font-body);
+}
+
+@media (max-width: 599px) {
+  .story-chapters {
+    --body: 400 17px / 1.6 var(--font-body);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   THE SIX STYLES, applied to what story.js renders
+   --------------------------------------------------------------------- */
+
+/* Display */
+.story-chapters .story-title,
+.story-chapters .next-story h2,
+.story-chapters .story-overview__value,
+.story-chapters .chapter__stat strong,
+.story-chapters .impact-primary strong {
+  font: var(--display);
+  letter-spacing: -0.045em;
+}
+
+/* Heading */
+.story-chapters .story-h2,
+.story-chapters .story-impact__h {
+  font: var(--heading);
+  letter-spacing: -0.025em;
+}
+
+/* Lead */
+.story-chapters .story-headline,
+.story-chapters .chapter__pull-quote,
+.story-chapters .impact-primary span,
+.story-chapters .next-story__bridge {
+  font: var(--lead);
+  letter-spacing: 0;
+}
+
+/* Body. Copy paragraphs are the classless <p>s story.js writes, so labels
+   and numbers sitting beside them keep their own style. */
+.story-chapters .story-lede p,
+.story-chapters .chapter__text p,
+.story-chapters .chapter__stats p:not([class]),
+.story-chapters .chapter__pull p:not([class]),
+.story-chapters .story-overview__item p:not([class]),
+.story-chapters .impact-body p {
+  font: var(--body);
+}
+
+.story-chapters .impact-body p+p {
+  margin-top: 1em;
+}
+
+.story-chapters p strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.story-chapters .story-impact p strong {
+  color: var(--offwhite);
+}
+
+/* Label */
+.story-chapters .eyebrow,
+.story-chapters .chapter__fig-label,
+.story-chapters .chapter__stat span,
+.story-chapters .concept__head,
+.story-chapters .concept__tag,
+.story-chapters .unfold__hint,
+.story-chapters .film__replay {
+  font: var(--label);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* Caption */
+.story-chapters .story-caption,
+.story-chapters .fig-notes li,
+.story-chapters .story-nav a,
+.story-chapters .unfold__switch button,
+.story-chapters .plate--pending span,
+.story-chapters .concept__card span {
+  font: var(--caption);
+}
+
+/* ---------------------------------------------------------------------
+   HERO + OVERVIEW
+   --------------------------------------------------------------------- */
+.story-chapters .story-headline {
+  max-width: 34ch;
+  margin-top: clamp(18px, 2vw, 26px);
+}
+
+.story-chapters .story-lede {
+  margin-top: clamp(14px, 1.6vw, 20px);
+}
+
+/* What I did, and the one number worth remembering. The number is repeated
+   at full size in the outcome band; this is the version you can't miss. */
+.story-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(28px, 5vw, 80px);
+  padding-top: clamp(40px, 5vw, 72px);
+}
+
+.story-overview__item {
+  border-top: 2px solid var(--charcoal);
+  padding-top: 20px;
+}
+
+.story-overview__item .eyebrow {
+  margin-bottom: 14px;
+}
+
+.story-overview__item p:not([class]) {
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+.story-chapters .story-overview__value {
+  font-size: clamp(40px, 4.4vw, 60px);
+  color: var(--forest);
+  margin-bottom: 14px;
+}
+
+@media (max-width: 899px) {
+  .story-overview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   CHAPTERS
+   Heading on the left, copy on the right, so the headings line up in one
+   column and can be skimmed as the whole story. Media is either `inset`
+   under the copy or `wide` across both columns.
+   --------------------------------------------------------------------- */
+.story-chapters .story-body {
+  padding-block: clamp(72px, 9vw, 128px);
+}
+
+.story-chapters .story-body>.story-block+.story-block {
+  margin-top: clamp(96px, 11vw, 160px);
+}
+
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  row-gap: clamp(28px, 3.5vw, 44px);
+  align-items: start;
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--line);
+}
+
+.chapter__head {
+  grid-column: 1;
+}
+
+.chapter__label {
+  margin-bottom: 16px;
+}
+
+.chapter__text,
+.chapter__pull,
+.chapter__stats,
+.chapter__media--inset {
+  grid-column: 2;
+}
+
+/* a stance pulled out of the copy: the line itself, then why it held */
+.chapter__pull {
+  padding-left: clamp(18px, 2.5vw, 28px);
+  border-left: 3px solid var(--coral);
+}
+
+.chapter__pull .eyebrow {
+  margin-bottom: 12px;
+}
+
+.story-chapters .chapter__pull-quote {
+  color: var(--ink);
+  max-width: 36ch;
+  text-wrap: balance;
+}
+
+.chapter__pull p:not([class]) {
+  margin-top: 16px;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+.chapter__media--wide {
+  grid-column: 1 / -1;
+}
+
+.chapter__text p {
+  color: var(--ink-soft);
+  max-width: 64ch;
+}
+
+@media (max-width: 1023px) {
+  .chapter {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chapter>* {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- media ---------- */
+/* columns are minmax(0, …) so a wide screenshot inside can never size the
+   track, and with it the page, past the screen */
+.chapter__media {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+
+.chapter__media--2up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.chapter__media--60-40 {
+  grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+}
+
+.chapter__fig {
+  margin: 0;
+  max-width: min(100%, var(--imgw, 100%));
+}
+
+.chapter__fig-label {
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.fig-notes {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+}
+
+.fig-notes li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--ink-soft);
+}
+
+.fig-notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: 8px;
+  height: 8px;
+  background: var(--coral);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.chapter__media .carousel__nav {
+  margin-top: 0;
+}
+
+@media (max-width: 899px) {
+  .chapter__media--60-40 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 719px) {
+  .chapter__media--2up {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* a wide strip of UI stays readable on a phone by scrolling sideways
+     instead of shrinking to a sliver */
+  .chapter__fig--strip .plate {
+    overflow-x: auto;
+  }
+
+  .chapter__fig--strip .plate__shot img {
+    width: 720px;
+    max-width: none;
+  }
+}
+
+/* a screenshot that hasn't been saved into the repo yet */
+.plate--pending {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  background: repeating-linear-gradient(-45deg, var(--paper-2) 0 14px, var(--paper) 14px 28px);
+  border: 1.5px dashed #b9b8ae;
+  box-shadow: none;
+}
+
+.plate--pending strong {
+  display: block;
+  font: var(--label);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.plate--pending span {
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- a screenshot that opens like the product ---------- */
+.unfold__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* without it the switch reads as a label, not something to press */
+.unfold__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+}
+
+.unfold__hint svg {
+  width: 36px;
+  height: 22px;
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-unfold].is-nudged .unfold__hint svg {
+    animation: unfold-nudge .7s var(--ease) 2;
+  }
+}
+
+@keyframes unfold-nudge {
+  50% {
+    transform: translateX(-6px);
+  }
+}
+
+.unfold__switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-2);
+}
+
+.unfold__switch button {
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background .2s var(--ease), color .2s;
+}
+
+.unfold__switch button:hover {
+  color: var(--ink);
+}
+
+.unfold__switch button[aria-pressed="true"] {
+  background: var(--mint);
+  color: var(--forest);
+}
+
+.unfold__plate {
+  background: #fff;
+}
+
+.unfold__plate img {
+  width: 100%;
+  height: auto;
+}
+
+.unfold__bar {
+  position: relative;
+  cursor: pointer;
+}
+
+/* the open bar differs only by its chevron, so it fades in over the closed one */
+.unfold__bar-open {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+
+[data-unfold].is-open .unfold__bar-open {
+  opacity: 1;
+}
+
+/* 0fr to 1fr lets the panel open to its own height without measuring it */
+.unfold__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .9s var(--ease);
+}
+
+.unfold__panel>div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+[data-unfold].is-open .unfold__panel {
+  grid-template-rows: 1fr;
+}
+
+/* the description carries on past the crop */
+.unfold__rest {
+  position: relative;
+}
+
+.unfold__rest::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  pointer-events: none;
+  background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .unfold__panel,
+  .unfold__bar-open {
+    transition: none;
+  }
+}
+
+/* ---------- the observed-behavior pair ---------- */
+.chapter__stats {
+  background: var(--paper-2);
+  border-radius: 18px;
+  padding: clamp(24px, 3vw, 36px);
+}
+
+.chapter__stats .eyebrow {
+  margin-bottom: 18px;
+}
+
+.chapter__stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px clamp(32px, 5vw, 64px);
+}
+
+.story-chapters .chapter__stat strong {
+  display: block;
+  font-size: clamp(40px, 4.4vw, 60px);
+  color: var(--forest);
+}
+
+.story-chapters .chapter__stat+.chapter__stat strong {
+  color: var(--ink-soft);
+}
+
+.chapter__stat span {
+  display: block;
+  margin-top: 10px;
+  color: var(--ink-soft);
+}
+
+.chapter__stats p:not([class]) {
+  margin-top: 22px;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+/* ---------- unbuilt concept ---------- */
+.concept {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px);
+  padding: 64px clamp(18px, 3vw, 32px) clamp(22px, 3vw, 32px);
+  background: var(--paper-2);
+  border: 1.5px dashed #b9b8ae;
+  border-radius: 18px;
+}
+
+.concept__tag {
+  position: absolute;
+  top: 20px;
+  left: clamp(18px, 3vw, 32px);
+  padding: 4px 12px;
+  border: 1.5px solid var(--charcoal);
+  border-radius: 999px;
+  color: var(--charcoal);
+}
+
+.concept__col {
+  display: grid;
+  gap: 10px;
+}
+
+.concept__head {
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+.concept__card {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(32, 35, 34, .08);
+}
+
+.concept__card i {
+  display: block;
+  width: 72%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+}
+
+.concept__card i+i {
+  width: 46%;
+  height: 6px;
+}
+
+.concept__card span {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.concept__card.is-like {
+  box-shadow: inset 4px 0 0 var(--forest), 0 1px 2px rgba(32, 35, 34, .08);
+}
+
+.concept__card.is-like i {
+  background: #cfe3d8;
+}
+
+.concept__card.is-like span {
+  background: var(--mint);
+  color: var(--forest);
+}
+
+.concept__arrow {
+  width: 44px;
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 599px) {
+  .concept {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .concept__arrow {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   OUTCOME BAND + NEXT STORY
+   The green 6% → 25% keeps its size: it is the loudest thing on the page.
+   --------------------------------------------------------------------- */
+.story-chapters .story-impact__h {
+  max-width: 24ch;
+}
+
+.story-chapters .impact-primary strong {
+  font-size: clamp(64px, 13vw, 190px);
+  line-height: .9;
+  letter-spacing: -0.05em;
+}
+
+.story-chapters .impact-primary span {
+  max-width: 40ch;
+}
+
+.story-chapters .impact-body p {
+  color: rgba(245, 244, 239, .86);
+}
+
+.story-chapters .next-story__bridge {
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------------
+   SECTION NAV
+   In the bar on wide screens; a second row under it on narrower ones,
+   once the hero has gone by.
+   --------------------------------------------------------------------- */
+.story-nav ul {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-nav a {
+  display: block;
+  padding: 7px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transition: background .2s var(--ease), color .2s;
+}
+
+.story-nav a:hover {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+
+/* set by the scroll spy, so it follows where you are, not what you clicked */
+.story-nav a[aria-current="true"] {
+  color: var(--forest);
+  background: var(--mint);
+}
+
+@media (min-width: 1200px) {
+  .story-nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* over the hero the bar is see-through, so the links go light */
+  body.shero2-page:not(.is-past-hero) .story-nav a:not([aria-current="true"]) {
+    color: rgba(245, 244, 239, .78);
+  }
+
+  body.shero2-page:not(.is-past-hero) .story-nav a:not([aria-current="true"]):hover {
+    color: var(--offwhite);
+    background: rgba(245, 244, 239, .1);
+  }
+}
+
+@media (max-width: 1199px) {
+  .story-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 8px var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: rgba(245, 244, 239, .96);
+    box-shadow: 0 1px 0 var(--line);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .25s var(--ease), transform .25s var(--ease), visibility 0s .25s;
+  }
+
+  .story-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.is-past-hero .story-nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .25s var(--ease), transform .25s var(--ease);
+  }
+
+  /* anchors land below both rows, not under the second one */
+  html.has-story-nav {
+    scroll-padding-top: calc(var(--header-h) + 64px);
+  }
+}

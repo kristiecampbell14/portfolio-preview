@@ -38,8 +38,9 @@
 
   // Inline nav: mark the section you are actually in. The link list is the
   // source of truth, so a new section in the header joins the spy for free.
-  const inlineNav = document.querySelector("[data-nav-inline]");
-  if (inlineNav) {
+  // Story pages build their nav after this file runs, so they call it too;
+  // `onChange` hears about the link that just became current.
+  window.wireNavSpy = function (inlineNav, onChange) {
     const spy = [...inlineNav.querySelectorAll('a[href^="#"]')]
       .map((a) => ({ a, el: document.getElementById(a.getAttribute("href").slice(1)) }))
       .filter((t) => t.el);
@@ -64,7 +65,7 @@
       return t.el.getBoundingClientRect();
     };
 
-    let spyQueued = false;
+    let spyQueued = false, last = null;
     const markActive = () => {
       spyQueued = false;
       const vh = window.innerHeight;
@@ -80,6 +81,7 @@
         if (t === current) t.a.setAttribute("aria-current", "true");
         else t.a.removeAttribute("aria-current");
       });
+      if (onChange && current !== last) { last = current; onChange(current && current.a); }
     };
     const queueSpy = () => {
       if (!spyQueued) { spyQueued = true; requestAnimationFrame(markActive); }
@@ -87,7 +89,9 @@
     window.addEventListener("scroll", queueSpy, { passive: true });
     window.addEventListener("resize", queueSpy);
     markActive();
-  }
+  };
+  const inlineNav = document.querySelector("[data-nav-inline]");
+  if (inlineNav) window.wireNavSpy(inlineNav);
 
   // Contact links + year
   document.querySelectorAll("[data-email]").forEach((a) => (a.href = "mailto:" + S.email));
