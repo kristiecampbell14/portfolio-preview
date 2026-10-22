@@ -396,21 +396,15 @@ window.SITE = {
               items: [
                 {
                   label: "Before",
-                  image: "assets/stories/career-profile/skills-dashboard-before.png", w: 910, h: 1547,
-                  alt: "The original third-party skills dashboard, listing course skills as demonstrated, not demonstrated, or to be evaluated.",
-                  caption: "Before: the Skills Dashboard, built around skills earned in university courses."
+                  image: "assets/stories/career-profile/skills-dashboard-mock.png", w: 1500, h: 1323, bare: true,
+                  alt: "The original Skills Dashboard on a desktop monitor: Jane's skills dashboard, listing current course skills as demonstrated, not demonstrated, or to be evaluated.",
+                  caption: "The Skills Dashboard, built around skills earned in university courses."
                 },
                 {
-                  label: "First release",
-                  image: "assets/stories/career-profile/skills-profile-first.png", w: 862, h: 1173,
-                  alt: "The first Skills Profile: a Build your skills profile header, a single list of self-identified skills, and an Add/edit skills button.",
-                  caption: "The first Skills Profile: self-identified skills only."
-                },
-                {
-                  label: "Later",
+                  label: "After",
                   image: "assets/stories/career-profile/skills-profile-v1.png", w: 1500, h: 1323, bare: true,
                   alt: "The Skills profile builder on a desktop monitor, with My Skills filtered by all, UOPX and self-identified skills.",
-                  caption: "Later: university-earned and self-identified skills in one view."
+                  caption: "Skills Profile: university-earned and self-identified skills in one view."
                 }
               ]
             },
