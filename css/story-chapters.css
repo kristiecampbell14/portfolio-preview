@@ -102,7 +102,7 @@
 .story-chapters .links__label,
 .story-chapters .decision__num,
 .story-chapters .impact-sec span,
-.story-chapters .unfold__hint,
+.story-chapters .try-hint,
 .story-chapters .film__replay {
   font: var(--label);
   letter-spacing: .16em;
@@ -113,7 +113,7 @@
 .story-chapters .story-caption,
 .story-chapters .fig-notes li,
 .story-chapters .story-nav a,
-.story-chapters .unfold__switch button,
+.story-chapters .fig-switch button,
 .story-chapters .plate--pending span,
 .story-chapters .links__edge span,
 .story-chapters .concept__card span {
@@ -372,22 +372,23 @@
 }
 
 /* ---------- a screenshot that opens like the product ---------- */
-.unfold__controls {
+.fig-controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   margin-bottom: 14px;
 }
 
 /* without it the switch reads as a label, not something to press */
-.unfold__hint {
+.try-hint {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   color: var(--ink);
 }
 
-.unfold__hint svg {
+.try-hint svg {
   width: 36px;
   height: 22px;
   fill: none;
@@ -398,18 +399,18 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-unfold].is-nudged .unfold__hint svg {
-    animation: unfold-nudge .7s var(--ease) 2;
+  .is-nudged .try-hint svg {
+    animation: try-nudge .7s var(--ease) 2;
   }
 }
 
-@keyframes unfold-nudge {
+@keyframes try-nudge {
   50% {
     transform: translateX(-6px);
   }
 }
 
-.unfold__switch {
+.fig-switch {
   display: inline-flex;
   gap: 2px;
   padding: 3px;
@@ -418,7 +419,7 @@
   background: var(--paper-2);
 }
 
-.unfold__switch button {
+.fig-switch button {
   padding: 6px 14px;
   border: 0;
   border-radius: 999px;
@@ -428,13 +429,103 @@
   transition: background .2s var(--ease), color .2s;
 }
 
-.unfold__switch button:hover {
+.fig-switch button:hover {
   color: var(--ink);
 }
 
-.unfold__switch button[aria-pressed="true"] {
+.fig-switch button {
+  white-space: nowrap;
+}
+
+@media (max-width: 599px) {
+  .fig-switch button {
+    padding: 6px 10px;
+  }
+}
+
+.fig-switch button[aria-pressed="true"] {
   background: var(--mint);
   color: var(--forest);
+}
+
+/* ---------- a real question, and the answer each choice got ---------- */
+.pick {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: start;
+}
+
+.pick__plate img,
+.pick__stack img {
+  width: 100%;
+  height: auto;
+}
+
+/* each statement in the screenshot is a button laid over it */
+.pick__row {
+  position: absolute;
+  left: 7%;
+  width: 85%;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background .2s var(--ease);
+}
+
+.pick__row:hover {
+  background: rgba(15, 138, 95, .08);
+}
+
+.pick__row:focus-visible {
+  outline: 2px solid var(--vibrant);
+  outline-offset: 0;
+}
+
+/* fills the chosen radio, in the screenshot's own ink */
+.pick__dot {
+  position: absolute;
+  left: var(--dot-x);
+  top: var(--dot-y);
+  width: 1.7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #011822;
+  transform: translate(-50%, -50%);
+  transition: top .3s var(--ease);
+  pointer-events: none;
+}
+
+/* the answers share one canvas, so they swap in place */
+.pick__stack {
+  display: grid;
+  background: #fff;
+}
+
+.pick__stack img {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity .35s var(--ease);
+}
+
+.pick__stack img.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pick__dot,
+  .pick__stack img {
+    transition: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .pick {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .unfold__plate {
@@ -538,21 +629,6 @@
   margin-top: 22px;
   color: var(--ink-soft);
   max-width: 60ch;
-}
-
-/* one artifact large, two smaller ones beside it */
-.chapter__media--2-1-1 {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
-}
-
-@media (max-width: 899px) {
-  .chapter__media--2-1-1 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .chapter__media--2-1-1>:first-child {
-    grid-column: 1 / -1;
-  }
 }
 
 /* says plainly what an artifact is, such as a concept that never shipped */

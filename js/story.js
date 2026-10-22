@@ -150,19 +150,24 @@
   /* One screenshot that opens the way the product does: the bar, a panel
      that unfolds under it, and the content it pushes down. Built from two
      real states sliced at the same lines, so nothing in between is drawn. */
-  function unfoldPlate(u) {
-    const im = (s, cls) =>
-      `<img${cls ? ` class="${cls}"` : ""} src="${e(s.src)}" alt="${e(s.alt || "")}" width="${u.w}" height="${s.h}" loading="lazy" decoding="async" />`;
-    return `<div class="unfold__controls">
-        <div class="unfold__switch" role="group" aria-label="AI summary">
-          <button type="button" aria-pressed="true" data-unfold-to="closed">Collapsed</button>
-          <button type="button" aria-pressed="false" data-unfold-to="open">Expanded</button>
-        </div>
-        <p class="unfold__hint" aria-hidden="true">
+  /* A pill switch with a "Try it" arrow beside it. Without the arrow a
+     switch reads as a label, not something to press. */
+  const tryControls = (label, buttons) => `<div class="fig-controls">
+        <div class="fig-switch" role="group" aria-label="${e(label)}">${buttons}</div>
+        <p class="try-hint" aria-hidden="true">
           <svg viewBox="0 0 40 24"><path d="M37 19C27 22 14 19 6 8" /><path d="M5 7l1.5 7.5M5 7l7.5 1.5" /></svg>
           Try it
         </p>
-      </div>
+      </div>`;
+
+  function unfoldPlate(u) {
+    const im = (s, cls) =>
+      `<img${cls ? ` class="${cls}"` : ""} src="${e(s.src)}" alt="${e(s.alt || "")}" width="${u.w}" height="${s.h}" loading="lazy" decoding="async" />`;
+    return `${tryControls(
+        "AI summary",
+        `<button type="button" aria-pressed="true" data-unfold-to="closed">Collapsed</button>
+         <button type="button" aria-pressed="false" data-unfold-to="open">Expanded</button>`
+      )}
       <div class="plate unfold__plate">
         <div class="unfold__bar" data-unfold-bar>
           ${im(u.barClosed, "unfold__bar-closed")}
@@ -171,6 +176,55 @@
         <div class="unfold__panel" aria-hidden="true"><div>${im(u.panel)}</div></div>
         <div class="unfold__rest">${im(u.rest)}</div>
       </div>`;
+  }
+
+  /* A real question and its real answers. The rows of the question screenshot
+     are buttons placed over it (positions in the screenshot's own pixels),
+     and picking one, there or on the switch, shows the follow-up that
+     choice got. The first option starts selected, so the answer is never
+     empty. */
+  function pickerHTML(p) {
+    const q = p.prompt;
+    const pct = (v, total) => `${((v / total) * 100).toFixed(2)}%`;
+    const first = p.options[0];
+    const rows = p.options
+      .map(
+        (o, i) => `<button type="button" class="pick__row" data-pick="${i}" aria-pressed="${i === 0}"
+          data-dot-x="${pct(o.dot[0], q.w)}" data-dot-y="${pct(o.dot[1], q.h)}" data-caption="${e(o.caption)}"
+          style="top:${pct(o.row[0], q.h)};height:${pct(o.row[1] - o.row[0], q.h)}">
+          <span class="sr-only">${e(o.statement)}</span>
+        </button>`
+      )
+      .join("");
+    const answers = p.options
+      .map(
+        (o, i) => `<img class="${i === 0 ? "is-active" : ""}" src="${e(o.src)}" alt="${e(o.alt)}"
+          width="${p.answerW}" height="${p.answerH}" loading="lazy" decoding="async"${i === 0 ? "" : ' aria-hidden="true"'} />`
+      )
+      .join("");
+    return `<div class="pick" data-pick-root
+        style="--dot-x:${pct(first.dot[0], q.w)};--dot-y:${pct(first.dot[1], q.h)}">
+      <figure class="chapter__fig pick__question">
+        ${p.label ? `<p class="chapter__fig-label">${e(p.label)}</p>` : ""}
+        <div class="plate pick__plate">
+          <img src="${e(q.src)}" alt="${e(q.alt)}" width="${q.w}" height="${q.h}" loading="lazy" decoding="async" />
+          <span class="pick__dot" aria-hidden="true"></span>
+          ${rows}
+        </div>
+        ${p.caption ? `<figcaption class="story-caption">${e(p.caption)}</figcaption>` : ""}
+      </figure>
+      <figure class="chapter__fig pick__answer">
+        ${p.answerLabel ? `<p class="chapter__fig-label">${e(p.answerLabel)}</p>` : ""}
+        ${tryControls(
+          p.switchLabel || "Choose a statement",
+          p.options
+            .map((o, i) => `<button type="button" aria-pressed="${i === 0}" data-pick="${i}">${e(o.name)}</button>`)
+            .join("")
+        )}
+        <div class="plate pick__stack">${answers}</div>
+        <figcaption class="story-caption" data-pick-caption aria-live="polite">${e(first.caption)}</figcaption>
+      </figure>
+    </div>`;
   }
 
   function chapterFigure(it) {
@@ -206,6 +260,7 @@
         ${paras(f.body)}
       </div>`;
     if (f.carousel) return `<div class="chapter__media chapter__media--wide">${galleryHTML(f)}</div>`;
+    if (f.picker) return `<div class="chapter__media chapter__media--wide">${pickerHTML(f.picker)}</div>`;
     const items = f.items || [f];
     const ratio = f.ratio ? ` chapter__media--${e(f.ratio)}` : "";
     /* `stack` puts the items one under another, at one shared width */
@@ -654,6 +709,42 @@
     });
   }
 
+  /* Pickers: a row in the question or a button on the switch shows that
+     answer. Nothing changes on its own, since a reader is mid-sentence;
+     the arrow nudges once instead, when the pair comes into view. */
+  function wirePickers(scope) {
+    scope.querySelectorAll("[data-pick-root]").forEach((root) => {
+      const rows = [...root.querySelectorAll(".pick__row")];
+      const btns = [...root.querySelectorAll(".fig-switch [data-pick]")];
+      const imgs = [...root.querySelectorAll(".pick__stack img")];
+      const cap = root.querySelector("[data-pick-caption]");
+      const select = (i) => {
+        const row = rows[i];
+        root.style.setProperty("--dot-x", row.dataset.dotX);
+        root.style.setProperty("--dot-y", row.dataset.dotY);
+        [...rows, ...btns].forEach((b) => b.setAttribute("aria-pressed", String(+b.dataset.pick === i)));
+        imgs.forEach((im, k) => {
+          im.classList.toggle("is-active", k === i);
+          if (k === i) im.removeAttribute("aria-hidden");
+          else im.setAttribute("aria-hidden", "true");
+        });
+        if (cap) cap.textContent = row.dataset.caption;
+      };
+      [...rows, ...btns].forEach((b) => b.addEventListener("click", () => select(+b.dataset.pick)));
+
+      if (!("IntersectionObserver" in window)) return;
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          io.disconnect();
+          setTimeout(() => root.classList.add("is-nudged"), 600);
+        },
+        { threshold: 0.5 }
+      );
+      io.observe(root.querySelector(".pick__answer"));
+    });
+  }
+
   /* carousels: arrow buttons scroll one card at a time; disabled at either end */
   function wireCarousels(scope) {
     scope.querySelectorAll("[data-carousel]").forEach((wrap) => {
@@ -773,6 +864,7 @@
     window.observeReveals(root);
     wireFilms(root);
     wireUnfolds(root);
+    wirePickers(root);
     wireCarousels(root);
     if (chaptered) buildNav(p);
     window.scrollTo(0, 0);

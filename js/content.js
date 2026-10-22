@@ -503,28 +503,45 @@ window.SITE = {
           flow: [
             "Job Explorer used skills alongside each student’s program-aligned occupation information to return jobs from Lightcast. We also observed that students with **10 or more skills** were more likely to click Apply Now. That was a correlation, but it gave us a useful hypothesis: **helping students build richer profiles might improve job relevance and encourage action**.\n\nI led the creative direction for a series of experiments, testing different motivations and moments. In one, students selected a **statement about their career situation**, not a persona label, and then received tailored encouragement to identify skills. Other prompts appeared directly in Skills Profile or in Job Explorer, where students could see the value of better job matches.",
             {
-              width: "wide",
-              ratio: "2-1-1",
-              items: [
-                {
-                  label: "A statement, not a persona",
-                  image: "assets/stories/career-profile/persona-modal.png", w: 640, h: 625,
-                  alt: "A modal over My Skills asking “Would you like a personalized career suggestion, Kristie?” with five career-situation statements to choose from and a Submit button.",
-                  caption: "Students chose the statement that fit their career situation."
+              /* rows and dots are in the question screenshot's own pixels;
+                 the follow-ups share one scale and canvas so they swap in place */
+              picker: {
+                label: "A statement, not a persona",
+                caption: "Students chose the statement that fit their career situation.",
+                prompt: {
+                  src: "assets/stories/career-profile/persona-modal.png", w: 640, h: 625,
+                  alt: "A modal over My Skills asking “Would you like a personalized career suggestion, Kristie?” with five career-situation statements to choose from and a Submit button."
                 },
-                {
-                  label: "The follow-up",
-                  image: "assets/stories/career-profile/persona-starter.png", w: 720, h: 490,
-                  alt: "The follow-up for someone just starting out: you may have more skills than you think, even babysitting counts.",
-                  caption: "Starting out: you may have more skills than you think."
-                },
-                {
-                  label: " ",
-                  image: "assets/stories/career-profile/persona-switcher.png", w: 720, h: 500,
-                  alt: "The follow-up for someone changing careers: take inventory of skills that translate into a new career.",
-                  caption: "Switching careers: find the skills that carry over."
-                }
-              ]
+                answerLabel: "The follow-up",
+                switchLabel: "Career situation",
+                answerW: 740, answerH: 520,
+                options: [
+                  {
+                    name: "Starting out",
+                    statement: "I have little to no work experience and am interested in creating a plan to start my career.",
+                    row: [238, 292], dot: [71, 252],
+                    src: "assets/stories/career-profile/persona-followup-starter.png",
+                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Kristie, as a starter, you may have more skills than you think; past job titles or life experiences count, babysitting included.",
+                    caption: "Starting out: you may have more skills than you think."
+                  },
+                  {
+                    name: "Enhancing",
+                    statement: "I’m looking for additional knowledge and education to enhance my current career.",
+                    row: [296, 350], dot: [71, 310],
+                    src: "assets/stories/career-profile/persona-followup-enhancer.png",
+                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Kristie, as an enhancer, it’s important to take inventory of what you bring to the table; you’ve worked hard for your skills, so put them to work.",
+                    caption: "Enhancing: put the skills you worked hard for to work."
+                  },
+                  {
+                    name: "Switching careers",
+                    statement: "I’m interested in changing my career path and want to create a plan to make the switch.",
+                    row: [354, 408], dot: [71, 368],
+                    src: "assets/stories/career-profile/persona-followup-switcher.png",
+                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Kristie, as a switcher, it’s important to take inventory of the skills you bring to the table that can be translated into your new career.",
+                    caption: "Switching careers: find the skills that carry over."
+                  }
+                ]
+              }
             },
             "With the Job Explorer nudge, funnel data revealed that people were willing to click but could drop off before they began adding skills. **I removed the detour:** we brought the Skills Identifier directly into Job Explorer as a modal. That interaction became reusable by other teams, allowing skill collection wherever it naturally supported the task.",
             {
