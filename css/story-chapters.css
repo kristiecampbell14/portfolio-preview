@@ -37,7 +37,8 @@
 .story-chapters .next-story h2,
 .story-chapters .story-overview__value,
 .story-chapters .chapter__stat strong,
-.story-chapters .impact-primary strong {
+.story-chapters .impact-primary strong,
+.story-chapters .impact-sec strong {
   font: var(--display);
   letter-spacing: -0.045em;
 }
@@ -65,8 +66,16 @@
 .story-chapters .chapter__stats p:not([class]),
 .story-chapters .chapter__pull p:not([class]),
 .story-chapters .story-overview__item p:not([class]),
-.story-chapters .impact-body p {
+.story-chapters .impact-body p,
+.story-chapters .decision p {
   font: var(--body);
+}
+
+/* a card's title is just bold body copy, not a fourth size of heading */
+.story-chapters .decision h3 {
+  font: var(--body);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .story-chapters .impact-body p+p {
@@ -78,7 +87,8 @@
   color: var(--ink);
 }
 
-.story-chapters .story-impact p strong {
+.story-chapters .story-impact p strong,
+.story-chapters .shero2 p strong {
   color: var(--offwhite);
 }
 
@@ -88,6 +98,10 @@
 .story-chapters .chapter__stat span,
 .story-chapters .concept__head,
 .story-chapters .concept__tag,
+.story-chapters .fig-tag,
+.story-chapters .links__label,
+.story-chapters .decision__num,
+.story-chapters .impact-sec span,
 .story-chapters .unfold__hint,
 .story-chapters .film__replay {
   font: var(--label);
@@ -101,6 +115,7 @@
 .story-chapters .story-nav a,
 .story-chapters .unfold__switch button,
 .story-chapters .plate--pending span,
+.story-chapters .links__edge span,
 .story-chapters .concept__card span {
   font: var(--caption);
 }
@@ -115,6 +130,10 @@
 
 .story-chapters .story-lede {
   margin-top: clamp(14px, 1.6vw, 20px);
+}
+
+.story-chapters .story-lede p+p {
+  margin-top: .8em;
 }
 
 /* What I did, and the one number worth remembering. The number is repeated
@@ -162,7 +181,10 @@
   padding-block: clamp(72px, 9vw, 128px);
 }
 
-.story-chapters .story-body>.story-block+.story-block {
+/* sections, and the chapters grouped under one nav anchor, share one rhythm */
+.story-chapters .story-body>.story-block+.story-block,
+.story-chapters .story-body>*+*,
+.story-chapters .chapter-group>*+* {
   margin-top: clamp(96px, 11vw, 160px);
 }
 
@@ -246,6 +268,10 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.chapter__media--3up {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .chapter__media--60-40 {
   grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
 }
@@ -297,7 +323,9 @@
 }
 
 @media (max-width: 719px) {
-  .chapter__media--2up {
+
+  .chapter__media--2up,
+  .chapter__media--3up {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -505,6 +533,134 @@
   margin-top: 22px;
   color: var(--ink-soft);
   max-width: 60ch;
+}
+
+/* one artifact large, two smaller ones beside it */
+.chapter__media--2-1-1 {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@media (max-width: 899px) {
+  .chapter__media--2-1-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chapter__media--2-1-1>:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* says plainly what an artifact is, such as a concept that never shipped */
+.fig-tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 4px 12px;
+  border: 1.5px solid var(--charcoal);
+  border-radius: 999px;
+  color: var(--charcoal);
+}
+
+/* ---------- real screens, linked by where information goes ---------- */
+.links {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 150px) minmax(0, 1.25fr) minmax(120px, 150px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.links__shot {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(32, 35, 34, .08), 0 12px 28px -18px rgba(32, 35, 34, .35);
+}
+
+.links__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.links__node--hub .links__shot {
+  outline: 3px solid var(--forest);
+  outline-offset: 4px;
+}
+
+.links__label {
+  margin-top: 14px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.links__node--hub .links__label {
+  color: var(--forest);
+}
+
+.links__edge {
+  display: grid;
+  gap: 18px;
+}
+
+.links__edge p {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.links__edge span {
+  color: var(--ink);
+}
+
+.links__arrow {
+  width: 48px;
+  height: 16px;
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.links__arrow--back {
+  transform: scaleX(-1);
+}
+
+/* stacked: arrows turn to point up the page (back) or down it (onward) */
+@media (max-width: 899px) {
+  .links {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .links__node {
+    width: min(100%, 420px);
+  }
+
+  .links__edge {
+    grid-auto-flow: column;
+    gap: 28px;
+  }
+
+  .links__arrow {
+    transform: rotate(90deg);
+    margin-block: 14px;
+  }
+
+  .links__arrow--back {
+    transform: rotate(-90deg);
+  }
+}
+
+/* ---------- decision cards, inside a chapter group ---------- */
+.story-chapters .decision__num {
+  color: var(--coral);
 }
 
 /* ---------- unbuilt concept ---------- */

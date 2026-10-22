@@ -124,6 +124,26 @@
           ${card("More like these", true)}${card("", true)}${card("", true)}${card("")}
         </div>
       </div>`;
+    },
+
+    /* real screens as nodes, with labelled arrows for where information
+       flows between them; `edges[i]` sits between `nodes[i]` and `nodes[i + 1]` */
+    connections: (it) => {
+      const arrow = (dir) =>
+        `<svg class="links__arrow${dir === "left" ? " links__arrow--back" : ""}" viewBox="0 0 48 16" aria-hidden="true"><path d="M2 8h42M36 2l8 6-8 6" /></svg>`;
+      const node = (n) => `<div class="links__node${n.hub ? " links__node--hub" : ""}">
+          <div class="links__shot"><img src="${e(n.src)}" alt="" width="${n.w}" height="${n.h}" loading="lazy" decoding="async" /></div>
+          <p class="links__label">${e(n.label)}</p>
+        </div>`;
+      const edge = (labels) => `<div class="links__edge">
+          ${labels.map((l) => `<p>${arrow(l.dir)}<span>${e(l.text)}</span></p>`).join("")}
+        </div>`;
+      const parts = [];
+      (it.nodes || []).forEach((n, i) => {
+        parts.push(node(n));
+        if (it.edges && it.edges[i]) parts.push(edge(it.edges[i]));
+      });
+      return `<div class="links" role="img" aria-label="${e(it.alt || "")}">${parts.join("")}</div>`;
     }
   };
 
@@ -154,8 +174,11 @@
   }
 
   function chapterFigure(it) {
-    const art = it.pending ? pendingPlate(it) : it.diagram ? DIAGRAMS[it.diagram]() : it.unfold ? unfoldPlate(it.unfold) : plate(it);
-    return `<figure class="chapter__fig${it.strip ? " chapter__fig--strip" : ""}"${it.unfold ? " data-unfold" : ""}${cap(it.w)}>
+    const art = it.pending ? pendingPlate(it) : it.diagram ? DIAGRAMS[it.diagram](it) : it.unfold ? unfoldPlate(it.unfold) : plate(it);
+    /* `maxw` keeps a supporting artifact smaller than its own resolution allows */
+    const size = it.maxw ? ` style="--imgw:${Math.round(it.maxw)}px"` : cap(it.w);
+    return `<figure class="chapter__fig${it.strip ? " chapter__fig--strip" : ""}"${it.unfold ? " data-unfold" : ""}${size}>
+      ${it.tag ? `<p class="fig-tag">${e(it.tag)}</p>` : ""}
       ${it.label ? `<p class="chapter__fig-label">${e(it.label)}</p>` : ""}
       ${art}
       ${it.notes ? `<ul class="fig-notes">${it.notes.map((n) => `<li>${e(n)}</li>`).join("")}</ul>` : ""}
@@ -292,7 +315,7 @@
     /* one section of a chaptered case study: a label, a heading that says what
        I did, then copy and media in the order `flow` lists them */
     chapter: (b) => `
-      <section class="story-block chapter reveal" id="${e(b.id)}">
+      <section class="story-block chapter reveal"${b.id ? ` id="${e(b.id)}"` : ""}>
         <header class="chapter__head">
           ${b.label ? labelHTML(b.label, "eyebrow chapter__label") : ""}
           <h2 class="story-h2">${e(b.heading)}</h2>
@@ -482,10 +505,20 @@
      body column. Blocks are emitted in runs: contained groups around it. */
   const FULL_BLEED = new Set(["impact"]);
 
+  /* Blocks that share a `group` are wrapped together under that id, so one
+     anchor in the section nav can cover several chapters. */
   function renderBody(blocks) {
     const out = [];
     let run = [];
+    let group = null;
+    let grouped = [];
+    const closeGroup = () => {
+      if (grouped.length) run.push(`<div class="chapter-group" id="${e(group)}">${grouped.join("")}</div>`);
+      grouped = [];
+      group = null;
+    };
     const flush = () => {
+      closeGroup();
       if (!run.length) return;
       out.push(`<div class="story-body container">${run.join("")}</div>`);
       run = [];
@@ -496,6 +529,12 @@
       if (FULL_BLEED.has(b.type)) {
         flush();
         out.push(html);
+        return;
+      }
+      if (b.group !== group) closeGroup();
+      if (b.group) {
+        group = b.group;
+        grouped.push(html);
       } else {
         run.push(html);
       }
@@ -644,7 +683,10 @@
   function buildNav(p) {
     const header = document.querySelector("[data-header]");
     if (!header) return;
-    const links = [{ id: "overview", nav: "Overview" }, ...(p.blocks || []).filter((b) => b.id && b.nav)];
+    const links = [
+      { id: "overview", nav: "Overview" },
+      ...(p.blocks || []).filter((b) => b.nav && (b.group || b.id)).map((b) => ({ id: b.group || b.id, nav: b.nav }))
+    ];
     const nav = document.createElement("nav");
     nav.className = "story-nav";
     nav.setAttribute("aria-label", "Case study sections");

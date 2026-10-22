@@ -329,10 +329,11 @@ window.SITE = {
     {
       slug: "career-profile",
       title: "Career Profile",
-      eyebrow: "0→1 product · 2021–2026",
-      headline: "A trophy case of skills became the data layer for an entire product suite.",
+      layout: "chapters",
+      eyebrow: "Overview",
+      headline: "I designed Career Profile as a shared foundation for the Career Navigator product suite.",
       intro:
-        "I inherited a third-party skills dashboard and rebuilt it into Career Profile: one place where working adults could see everything they bring to the table, and the source of the data that made every other career product personal.",
+        "I wanted students to see that their degree wasn’t the only thing they were building. **The skills they earned in class, the experience they brought from work, and the goals they set could all help them pursue opportunities before graduation.**\n\nIn 2021, I conceived a connected career experience and developed that vision with my product trio through student interviews and early prototypes. Over the following years, I personally designed the evolution from a focused Skills Profile into a broader Career Profile that could serve multiple tools across Career Navigator.",
 
       role: "Lead product designer",
       year: "2021–2026",
@@ -342,11 +343,18 @@ window.SITE = {
       screen: "assets/work/career-profile.webp",
       accent: "vibrant",
 
-      facts: [
-        { label: "Role", value: "Lead / sole product designer" },
-        { label: "Team", value: "Product trio: PM + tech lead + engineering" },
-        { label: "Responsibilities", value: "Discovery, research, experimentation, UX/UI" },
-        { label: "Impact", value: ["+1M skills in the first 8 months", "3.6M skills to date"] }
+      overview: [
+        {
+          label: "My role",
+          body:
+            "Originated the connected-career vision in 2021 and personally owned the design of Career Profile, Job Explorer, and AI Résumé Generator within the **Career Navigator product suite**. I managed the designer responsible for Career Explorer and Career Plan, collaborating on how these products connected. The Career Profile designs, research, experiments, and interaction decisions shown in this case study are my own work."
+        },
+        {
+          label: "At a glance",
+          value: "3.6M",
+          body:
+            "Students collectively added **3.6 million self-identified skill entries** to their profiles over the product’s lifetime. The information they provided was increasingly used throughout the broader career experience."
+        }
       ],
 
       next: {
@@ -355,166 +363,247 @@ window.SITE = {
           "Once the profile knew the person, the next product could ask them for almost nothing."
       },
 
+      /* six anchors; chapters that share a `group` sit under one of them */
       blocks: [
         {
-          type: "figure",
-          width: "full",
-          image: "assets/stories/career-profile/career-profile-final.png", w: 1320, h: 1265,
-          alt:
-            "The mature Career Profile: a portfolio nav for skills, work history, education and resume, a skills panel split into UOPX and self-identified skills, an active career milestone card, and a row of job cards aligned to the user's skillset.",
-          caption:
-            "The mature Career Profile: skills, work history, education, resumé, preferences and saved items in one place—feeding Job Explorer and Career Plan from a single source."
-        },
-
-        {
-          type: "split",
-          ratio: "40-60",
-          heading: "It started as somebody else's small vision.",
-          body:
-            "When I joined in 2021, a third-party “skills dashboard” was the business's first attempt at showing how programs mapped to skills. It was very much a proof-of-concept, and it only knew about skills earned at the university.\n\nThat left out the thing our users had the most of. These were working adults who arrived with years of experience, and none of it counted anywhere in the experience.\n\nMy first assignment was to improve that dashboard. What I argued for instead was rebuilding it next to Job Explorer, so a user could see their skills and what those skills were worth in the same place.",
-          image: "assets/stories/career-profile/skills-dashboard-before.png", w: 910, h: 1547,
-          alt:
-            "The original third-party skills dashboard, listing course skills as demonstrated, not demonstrated, or to be evaluated.",
-          caption:
-            "Before: a course-by-course skills dashboard, disconnected from work experience and from any next step."
-        },
-
-        {
-          type: "statement",
-          quote: "Skills only matter if the user believes an employer cares about them.",
-          body:
-            "The hardest questions at the start weren't layout questions. Did people know what a skill was? Did they care? And what would make them willing to add more?\n\nThat last one mattered commercially. Using FullStory, we could correlate profile depth with behavior: users with 10 or more skills on their profile were more likely to click Apply Now in Job Explorer. Profile completeness meant a better overall experience, not vanity data."
-        },
-
-        {
-          type: "split",
-          ratio: "50-50",
-          flip: true,
-          heading: "The first release was deliberately bare.",
-          body:
-            "Version one held self-identified skills only, but it did one important thing: those skills fed Job Explorer results. From the first release, adding a skill visibly changed what the product showed you.\n\nA later release combined university-earned skills with self-identified ones in a single view. I kept them visually distinct on purpose because university skills were evidence of what the user was paying for, and treating them differently gave them more weight.\n\nSunsetting the old dashboard and giving every skill one home changed how much the profile got used. Job Explorer traffic rose with it, even though the old dashboard had linked straight to Job Explorer too. Seeing your skills next to the jobs they lined up with is where it started to click.",
-          image: "assets/stories/career-profile/skills-profile-v1.png", w: 1500, h: 1323, bare: true,
-          alt:
-            "The first standalone Skills Profile builder on a desktop monitor: a how-it-works list, a My Skills panel filtered by all, UOPX and self-identified skills, and an add/edit self-identified skills button.",
-          caption: "The first standalone skills profile, launched alongside Job Explorer."
-        },
-
-        {
-          type: "metrics",
-          items: [
-            { value: "700%", label: "more Skills Profile users (2,000 → 16,000)" },
-            { value: "471%", label: "more traffic to Job Explorer" },
-            { value: "322.7%", label: "more Apply Now in Job Explorer" }
-          ]
-        },
-
-        {
-          type: "gallery",
-          heading: "More skills meant more applications, so we tested ways to earn them.",
-          body:
-            "Our OKR was the Apply Now rate in Job Explorer, and profile depth was one of the clearest levers we had: people with 10 or more skills on their profile were more likely to apply. The job for Career Profile became simple to state and hard to do: get people to add more skills.\n\nOne of the more meaningful experiments was a persona-based nudge. Users picked the sentence that best described their career goal, and in exchange we offered a “personalized” next step. The next step was always the same, add self-identified skills, but the wording changed to speak to where each person was.",
-          cols: 2,
-          items: [
+          type: "chapter",
+          group: "discover",
+          nav: "Discover",
+          label: "Discover",
+          heading: "I connected the dots between career goals, evidence of experience, and opportunities.",
+          flow: [
+            "My early research showed that students needed more than a collection of disconnected career tools. They wanted a way to **set goals, keep track of what they had accomplished, discover relevant jobs, and know what to do next**.\n\nIn 2021, I brought those needs together in an early connected-product concept. One part, called **Portfolio**, gave students a place to collect academic and professional evidence. Four of four participants in a small prototype study found value in that concept; other parts of the study showed enthusiasm for goal-setting and goal-aligned job recommendations.\n\n**The concept wasn’t the shipped product. It was the direction I kept designing toward:** information a student shared in one experience should make the next experience more useful.",
             {
-              image: "assets/stories/career-profile/persona-modal.png", w: 640, h: 625,
+              width: "inset",
+              tag: "2021 concept, not shipped UI",
+              maxw: 380,
+              image: "assets/stories/career-profile/concept-2021-portfolio.png", w: 788, h: 1152,
               alt:
-                "A modal over My Skills asking “Would you like a personalized career suggestion, Kristie?” with five career-goal sentences to choose from and a Submit button.",
-              caption: "Users chose the sentence that best fit their career goal."
-            },
-            {
-              image: "assets/stories/career-profile/persona-list.png", w: 831, h: 410,
-              alt:
-                "The six career personas behind those sentences: Career Starter, Career Enhancer, Career Switcher, Career Relaunch, Military to Civilian Transition, and Entrepreneur.",
-              caption: "Each sentence mapped to a career persona."
+                "Two phone screens from the 2021 prototype's Portfolio: academic assignments and personal uploads listed as files, and a menu for papers, skills, badges, résumé and letters.",
+              caption: "Portfolio in the 2021 prototype: academic work, uploads, skills, badges and résumé in one place."
             }
           ]
         },
 
         {
-          type: "gallery",
-          carousel: true,
-          items: [
+          type: "chapter",
+          group: "discover",
+          heading: "I created a new foundation for skills instead of extending a limiting prototype.",
+          flow: [
+            "When the business wanted students to identify skills gained through work, the initial request was to extend an existing Skills Dashboard in AEM. I advocated for building a new React-based experience alongside Job Explorer instead. The old third-party proof of concept centered on university-earned skills and wasn’t the foundation I wanted for a student-owned picture of experience.\n\nWe launched the new Skills Profile with **self-identified skills first** while the backend needed to bring in university-earned skills at scale was still being built. When that data became available, the two kinds of skills came together. The early release was functionally limited by the available integrations, not an intentionally minimalist visual design.",
             {
-              image: "assets/stories/career-profile/persona-starter.png", w: 720, h: 490,
-              alt: "The follow-up modal for a “starter”: you may have more skills than you think, even babysitting counts.",
-              caption: "Starter: you may have more skills than you think."
+              width: "wide",
+              items: [
+                {
+                  label: "Before",
+                  image: "assets/stories/career-profile/skills-dashboard-before.png", w: 910, h: 1547,
+                  alt: "The original third-party skills dashboard, listing course skills as demonstrated, not demonstrated, or to be evaluated.",
+                  caption: "Before: the Skills Dashboard, built around skills earned in university courses."
+                },
+                {
+                  label: "First release",
+                  image: "assets/stories/career-profile/skills-profile-first.png", w: 862, h: 1173,
+                  alt: "The first Skills Profile: a Build your skills profile header, a single list of self-identified skills, and an Add/edit skills button.",
+                  caption: "The first Skills Profile: self-identified skills only."
+                },
+                {
+                  label: "Later",
+                  image: "assets/stories/career-profile/skills-profile-v1.png", w: 1500, h: 1323, bare: true,
+                  alt: "The Skills profile builder on a desktop monitor, with My Skills filtered by all, UOPX and self-identified skills.",
+                  caption: "Later: university-earned and self-identified skills in one view."
+                }
+              ]
             },
+            "Students didn’t always recognize the skills they already had. In interviews, many thought first of technical skills and struggled to name their own. I used **job titles as a way to help students identify possible skills** and made the value explicit: these were skills that could help make job opportunities more relevant.\n\nIn Job Explorer, students could then see which skills on their profile matched skills associated with a real posting. That connection made the benefit visible, rather than simply asking them to trust that entering information would pay off.",
             {
-              image: "assets/stories/career-profile/persona-enhancer.png", w: 740, h: 525,
-              alt: "The follow-up modal for an “enhancer”: take inventory of what you bring to the table.",
-              caption: "Enhancer: put the skills you worked hard for to work."
-            },
-            {
-              image: "assets/stories/career-profile/persona-switcher.png", w: 720, h: 500,
-              alt: "The follow-up modal for a “switcher”: take inventory of skills that translate into a new career.",
-              caption: "Switcher: find the skills that carry into a new career."
-            },
-            {
-              image: "assets/stories/career-profile/persona-relauncher.png", w: 720, h: 500,
-              alt: "The follow-up modal for a “relauncher”: past skills help you articulate your strengths as you move forward.",
-              caption: "Relauncher: past skills help you start back up again."
-            },
-            {
-              image: "assets/stories/career-profile/persona-none.png", w: 730, h: 505,
-              alt: "The follow-up modal for someone who chose none of the options: taking inventory helps you understand where you are.",
-              caption: "None of these: the same ask, framed around where you are today."
+              width: "inset",
+              items: [
+                {
+                  label: "Skills Identifier",
+                  image: "assets/stories/career-profile/skills-identifier.jpg", w: 751, h: 466,
+                  alt: "The Skills Identifier modal: Start adding your skills, with Add skills by job title and Add skills by name.",
+                  caption: "Students could start from a job title instead of a blank list."
+                },
+                {
+                  label: "Job Explorer",
+                  image: "assets/stories/career-profile/je-skill-match.png", w: 770, h: 385,
+                  alt: "A Job Explorer posting's possible skills, with the skills already on the student's profile checked as Skills Profile matches.",
+                  caption: "Profile skills that match a posting are checked."
+                }
+              ]
             }
           ]
         },
 
         {
-          type: "metrics",
-          items: [
-            { value: "22%", label: "of engaged users added skills, against a 10% baseline" },
-            { value: "1,160", label: "users added skills through the experiment" },
-            { value: "42", label: "Average skills added per user" },
-            { value: "~50K", label: "skills added during the experiment" }
-          ],
-          note: "Baseline: people who visited the Skills Profile and added at least one skill before the experiment. The experiment ran for about three weeks."
-        },
-
-        {
-          type: "prose",
-          heading: "People would trade data for a next step.",
-          body:
-            "Users who engaged with the persona nudge converted at more than twice the baseline rate, and they didn't stop at one skill. The experiment showed us that people were willing to tell us about themselves when they got a next best step in their career in return.\n\nWe used that insight to launch an entirely new product, Career Plan, built by our sister career team under my leadership. But a plan takes more than a list of skills. Career Plan needed to know where someone had worked, what they had studied and what they were working toward, and that's where the Skills Profile became Career Profile."
-        },
-
-        {
-          type: "timeline",
-          heading: "From a skills dashboard to a career profile",
-          nodes: [
-            "Third-party skills dashboard",
-            "Self-identified skills profile",
-            "University + self-identified combined",
-            "Connected to Job Explorer + Career Plan",
-            "Career Profile: work, education, resumé"
+          type: "chapter",
+          group: "iterate",
+          nav: "Iterate",
+          label: "Iterate",
+          heading: "I made skills easier to reach, first beyond the classroom and then for everyone.",
+          flow: [
+            "The original university skills link sat inside an active-course component in the student portal. I noticed that students on leave and alumni could lose the route to their earned skills entirely. **I designed a permanent Skills Dashboard card and worked with the portal product team to secure placement and define its rules.**",
+            {
+              width: "wide",
+              items: [
+                { label: "Before", pending: "Course-level skills link", image: "assets/stories/career-profile/portal-course-link.png", w: 800, h: 600 },
+                { label: "2022", pending: "Permanent Skills Dashboard card", image: "assets/stories/career-profile/portal-card-2022.png", w: 800, h: 600 },
+                { label: "2023", pending: "Skills Profile card, both states", image: "assets/stories/career-profile/portal-card-2023.png", w: 800, h: 600 }
+              ]
+            },
+            {
+              label: "2022 · Portal card to the legacy Skills Dashboard",
+              stats: [
+                { value: "10,361", label: "Visits in its first 13 days" },
+                { value: "3,300", label: "Visits in the 30 days before" }
+              ],
+              body:
+                "In 2022, the new portal card brought **10,361 visits and 6,234 unique visitors in its first 13 days**, compared with **3,300 visits and 2,240 unique visitors during the preceding 30 days**. That change still served only students in skills-tagged programs, but it removed the active-enrollment dependency."
+            },
+            "When Skills Profile launched in 2023, I designed **a second dynamic card state** so students without skills-tagged programs could also reach the new experience. The portal now offered a relevant entry point to students and alumni whether or not university-earned skills were available to them.",
+            {
+              label: "2023 · Skills Profile launch",
+              stats: [
+                { value: "~16K", label: "Weekly unique visitors after" },
+                { value: "~2K", label: "Weekly unique visitors before" }
+              ],
+              body:
+                "**Weekly unique Skills Profile visitors rose from approximately 2,000 to 16,000, an eightfold increase**, following the expanded entry point and launch."
+            }
           ]
         },
 
         {
-          type: "split",
-          ratio: "50-50",
-          heading: "Tell us where you worked, and we'll tell you what you know.",
-          body:
-            "In 2024 we expanded the Skills Profile into Career Profile, adding work history, education history, Job Explorer preferences and saved career activity. Career Plan was the first product to draw on it, and a meaningful suite of career products needed the same picture of who our users were and what they wanted to achieve.\n\nWork history was foundational. Rather than ask people for job titles in one place and skills in another, we let them add skills while they entered their work history. Type a job title, and the form suggests the skills that come with it.",
-          image: "assets/stories/career-profile/work-history-inferred-skills.png", w: 923, h: 743,
-          alt:
-            "The Career Profile work history form, suggesting related skills from the entered job title that can be added to the profile.",
-          caption:
-            "Enter a job title, get skills back—reciprocity in place of a data-entry request."
+          type: "chapter",
+          group: "iterate",
+          heading: "I experimented with why and when students would add more skills.",
+          flow: [
+            "Job Explorer used skills alongside each student’s program-aligned occupation information to return jobs from Lightcast. We also observed that students with **10 or more skills** were more likely to click Apply Now. That was a correlation, but it gave us a useful hypothesis: **helping students build richer profiles might improve job relevance and encourage action**.\n\nI led the creative direction for a series of experiments, testing different motivations and moments. In one, students selected a **statement about their career situation**, not a persona label, and then received tailored encouragement to identify skills. Other prompts appeared directly in Skills Profile or in Job Explorer, where students could see the value of better job matches.",
+            {
+              width: "wide",
+              ratio: "2-1-1",
+              items: [
+                {
+                  label: "A statement, not a persona",
+                  image: "assets/stories/career-profile/persona-modal.png", w: 640, h: 625,
+                  alt: "A modal over My Skills asking “Would you like a personalized career suggestion, Kristie?” with five career-situation statements to choose from and a Submit button.",
+                  caption: "Students chose the statement that fit their career situation."
+                },
+                {
+                  label: "The follow-up",
+                  image: "assets/stories/career-profile/persona-starter.png", w: 720, h: 490,
+                  alt: "The follow-up for someone just starting out: you may have more skills than you think, even babysitting counts.",
+                  caption: "Starting out: you may have more skills than you think."
+                },
+                {
+                  label: " ",
+                  image: "assets/stories/career-profile/persona-switcher.png", w: 720, h: 500,
+                  alt: "The follow-up for someone changing careers: take inventory of skills that translate into a new career.",
+                  caption: "Switching careers: find the skills that carry over."
+                }
+              ]
+            },
+            "With the Job Explorer nudge, funnel data revealed that people were willing to click but could drop off before they began adding skills. **I removed the detour:** we brought the Skills Identifier directly into Job Explorer as a modal. That interaction became reusable by other teams, allowing skill collection wherever it naturally supported the task.",
+            {
+              width: "wide",
+              ratio: "60-40",
+              items: [
+                {
+                  label: "The original route",
+                  image: "assets/stories/career-profile/nudge-detour.png", w: 1601, h: 807,
+                  alt: "Four screens linked by arrows: Job Explorer, a prompt asking Want to explore jobs more aligned to your skillset with a Go to Skills Profile button, the Skills Profile with no skills added, and the Skills Identifier.",
+                  caption: "Job Explorer, then the prompt, then Skills Profile, then the Skills Identifier."
+                },
+                {
+                  label: "Historical snapshot",
+                  image: "assets/stories/career-profile/nudge-funnel.png", w: 1123, h: 464,
+                  alt: "A FullStory funnel for the original route: 727 users saw the prompt, 155 clicked it, 49 clicked to add skills on the profile, 37 and 34 continued in the Skills Identifier.",
+                  caption: "FullStory, original route: 727 saw the prompt, 155 clicked it, 49 went on to add skills."
+                }
+              ]
+            }
+          ]
         },
 
         {
-          type: "metrics",
-          items: [
-            { value: "86%", label: "of users who added or edited work history added inferred skills" },
-            { value: "18", label: "Average skills added per user, against a goal of 10" }
+          type: "chapter",
+          group: "iterate",
+          heading: "I made recognizing skills part of describing work experience.",
+          flow: [
+            "Previous experiments had taught me that **context mattered**: students were more willing to identify skills when it fit the task in front of them. When we added work history to Career Profile, I used the job title students were already entering to offer relevant skill suggestions.\n\nThe title was sent to Lightcast, which returned **10 associated skills not already on that student’s profile**. **Every chip was unselected by default.** Students decided which, if any, reflected their actual experience; we never silently added or claimed skills on their behalf.",
+            {
+              width: "wide",
+              items: [
+                {
+                  label: "Suggested, all unselected",
+                  image: "assets/stories/career-profile/work-history-unselected.jpg", w: 880, h: 555,
+                  alt: "The Career Profile work history form with a job title entered and related skills offered as chips, none of them selected."
+                },
+                {
+                  label: "Selected by the student",
+                  image: "assets/stories/career-profile/work-history-inferred-skills.png", w: 923, h: 743,
+                  alt: "The work history form with two of the related skill chips, Typography and Social Media, selected and the rest left unselected."
+                }
+              ]
+            },
+            {
+              label: "Early 2025 snapshot",
+              stats: [
+                { value: "88%", label: "Also selected suggested skills" },
+                { value: "~18", label: "Skill entries per user" }
+              ],
+              body:
+                "In early results, **88% of students who added or edited work history also selected suggested skills**. Across 548 participating users, nearly **10,000 skill entries** were added, averaging about **18 per user**."
+            }
+          ]
+        },
+
+        {
+          type: "chapter",
+          group: "iterate",
+          heading: "I kept watching what students actually did.",
+          flow: [
+            "Career Profile was an evolving product, not a static form. I used **FullStory behavioral data** to see how students reached the experience, where they engaged, and where they left a task unfinished. Those patterns guided which questions to investigate and which improvements to prioritize.",
+            {
+              width: "wide",
+              video: "assets/stories/career-profile/Dashboard Zoom_Profile.mp4", w: 1280, h: 720,
+              alt:
+                "A screen recording panning across the Career Profile FullStory dashboard: navigation usage by section, profile and skills page hits, skill-count cohorts and experiment performance.",
+              notes: ["Navigation usage by section", "Profile users and skills page hits", "Skill-count cohorts", "Experiment performance"]
+            }
+          ]
+        },
+
+        {
+          type: "chapter",
+          group: "scale",
+          nav: "Scale",
+          label: "Scale",
+          heading: "I evolved Career Profile into a shared home for information students could use across products.",
+          flow: [
+            "The original Portfolio concept was never meant to stop at skills. In 2024, I designed the expansion into **work history, education history, preferences, and saved items**, creating a more complete place for students to manage their career information. These were practical foundations for an ecosystem that would keep growing.\n\nThat choice paid off when the AI Résumé Generator arrived in 2025. Students who had already entered their education and work history could begin a résumé with that information in place. For students entering those details for the first time while creating a résumé, **the résumé flow could write the information back into Career Profile**.",
+            {
+              width: "wide",
+              diagram: "connections",
+              nodes: [
+                { label: "AI Résumé Generator", src: "assets/stories/ai-resume/resume-intake.png", w: 1400, h: 1123 },
+                { label: "Career Profile", src: "assets/stories/career-profile/career-profile-final.png", w: 1320, h: 1265, hub: true },
+                { label: "Job Explorer", src: "assets/stories/job-explorer/cover.png", w: 1920, h: 1080 }
+              ],
+              edges: [
+                [{ dir: "left", text: "Starts with saved work and education" }, { dir: "right", text: "Writes new details back" }],
+                [{ dir: "right", text: "Skills matched to postings" }]
+              ],
+              alt: "Career Profile in the middle, connected both ways to the AI Résumé Generator, which starts from saved work and education and writes new details back, and one way to Job Explorer, which matches profile skills to postings.",
+              caption: "Real screens from each product. Arrows show where profile information goes."
+            },
+            "**One place to update. More than one place to benefit.** Profile information connected job discovery, skill identification, saved opportunities, and résumé creation, reducing the need for students to start over with each tool."
           ]
         },
 
         {
           type: "cards",
+          group: "scale",
           heading: "The decisions I'd defend again.",
           items: [
             {
@@ -536,41 +625,29 @@ window.SITE = {
         },
 
         {
-          type: "annotated",
-          heading: "The profile was monitored like a product, not a form.",
-          body:
-            "I kept a FullStory dashboard on Career Profile and used it to decide where to look next: which sections people actually used, where they dropped, and whether an experiment moved profile depth.",
-          align: "center",
-          video: "assets/stories/career-profile/Dashboard Zoom_Profile.mp4", w: 1280, h: 720,
-          alt:
-            "A screen recording panning across the Career Profile FullStory dashboard: navigation usage by section, profile and skills page hits, skill-count cohorts and experiment performance.",
-          callouts: [
-            "Navigation usage by section",
-            "Profile users and skills page hits",
-            "Skill-count cohorts",
-            "Experiment performance"
-          ],
-          caption: "The whole dashboard, kept as a monitoring habit rather than a one-off readout."
-        },
-
-        {
           type: "impact",
+          id: "impact",
+          nav: "Impact",
+          label: "Impact",
           heading: "One place to update. Many places it paid off.",
-          primary: { value: "3.6M", label: "skills added by users" },
+          primary: { value: "3.6M", label: "self-identified skill entries added across student profiles, from launch onward" },
           secondary: [
-            { value: "11.9K", label: "monthly Career Profile users" },
-            { value: "10+", label: "skills correlated with higher Apply Now" }
+            { value: "1M", label: "in the first eight months" },
+            { value: "8×", label: "weekly unique Skills Profile visitors at the 2023 launch" }
           ],
           body:
-            "Career Profile ended up tied with Job Explorer as the most visited product in the entire career suite. More importantly, it became the data layer underneath the others: prefilling the resumé generator, grounding Career Plan, and sharpening Job Explorer's recommendations. Users updated their career data once, and three products got better."
+            "Career Profile became a growing record of students’ **self-identified skills, academic skills, work and education history, preferences, and saved opportunities**, helping connected career tools work with a fuller picture of each person.\n\n**3.6 million self-identified skill entries** were added across student profiles from launch onward, including **one million in the first eight months**. That represents cumulative additions, **not 3.6 million distinct skill names or 3.6 million users**.\n\nAlong the way, redesigned access drove an **eightfold increase in weekly unique Skills Profile visitors** at the 2023 launch, while experiments and contextual skill suggestions showed ways to help students contribute information with less friction.\n\nI was designing toward a larger outcome: helping students see the skills and experience they were building during their education and put them to use in pursuing career opportunities."
         },
 
         {
-          type: "closing",
-          heading: "What I would have built next",
-          body:
-            "The profile was finally rich enough to be predictive rather than descriptive.\n\nWith work history, education, skills and preferences in one place, the next step was letting the profile tell users what to do next, surfacing the gap between who they are today and the role they're aiming at, instead of waiting for them to go look.",
-          end: "Ask once. Use it everywhere."
+          type: "chapter",
+          id: "next",
+          nav: "Next",
+          label: "What I would have built next",
+          heading: "Ask once. Use it everywhere.",
+          flow: [
+            "My next ambition was to keep expanding what students could accomplish with the information they had already chosen to share. **If students tell us about their experience in one place, the rest of their career tools should be able to use it when it helps them**, instead of asking them to start from scratch every time.\n\nCareer Profile had begun to make that possible. The next step was to make the connections more useful and seamless across the full career journey."
+          ]
         }
       ]
     },
