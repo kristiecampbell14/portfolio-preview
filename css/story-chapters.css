@@ -54,7 +54,9 @@
 .story-chapters .story-headline,
 .story-chapters .chapter__pull-quote,
 .story-chapters .impact-primary span,
-.story-chapters .next-story__bridge {
+.story-chapters .next-story__bridge,
+.story-chapters .chapter__sub,
+.story-chapters .chapter__quote blockquote {
   font: var(--lead);
   letter-spacing: 0;
 }
@@ -101,6 +103,8 @@
 .story-chapters .fig-tag,
 .story-chapters .links__label,
 .story-chapters .decision__num,
+.story-chapters .evo__num,
+.story-chapters .chapter__quote .avatar,
 .story-chapters .next-story__label,
 .story-chapters .impact-sec span,
 .story-chapters .try-hint,
@@ -117,6 +121,8 @@
 .story-chapters .fig-switch button,
 .story-chapters .plate--pending span,
 .story-chapters .links__edge span,
+.story-chapters .evo__label,
+.story-chapters .chapter__quote .who,
 .story-chapters .concept__card span {
   font: var(--caption);
 }
@@ -763,6 +769,49 @@
 /* ---------- decision cards, inside a chapter group ---------- */
 .story-chapters .decision__num {
   color: var(--coral);
+}
+
+/* findings under a small heading of their own */
+.story-chapters .chapter__sub {
+  color: var(--ink);
+}
+
+.story-chapters .chapter__cards .decisions {
+  margin-top: clamp(16px, 2vw, 24px);
+}
+
+/* ---------- dated milestones inside a chapter ---------- */
+.story-chapters .chapter__media .evo {
+  margin-top: 0;
+}
+
+.story-chapters .evo__label {
+  color: var(--ink);
+}
+
+/* ---------- a testimonial beside its label ---------- */
+.story-chapters .chapter__quote {
+  grid-area: auto / 2;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.story-chapters .chapter__quote blockquote {
+  max-width: 40ch;
+  text-indent: -0.4em;
+  color: var(--ink);
+}
+
+.story-chapters .chapter__quote cite {
+  font: var(--body);
+  font-weight: 600;
+}
+
+@media (max-width: 1023px) {
+  .story-chapters .chapter__quote {
+    grid-area: auto / 1 / auto / -1;
+  }
 }
 
 /* ---------- unbuilt concept ---------- */

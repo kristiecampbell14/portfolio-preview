@@ -290,6 +290,46 @@
     if (f.carousel) return `<div class="chapter__media chapter__media--wide">${galleryHTML(f)}</div>`;
     if (f.picker) return `<div class="chapter__media chapter__media--wide">${pickerHTML(f.picker)}</div>`;
     if (f.toggle) return `<div class="chapter__media chapter__media--${e(f.width || "wide")}">${toggleHTML(f.toggle)}</div>`;
+    /* the dated milestones, as the same strip the timeline block draws */
+    if (f.timeline)
+      return `<div class="chapter__media chapter__media--wide">
+        <ol class="evo">
+          ${f.timeline
+            .map(
+              (n, i) => `<li class="evo__node">
+                ${shapeSVG(i, "evo__dot")}
+                <span class="evo__num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
+                <span class="evo__label">${e(n)}</span>
+              </li>`
+            )
+            .join("")}
+        </ol>
+      </div>`;
+    /* findings that sit under one small heading of their own */
+    if (f.cards)
+      return `<div class="chapter__media chapter__media--wide chapter__cards">
+        ${f.subhead ? `<h3 class="chapter__sub">${e(f.subhead)}</h3>` : ""}
+        <div class="decisions">
+          ${f.cards
+            .map(
+              (c, i) => `<article class="decision">
+                <span class="decision__num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
+                <h3>${e(c.title)}</h3>
+                <p>${e(c.body)}</p>
+              </article>`
+            )
+            .join("")}
+        </div>
+      </div>`;
+    /* a testimonial, in the homepage recommendations' markup */
+    if (f.quote)
+      return `<figure class="quote chapter__quote">
+        <blockquote>${e(f.quote)}</blockquote>
+        <figcaption>
+          ${f.initials ? `<span class="avatar" aria-hidden="true">${e(f.initials)}</span>` : ""}
+          <span><cite>${e(f.name)}</cite>${f.title ? `<span class="who">${e(f.title)}</span>` : ""}</span>
+        </figcaption>
+      </figure>`;
     const items = f.items || [f];
     const ratio = f.ratio ? ` chapter__media--${e(f.ratio)}` : "";
     /* `stack` puts the items one under another, at one shared width */
@@ -404,7 +444,7 @@
       <section class="story-block chapter reveal"${b.id ? ` id="${e(b.id)}"` : ""}>
         <header class="chapter__head">
           ${b.label ? labelHTML(b.label, "eyebrow chapter__label") : ""}
-          <h2 class="story-h2">${e(b.heading)}</h2>
+          ${b.heading ? `<h2 class="story-h2">${e(b.heading)}</h2>` : ""}
         </header>
         ${(b.flow || []).map(chapterFlow).join("")}
       </section>`,
