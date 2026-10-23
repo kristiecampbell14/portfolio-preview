@@ -960,7 +960,7 @@ window.SITE = {
           type: "chapter",
           heading: "I modernized a 14-year-old product without losing what worked.",
           flow: [
-            "OpenTech's INSOMNIAC kiosks let self-storage customers rent a unit, make a payment and manage their account without an employee present. They pair a touchscreen with physical hardware such as card readers, cash acceptors and ID scanners, and connect to whichever property management system the operator runs, each with its own limitations.\n\nThe first kiosk was designed without a product or UX designer, then left alone: it stayed virtually unchanged for nearly 14 years. As Lead UX Designer, I worked across Product, Engineering, Business Analysis and company leadership to modernize it without breaking the business rules operators depended on.",
+            "OpenTech's INSOMNIAC kiosks let self-storage customers **rent a unit, make a payment and manage their account without an employee present**. They pair a touchscreen with physical hardware such as card readers, cash acceptors and ID scanners, and connect to whichever property management system the operator runs, each with its own limitations.\n\nThe first kiosk was designed without a product or UX designer, then left alone: it stayed **virtually unchanged for nearly 14 years**. As Lead UX Designer, I worked across Product, Engineering, Business Analysis and company leadership to **modernize it without breaking the business rules operators depended on**.",
             {
               width: "inset",
               image: "assets/stories/kiosk-public-storage/original-home.png", w: 562, h: 425,
@@ -968,15 +968,6 @@ window.SITE = {
                 "The original INSOMNIAC kiosk home screen: a blue Welcome title bar, English and Español buttons, the INSOMNIAC logo, a bulleted list of what the rental station can do, an illustrated virtual assistant, and three stacked dark-blue buttons for new customers, existing customers and purchasing merchandise.",
               caption:
                 "Where it started: the original home screen, with Megan, the virtual mascot, and a copyright line that still read 2003–2009."
-            },
-            {
-              timeline: [
-                "Original kiosk, ~14 years unchanged",
-                "Kiosk 20 launch (late 2018)",
-                "Public Storage custom build",
-                "12-facility pilot (Q2 2020)",
-                "Walk-away analysis (Jul 2020)"
-              ]
             }
           ]
         },
@@ -988,7 +979,7 @@ window.SITE = {
           label: "Discover",
           heading: "Before changing the interface, I learned the business behind it.",
           flow: [
-            "I came in knowing nothing about self-storage, so I spent several days in front of the original kiosks, using them the way a customer would and studying them relentlessly. I documented the flow, the low-hanging improvements and every friction point I found. That flow documentation was the first the product had ever had.",
+            "I came in knowing nothing about self-storage, so I **spent several days in front of the original kiosks**, using them the way a customer would and studying them relentlessly. I documented the flow, the low-hanging improvements and every friction point I found. That flow documentation was **the first the product had ever had**.",
             {
               width: "inset",
               image: "assets/stories/kiosk-public-storage/rental-flow-map.png", w: 1009, h: 768,
@@ -1007,7 +998,7 @@ window.SITE = {
           label: "Redesign",
           heading: "I preserved the rental flow and redesigned the experience around it.",
           flow: [
-            "The timeline was short, so I deliberately left the flow largely intact and focused on the interface and interaction design. Before changing anything, I tested the existing rental flow with unmoderated click tests on low-fidelity mockups to confirm it was intuitive.\n\nThen I rebuilt what customers actually saw. I retired “Megan,” the kiosk's virtual mascot, and rewrote the content to be conversational and readable. I worked side by side with developers, Product Owners, Business Analysts and OpenTech's CEO so the product's integrity held up through a heavily UI-driven redesign. Kiosk 20 launched in late 2018.",
+            "The timeline was short, so I **deliberately left the flow largely intact** and focused on the interface and interaction design. Before changing anything, I **tested the existing rental flow with unmoderated click tests** on low-fidelity mockups to confirm it was intuitive.\n\nThen I rebuilt what customers actually saw. I **retired “Megan,” the kiosk's virtual mascot**, and **rewrote the content to be conversational and readable**. I worked side by side with developers, Product Owners, Business Analysts and OpenTech's CEO so the product's integrity held up through a heavily UI-driven redesign. **Kiosk 20 launched in late 2018.**",
             {
               width: "inset",
               toggle: {
@@ -1040,7 +1031,7 @@ window.SITE = {
           group: "redesign",
           heading: "I expanded the kiosk redesign for Public Storage's enterprise pilot.",
           flow: [
-            "**Public Storage needed more than a reskin.** Kiosk 20 had been very successful with smaller operators. Then Public Storage, the world's largest self-storage operator with more than 2,200 locations at the time, approached OpenTech about a kiosk of its own. Its business didn't fit the box model of the 20 series, and we didn't expect it to. For the first time, the kiosk's flow itself would be customized.\n\nAs lead UX designer on the initiative, I worked directly with Public Storage's CIO and VP of Application Development, along with their development and marketing teams and third-party vendors, to gather requirements and get design approval, alongside OpenTech's own product and engineering teams.\n\nThe work was translating enterprise requirements into an experience that met Public Storage's needs while still running within the capabilities and constraints of the underlying kiosk platform.",
+            "**Public Storage needed more than a reskin.** Kiosk 20 had been very successful with smaller operators. Then Public Storage, **the world's largest self-storage operator** with more than 2,200 locations at the time, approached OpenTech about a kiosk of its own. Its business didn't fit the box model of the 20 series, and we didn't expect it to. For the first time, **the kiosk's flow itself would be customized**.\n\nAs lead UX designer on the initiative, I **worked directly with Public Storage's CIO and VP of Application Development**, along with their development and marketing teams and third-party vendors, to gather requirements and get design approval, alongside OpenTech's own product and engineering teams.\n\nThe work was **translating enterprise requirements into an experience** that met Public Storage's needs while still running within the capabilities and constraints of the underlying kiosk platform.",
             {
               width: "inset",
               maxw: 380,
@@ -1058,7 +1049,14 @@ window.SITE = {
           group: "redesign",
           heading: "I worked directly with Public Storage to shape the enterprise experience.",
           flow: [
-            "Design decisions ran through weekly meetings with Public Storage's CIO, VP of Application Development and Head of Marketing, alongside OpenTech's development team. To understand how their process differed from ours, I worked through Public Storage's online rental process myself, noted the similarities and differences, and used them to show why a kiosk is a very different thing from a website.\n\nTheir legal department required the kiosk to mirror their existing rental flow. Within that, my job was balancing Public Storage's business requirements against customer usability, platform capabilities, technical feasibility and what should stay reusable for other operators."
+            "Design decisions ran through **weekly meetings with Public Storage's CIO, VP of Application Development and Head of Marketing**, alongside OpenTech's development team. To understand how their process differed from ours, I worked through Public Storage's online rental process myself, noted the similarities and differences, and used them to show **why a kiosk is a very different thing from a website**.\n\nTheir legal department required the kiosk to mirror their existing rental flow. Within that, my job was **balancing Public Storage's business requirements against customer usability**, platform capabilities, technical feasibility and what should stay reusable for other operators.",
+            {
+              quote:
+                "As a former client of Kristie's on a major initiative where she was the lead UX designer, I was impressed with her domain expertise, attention to detail, and her focus on elegant customer experiences. She was particularly skilled at hammering out nuances and exception scenarios, amazing work product and easy to work with.",
+              name: "Former VP of Application Development, Public Storage",
+              title: "Client on the kiosk initiative",
+              initials: "PS"
+            }
           ]
         },
 
@@ -1067,7 +1065,7 @@ window.SITE = {
           group: "redesign",
           heading: "I designed ways forward when the rental flow hit a dead end.",
           flow: [
-            "A kiosk has no employee to step in, so every failure had to explain what happened and offer a next step. Completing a reservation alone had six exception states, from a reservation that couldn't be found to one that was already completed. Each got its own message and its own way out: try again, start a new rental, choose another space, go to your account, or reach a live person.",
+            "A kiosk has no employee to step in, so **every failure had to explain what happened and offer a next step**. Completing a reservation alone had **six exception states**, from a reservation that couldn't be found to one that was already completed. Each got its own message and its own way out: try again, start a new rental, choose another space, go to your account, or reach a live person.",
             {
               width: "wide",
               items: [
@@ -1097,7 +1095,7 @@ window.SITE = {
           label: "Validate",
           heading: "I tested my own objection, and lost.",
           flow: [
-            "With little time for research and the flow mirrored from Public Storage's own, the home screen was where I pushed back. Public Storage asked for multiple colors across the primary action tiles, and I wasn't sure the change would help customers find their way.\n\nRather than argue it out, I ran a quick A/B test on UsabilityHub on my own initiative, comparing the two treatments.",
+            "With little time for research and the flow mirrored from Public Storage's own, the home screen was where I pushed back. Public Storage **asked for multiple colors across the primary action tiles**, and I wasn't sure the change would help customers find their way.\n\nRather than argue it out, I **ran a quick A/B test on UsabilityHub on my own initiative**, comparing the two treatments.",
             {
               width: "wide",
               items: [
@@ -1119,7 +1117,7 @@ window.SITE = {
               pull:
                 "Good product design isn't about defending your first answer. It's about creating a way to find out which answer works better.",
               body:
-                "To my surprise, the multi-colored tiles performed better. The design was updated, the finding carried back into OpenTech's other kiosk models as a new customization option for other operators, and having real data behind the decision built Public Storage's trust in how I worked."
+                "To my surprise, **the multi-colored tiles performed better**. The design was updated, the finding **carried back into OpenTech's other kiosk models** as a new customization option for other operators, and having real data behind the decision **built Public Storage's trust** in how I worked."
             }
           ]
         },
@@ -1129,7 +1127,7 @@ window.SITE = {
           group: "validate",
           heading: "I kept learning from the experience after it shipped.",
           flow: [
-            "**Customers were walking away mid-task, so I went to find out why.** The customized kiosk launched in the second quarter of 2020 in a 12-facility test group across the country. Public Storage was concerned about how many customers were walking away before finishing.\n\nI compiled a walk-away report covering about a month at three facilities and watched the replay videos of 28 customers at the kiosk. Part of the problem wasn't the interface at all: Public Storage's own staff had been playing with the kiosks and skewing the data. That led to a hidden tap in the bottom-left corner that starts a session without recording it.\n\nThe real sessions showed where customers needed clearer explanations, and where the information Public Storage asked for during validation was tripping them up. I presented the findings and recommendations to Public Storage's C-suite executives and VPs.",
+            "**Customers were walking away mid-task, so I went to find out why.** The customized kiosk launched in the second quarter of 2020 in a **12-facility test group** across the country. Public Storage was concerned about how many customers were walking away before finishing.\n\nI compiled a walk-away report covering about a month at three facilities and **watched the replay videos of 28 customers** at the kiosk. Part of the problem wasn't the interface at all: **Public Storage's own staff had been playing with the kiosks and skewing the data**. That led to a hidden tap in the bottom-left corner that starts a session without recording it.\n\nThe real sessions showed where customers needed clearer explanations, and where the information Public Storage asked for during validation was tripping them up. I **presented the findings and recommendations to Public Storage's C-suite executives and VPs**.",
             {
               width: "wide",
               image: "assets/stories/kiosk-public-storage/walkaway-reservations.jpg", w: 1600, h: 900,
@@ -1139,17 +1137,14 @@ window.SITE = {
                 "From the July 2020 walk-away readout: most reservation walk-aways were lookups that failed, from invalid details to expired or cancelled reservations."
             },
             {
+              /* the readout slide above covers completing a reservation, so
+                 only the other two flows get a card */
               subhead: "What the sessions actually showed.",
               cards: [
                 {
                   title: "New rentals",
                   body:
                     "Half of the customers who left had reviewed the available spaces and decided the inventory or pricing didn't fit, sometimes saying so out loud. That's a business signal, not a broken screen. With no information about these customers, I recommended moderated sessions instead of guessing at a fix."
-                },
-                {
-                  title: "Completing a reservation",
-                  body:
-                    "Most walk-aways were reservations that couldn't be found: wrong details, expired or cancelled reservations, or ones not eligible for kiosk completion. I recommended clearer reasons on screen, Live Help on the error modals, and offering a new rental after the second failed attempt instead of the third."
                 },
                 {
                   title: "Making a payment",
@@ -1170,20 +1165,12 @@ window.SITE = {
           primary: { value: "83% → 91%", label: "Home-screen click success in A/B testing, original vs. multi-color tiles" },
           secondary: [{ value: "12", label: "facilities in the Q2 2020 Public Storage pilot" }],
           body:
-            "Kiosk 20's modernized interface was a hit at tradeshows and caught the eye of many operators, which generated new sales and upgrades from existing customers. The Public Storage build went further: it laid the foundation for future iterations of Kiosk 20 for other operators, added new customization options for them, and brought inquiries from other large operators about self-service kiosks of their own."
+            "Kiosk 20's modernized interface was a hit at tradeshows and caught the eye of many operators, which **generated new sales and upgrades** from existing customers. The Public Storage build went further: it **laid the foundation for future iterations of Kiosk 20** for other operators, added new customization options for them, and **brought inquiries from other large operators** about self-service kiosks of their own."
         },
 
         {
           type: "chapter",
-          label: "Client perspective",
           flow: [
-            {
-              quote:
-                "As a former client of Kristie's on a major initiative where she was the lead UX designer, I was impressed with her domain expertise, attention to detail, and her focus on elegant customer experiences. She was particularly skilled at hammering out nuances and exception scenarios, amazing work product and easy to work with.",
-              name: "Former VP of Application Development, Public Storage",
-              title: "Client on the kiosk initiative",
-              initials: "PS"
-            },
             {
               width: "wide",
               image: "assets/stories/kiosk-public-storage/hardware.jpg", w: 1089, h: 380,
@@ -1202,7 +1189,7 @@ window.SITE = {
           label: "What this project taught me",
           heading: "Understand the system. Test the assumption. Keep learning after it ships.",
           flow: [
-            "This project pushed me beyond designing an interface and into designing within a complex system. I had to understand customer behavior, business rules, physical hardware, technical constraints, enterprise requirements and the needs of a highly involved client organization.\n\nIt also reinforced something that has stayed central to how I work: the designer's role is not to have all the answers. It's to help the team ask the right questions, make complexity understandable, and create enough evidence to move forward with confidence."
+            "This project pushed me **beyond designing an interface and into designing within a complex system**. I had to understand customer behavior, business rules, physical hardware, technical constraints, enterprise requirements and the needs of a highly involved client organization.\n\nIt also reinforced something that has stayed central to how I work: **the designer's role is not to have all the answers**. It's to help the team ask the right questions, make complexity understandable, and create enough evidence to move forward with confidence."
           ]
         }
       ]

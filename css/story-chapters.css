@@ -103,7 +103,6 @@
 .story-chapters .fig-tag,
 .story-chapters .links__label,
 .story-chapters .decision__num,
-.story-chapters .evo__num,
 .story-chapters .chapter__quote .avatar,
 .story-chapters .next-story__label,
 .story-chapters .impact-sec span,
@@ -121,7 +120,6 @@
 .story-chapters .fig-switch button,
 .story-chapters .plate--pending span,
 .story-chapters .links__edge span,
-.story-chapters .evo__label,
 .story-chapters .chapter__quote .who,
 .story-chapters .concept__card span {
   font: var(--caption);
@@ -778,15 +776,6 @@
 
 .story-chapters .chapter__cards .decisions {
   margin-top: clamp(16px, 2vw, 24px);
-}
-
-/* ---------- dated milestones inside a chapter ---------- */
-.story-chapters .chapter__media .evo {
-  margin-top: 0;
-}
-
-.story-chapters .evo__label {
-  color: var(--ink);
 }
 
 /* ---------- a testimonial beside its label ---------- */

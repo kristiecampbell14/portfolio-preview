@@ -290,21 +290,6 @@
     if (f.carousel) return `<div class="chapter__media chapter__media--wide">${galleryHTML(f)}</div>`;
     if (f.picker) return `<div class="chapter__media chapter__media--wide">${pickerHTML(f.picker)}</div>`;
     if (f.toggle) return `<div class="chapter__media chapter__media--${e(f.width || "wide")}">${toggleHTML(f.toggle)}</div>`;
-    /* the dated milestones, as the same strip the timeline block draws */
-    if (f.timeline)
-      return `<div class="chapter__media chapter__media--wide">
-        <ol class="evo">
-          ${f.timeline
-            .map(
-              (n, i) => `<li class="evo__node">
-                ${shapeSVG(i, "evo__dot")}
-                <span class="evo__num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
-                <span class="evo__label">${e(n)}</span>
-              </li>`
-            )
-            .join("")}
-        </ol>
-      </div>`;
     /* findings that sit under one small heading of their own */
     if (f.cards)
       return `<div class="chapter__media chapter__media--wide chapter__cards">
@@ -442,10 +427,14 @@
        I did, then copy and media in the order `flow` lists them */
     chapter: (b) => `
       <section class="story-block chapter reveal"${b.id ? ` id="${e(b.id)}"` : ""}>
-        <header class="chapter__head">
-          ${b.label ? labelHTML(b.label, "eyebrow chapter__label") : ""}
-          ${b.heading ? `<h2 class="story-h2">${e(b.heading)}</h2>` : ""}
-        </header>
+        ${
+          b.label || b.heading
+            ? `<header class="chapter__head">
+                ${b.label ? labelHTML(b.label, "eyebrow chapter__label") : ""}
+                ${b.heading ? `<h2 class="story-h2">${e(b.heading)}</h2>` : ""}
+              </header>`
+            : ""
+        }
         ${(b.flow || []).map(chapterFlow).join("")}
       </section>`,
 
