@@ -603,9 +603,11 @@
   margin-bottom: 18px;
 }
 
+/* two equal columns, so every pair sits side by side however long its
+   labels run; a phone stacks them all alike */
 .chapter__stat-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px clamp(32px, 5vw, 64px);
 }
 
@@ -629,6 +631,12 @@
   margin-top: 22px;
   color: var(--ink-soft);
   max-width: 60ch;
+}
+
+@media (max-width: 599px) {
+  .chapter__stat-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* says plainly what an artifact is, such as a concept that never shipped */
