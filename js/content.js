@@ -627,8 +627,7 @@ window.SITE = {
               ],
               alt: "Career Profile in the middle, connected both ways to the AI Résumé Generator, which starts from saved work and education and writes new details back, and one way to Job Explorer, which matches profile skills to postings.",
               caption: "Real screens from each product. Arrows show where profile information goes."
-            },
-            "**One place to update. More than one place to benefit.** Profile information connected job discovery, skill identification, saved opportunities, and résumé creation, reducing the need for students to start over with each tool."
+            }
           ]
         },
 
