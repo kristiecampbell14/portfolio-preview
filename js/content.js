@@ -333,7 +333,7 @@ window.SITE = {
       eyebrow: "Overview",
       headline: "I designed Career Profile as a shared foundation for the Career Navigator product suite.",
       intro:
-        "I wanted students to see that their degree wasn’t the only thing they were building. **The skills they earned in class, the experience they brought from work, and the goals they set could all help them pursue opportunities before graduation.**\n\nIn 2021, I conceived a connected career experience and developed that vision with my product trio through student interviews and early prototypes. Over the following years, I personally designed the evolution from a focused Skills Profile into a broader Career Profile that could serve multiple tools across Career Navigator.",
+        "I wanted students to see that their degree wasn’t the only thing they were building. **The skills they earned in class, the experience they brought from work, and the goals they set could all help them pursue opportunities before graduation.**",
 
       role: "Lead product designer",
       year: "2021–2026",
@@ -643,7 +643,7 @@ window.SITE = {
             { value: "8×", label: "weekly unique Skills Profile visitors at the 2023 launch" }
           ],
           body:
-            "Career Profile became a growing record of students’ **self-identified skills, academic skills, work and education history, preferences, and saved opportunities**, helping connected career tools work with a fuller picture of each person.\n\n**3.6 million self-identified skill entries** were added across student profiles from launch onward, including **one million in the first eight months**. That represents cumulative additions, **not 3.6 million distinct skill names or 3.6 million users**.\n\nAlong the way, redesigned access drove an **eightfold increase in weekly unique Skills Profile visitors** at the 2023 launch, while experiments and contextual skill suggestions showed ways to help students contribute information with less friction.\n\nI was designing toward a larger outcome: helping students see the skills and experience they were building during their education and put them to use in pursuing career opportunities."
+            "Career Profile became a growing record of students’ **self-identified skills, academic skills, work and education history, preferences, and saved opportunities**, helping connected career tools work with a fuller picture of each person.\n\nI was designing toward a larger outcome: helping students see the skills and experience they were building during their education and put them to use in pursuing career opportunities."
         },
 
         {
