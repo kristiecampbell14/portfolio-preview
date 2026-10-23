@@ -633,29 +633,6 @@ window.SITE = {
         },
 
         {
-          type: "cards",
-          group: "scale",
-          heading: "The decisions I'd defend again.",
-          items: [
-            {
-              title: "Separating university skills from self-identified",
-              body:
-                "I wanted these to feel different so university-earned skills carried more weight. It was a retention argument as much as a clarity one: staying enrolled visibly added to what you owned."
-            },
-            {
-              title: "Turning off the Persona Experiment",
-              body:
-                "Although it performed really well, it wasn't meant to be a production feature. We took what we learned and made a more meaningful product out of it."
-            },
-            {
-              title: "Removing a Career Advising callout",
-              body:
-                "We added a callout to schedule time with a career advisor, and it only converted at 1.7%. This wasn't the right place for that suggestion, so we replaced it with Career Plan progress instead."
-            }
-          ]
-        },
-
-        {
           type: "impact",
           id: "impact",
           nav: "Impact",
