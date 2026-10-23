@@ -39,8 +39,10 @@
   // Inline nav: mark the section you are actually in. The link list is the
   // source of truth, so a new section in the header joins the spy for free.
   // Story pages build their nav after this file runs, so they call it too;
-  // `onChange` hears about the link that just became current.
-  window.wireNavSpy = function (inlineNav, onChange) {
+  // `onChange` hears about the link that just became current. With
+  // `through`, a section runs on until the next one starts, so anything
+  // between two anchors (an outcome band, say) counts toward the first.
+  window.wireNavSpy = function (inlineNav, onChange, opts = {}) {
     const spy = [...inlineNav.querySelectorAll('a[href^="#"]')]
       .map((a) => ({ a, el: document.getElementById(a.getAttribute("href").slice(1)) }))
       .filter((t) => t.el);
@@ -56,13 +58,15 @@
     // own box never moves and the intro's box stands in for it. It stays out
     // of the running until the layer has crossfaded in, so the hero is not
     // labelled About.
-    const rangeOf = (t) => {
+    const rangeOf = (t, i) => {
       if (introEl && introEl !== t.el && introEl.contains(t.el)) {
         const r = introEl.getBoundingClientRect();
         const travel = Math.max(1, introEl.offsetHeight - window.innerHeight);
         return -r.top / travel >= 0.5 ? r : null;
       }
-      return t.el.getBoundingClientRect();
+      const r = t.el.getBoundingClientRect();
+      const next = spy[i + 1];
+      return opts.through && next ? { top: r.top, bottom: next.el.getBoundingClientRect().top } : r;
     };
 
     let spyQueued = false, last = null;
@@ -70,8 +74,8 @@
       spyQueued = false;
       const vh = window.innerHeight;
       let current = null, most = 0;
-      spy.forEach((t) => {
-        const r = rangeOf(t);
+      spy.forEach((t, i) => {
+        const r = rangeOf(t, i);
         if (!r) return;
         const visible = Math.min(r.bottom, vh) - Math.max(r.top, 0);
         // ties go to the later section, so the nav keeps moving forward

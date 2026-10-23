@@ -101,6 +101,7 @@
 .story-chapters .fig-tag,
 .story-chapters .links__label,
 .story-chapters .decision__num,
+.story-chapters .next-story__label,
 .story-chapters .impact-sec span,
 .story-chapters .try-hint,
 .story-chapters .film__replay {
@@ -506,8 +507,14 @@
 
 .pick__stack img {
   grid-area: 1 / 1;
+  align-self: start;
   opacity: 0;
   transition: opacity .35s var(--ease);
+}
+
+/* screens of different heights: story.js sets the height of the one shown */
+.pick__stack[data-fit] {
+  transition: height .5s var(--ease);
 }
 
 .pick__stack img.is-active {
@@ -517,7 +524,8 @@
 @media (prefers-reduced-motion: reduce) {
 
   .pick__dot,
-  .pick__stack img {
+  .pick__stack img,
+  .pick__stack[data-fit] {
     transition: none;
   }
 }
@@ -582,6 +590,11 @@
   height: 45%;
   pointer-events: none;
   background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+}
+
+/* the crop ends where the form does, so there is nothing to fade into */
+.unfold__rest--plain::after {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -873,6 +886,11 @@
 
 .story-chapters .next-story__bridge {
   color: var(--ink-soft);
+}
+
+/* two next stories share the width, so their titles keep the smaller size */
+.story-chapters .next-story--pair h2 {
+  font-size: clamp(30px, 3.6vw, 52px);
 }
 
 /* ---------------------------------------------------------------------

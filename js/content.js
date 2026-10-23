@@ -147,7 +147,7 @@ window.SITE = {
           label: "Iterate",
           heading: "I gave students a way to pick up where they left off.",
           flow: [
-            "In ongoing interviews, students sometimes tried to find a job they had seen earlier, could not locate it again, and assumed the posting had closed.\n\n**Discovering a job and being ready to apply did not always happen in the same sitting.** Students balanced jobs, classes, and family commitments. They might browse on a lunch break or after a long day, then need time to prepare or tailor a résumé.\n\nI introduced **saved job postings** so students could keep interesting opportunities and return later. During false-door research, students said they expected to find saved postings in **Career Profile**, which informed where the saved list lived.",
+            "In ongoing interviews, students sometimes tried to find a job they had seen earlier, could not locate it again, and assumed the posting had closed.\n\n**Discovering a job and being ready to apply did not always happen in the same sitting.** Students balanced jobs, classes, and family commitments. They might browse on a lunch break or after a long day, then need time to prepare or tailor a resumé.\n\nI introduced **saved job postings** so students could keep interesting opportunities and return later. During false-door research, students said they expected to find saved postings in **Career Profile**, which informed where the saved list lived.",
             {
               width: "inset",
               items: [
@@ -341,7 +341,7 @@ window.SITE = {
         {
           label: "My role",
           body:
-            "Originated the connected-career vision in 2021 and personally owned the design of Career Profile, Job Explorer, and AI Résumé Generator within the **Career Navigator product suite**. I managed the designer responsible for Career Explorer and Career Plan, collaborating on how these products connected. The Career Profile designs, research, experiments, and interaction decisions shown in this case study are my own work."
+            "Originated the connected-career vision in 2021 and personally owned the design of Career Profile, Job Explorer, and AI Resumé Generator within the **Career Navigator product suite**. I managed the designer responsible for Career Explorer and Career Plan, collaborating on how these products connected. The Career Profile designs, research, experiments, and interaction decisions shown in this case study are my own work."
         },
         {
           label: "At a glance",
@@ -373,8 +373,8 @@ window.SITE = {
               maxw: 380,
               image: "assets/stories/career-profile/concept-2021-portfolio.png", w: 788, h: 1152,
               alt:
-                "Two phone screens from the 2021 prototype's Portfolio: academic assignments and personal uploads listed as files, and a menu for papers, skills, badges, résumé and letters.",
-              caption: "Portfolio in the 2021 prototype: academic work, uploads, skills, badges and résumé in one place."
+                "Two phone screens from the 2021 prototype's Portfolio: academic assignments and personal uploads listed as files, and a menu for papers, skills, badges, resumé and letters.",
+              caption: "Portfolio in the 2021 prototype: academic work, uploads, skills, badges and resumé in one place."
             }
           ]
         },
@@ -606,12 +606,12 @@ window.SITE = {
           label: "Scale",
           heading: "I evolved Career Profile into a shared home for information students could use across products.",
           flow: [
-            "The original Portfolio concept was never meant to stop at skills. In 2024, I designed the expansion into **work history, education history, preferences, and saved items**, creating a more complete place for students to manage their career information. These were practical foundations for an ecosystem that would keep growing.\n\nThat choice paid off when the AI Résumé Generator arrived in 2025. Students who had already entered their education and work history could begin a résumé with that information in place. For students entering those details for the first time while creating a résumé, **the résumé flow could write the information back into Career Profile**.",
+            "The original Portfolio concept was never meant to stop at skills. In 2024, I designed the expansion into **work history, education history, preferences, and saved items**, creating a more complete place for students to manage their career information. These were practical foundations for an ecosystem that would keep growing.\n\nThat choice paid off when the AI Resumé Generator arrived in 2025. Students who had already entered their education and work history could begin a resumé with that information in place. For students entering those details for the first time while creating a resumé, **the resumé flow could write the information back into Career Profile**.",
             {
               width: "wide",
               diagram: "connections",
               nodes: [
-                { label: "AI Résumé Generator", src: "assets/stories/ai-resume/resume-intake.png", w: 1400, h: 1123 },
+                { label: "AI Resumé Generator", src: "assets/stories/ai-resume/resume-intake.png", w: 1400, h: 1123 },
                 { label: "Career Profile", src: "assets/stories/career-profile/career-profile-final.png", w: 1320, h: 1265, hub: true },
                 { label: "Job Explorer", src: "assets/stories/job-explorer/cover.png", w: 1920, h: 1080 }
               ],
@@ -619,7 +619,7 @@ window.SITE = {
                 [{ dir: "left", text: "Starts with saved work and education" }, { dir: "right", text: "Writes new details back" }],
                 [{ dir: "right", text: "Skills matched to postings" }]
               ],
-              alt: "Career Profile in the middle, connected both ways to the AI Résumé Generator, which starts from saved work and education and writes new details back, and one way to Job Explorer, which matches profile skills to postings.",
+              alt: "Career Profile in the middle, connected both ways to the AI Resumé Generator, which starts from saved work and education and writes new details back, and one way to Job Explorer, which matches profile skills to postings.",
               caption: "Real screens from each product. Arrows show where profile information goes."
             }
           ]
@@ -659,10 +659,12 @@ window.SITE = {
     {
       slug: "ai-resume",
       title: "AI Resumé Generator",
-      eyebrow: "0→1 AI product · 2025",
-      headline: "The thing standing between our users and a job application was a document they didn't have.",
+      layout: "chapters",
+      eyebrow: "Overview",
+      headline:
+        "I designed AI assistance to help working adults turn their experience into a resumé they could actually use, without giving up control of their story.",
       intro:
-        "The business believed students weren't applying to jobs because they hadn't graduated yet. Interviews said otherwise: they didn't have a resumé. I designed the first student-facing AI product at the university to remove that blocker, and it moved Apply Now further than anything else we shipped.",
+        "Students might find a job they wanted, then lose momentum when they realized they had to create or update a resumé. Some had no accessible document to start from. I designed an experience that helped them get past the blank canvas using the work, education, and skills they could provide through Career Profile.",
 
       role: "Lead product designer",
       year: "2025",
@@ -672,11 +674,18 @@ window.SITE = {
       screen: "assets/work/ai-resume.webp",
       accent: "mint",
 
-      facts: [
-        { label: "Role", value: "Lead / sole product designer" },
-        { label: "Team", value: "Product trio: PM + tech lead + engineering" },
-        { label: "Responsibilities", value: "Discovery, legal partnership, UX/UI, AI interaction" },
-        { label: "Impact", value: ["~21% Apply Now baseline", "55% with a generated resumé", "72% when tailored to the posting"] }
+      overview: [
+        {
+          label: "My role",
+          body:
+            "Sole hands-on product designer for the AI Resumé Generator, from early research and flow exploration through interaction design, launch, and iteration. I partnered with product management, engineering, and career stakeholders as part of the Career Navigator suite."
+        },
+        {
+          label: "At a glance",
+          value: "72%",
+          body:
+            "Among users who downloaded a completed resumé, **55%** of general-job-title users and **72%** of job-posting-tailored users clicked Apply Now, compared with an approximately **21% overall baseline**. These are observed user segments, not causal experiment results."
+        }
       ],
 
       /* the last Career Navigator story, so readers choose: back into the same
@@ -698,127 +707,198 @@ window.SITE = {
 
       blocks: [
         {
-          type: "figure",
-          width: "full",
-          image: "assets/stories/ai-resume/resume-editor.png", w: 1381, h: 1266,
-          alt:
-            "The resumé generator editor: a contents nav for summary, work history, skills and education, a professional summary form with an AI enhancement control, and a live resumé preview with a download button.",
-          caption:
-            "The editor: prefilled from Career Profile, sectioned so people could work in pieces, with AI offered as an assist rather than an author."
-        },
-
-        {
-          type: "statement",
-          quote: "You can't apply to a job if you don't have a resumé.",
-          body:
-            "This opportunity came out of research for another product. While interviewing users about Job Explorer, my product trio kept hearing the same reason for not clicking Apply Now: “I just need to update my resumé.” Or they didn't have one at all.\n\nHistorically the business believed people didn't apply because they thought they had to wait for a degree. The interviews reframed it. Either the jobs weren't interesting—which Job Explorer's personalization was already attacking—or the user was blocked by a missing document. Before this, the only help on offer was a static Word template from a career advisor."
-        },
-
-        {
-          type: "timeline",
-          heading: "From a Word template to a tailored resumé",
-          nodes: [
-            "Static Word templates (Pre-2025)",
-            "Generic job-title resumé (Aug 2025)",
-            "100% scaled launch (Sep 2025)",
-            "Tailored to a Job Explorer posting (Apr 2026)",
-            "resumé-only skill control (Apr 2026)"
+          type: "chapter",
+          group: "discover",
+          nav: "Discover",
+          label: "Discover",
+          heading: "I designed for the moment job-search excitement turned into resumé work.",
+          flow: [
+            "In student interviews and conversations with career advisors, we heard a familiar pattern: working adults could be excited about an opportunity but discouraged by the time it would take to prepare a resumé. Some had lost their old document or only had a copy on a previous computer. Others struggled to describe the work they’d already done.",
+            { label: "The blocker", pull: "You can’t apply to a job if you don’t have a resumé." },
+            "The university already had templates and students already had word processors. **Another blank document wouldn’t solve the problem.** I wanted to help them turn real experience into useful language quickly, while giving career advisors a better starting point for one-on-one feedback rather than asking advisors to build every document from scratch."
           ]
         },
 
         {
-          type: "split",
-          ratio: "50-50",
-          heading: "Most people can't describe their own work.",
-          subhead: "So we stopped asking them to write, and asked them to choose.",
-          body:
-            "The intake asks where you worked, then offers AI-drafted statements about that role for you to select. Recognition is far easier than composition, especially for someone who has never had to translate a job into resumé language.\n\nOne of my favorite fixes on this product had no UI at all. After launch I noticed that clicking “re-generate more items” returned near-duplicates of what the user had already seen. Nothing on screen needed to change; I took it to my engineers and made sure “generate more” genuinely generated new material. The interaction was only as good as what came back.",
-          image: "assets/stories/ai-resume/resume-intake.png", w: 1400, h: 1123,
-          alt:
-            "The resumé intake at the job descriptions step, offering six AI-generated task statements for an Executive Assistant role, two of them selected, with a link to re-generate more items.",
-          caption:
-            "Choose up to six things you actually did, then refine later—selection instead of a blank field."
-        },
-
-        {
-          type: "cards",
-          heading: "Three decisions that shaped the product.",
-          items: [
+          type: "chapter",
+          group: "discover",
+          heading: "I mapped a guided flow around information students could confirm.",
+          flow: [
+            "I researched existing resumé builders and sketched a flow beginning in **Career Profile**. Students could confirm their work history, education, and skills, select a target job title, and get help articulating the responsibilities of roles they’d actually held.\n\n**AI could suggest language; it couldn’t invent a student’s work history, education, or credentials.** I deliberately began with generating a resumé for a general job title. Tailoring to an individual job posting was the longer-term direction, but the general flow was a practical foundation to build and learn from first.",
             {
-              title: "The step we knew would cost us",
-              body:
-                "Tailoring to a specific posting was the goal from the start, but it wasn't buildable for version one. So v1 opened by asking for a target job title—the exact thing our users had told us they couldn't name. We took that cost on purpose to get working resumés into people's hands months earlier, softened it by showing saved job titles, and removed the step entirely once tailoring shipped."
-            },
-            {
-              title: "Skills you can hide without losing",
-              body:
-                "At launch, removing a skill from a resumé removed it from your profile. Not every skill belongs on every resumé, but deleting it shouldn't erase your record of it. With tailored resumés I also separated the two: resumé-only skill control, profile untouched."
-            },
-            {
-              title: "AI with legal in the room",
-              body:
-                "Using AI to draft summaries and job descriptions put us in front of Legal for the entire end-to-end flow. Borrower-defense exposure meant we could never imply a promised job or outcome. We landed on minimal disclaimers placed where they were needed instead of a wall of text."
+              width: "wide",
+              tag: "Early workflow exploration",
+              image: "assets/stories/ai-resume/sketch-flow.png", w: 2255, h: 1963,
+              alt:
+                "Hand-drawn flow sketches. Sticky notes read Generate, What job title?, and confirming work history, skills and education. The frames: a Career Profile resumé page with a Generate button and a list of my resumés; What job title?, with a search field and saved job titles; Work history, marked confirm first; Job responsibilities, asking which statements describe your role at a company, marked repeat for all jobs; Education; Skills, split into skills that align to the job title and other skills; and Review, with a professional summary and regenerate. Margin notes ask how to recommend aligned skills while letting students add others, what to let them edit on review, where to offer AI cleanup, and whether to offer template selection.",
+              caption:
+                "Sketches of the guided flow: start from Career Profile, pick a job title, confirm work history, choose responsibilities for each job, then education, skills and review."
             }
           ]
         },
 
         {
-          type: "annotated",
-          heading: "The funnel made the case better than any argument could.",
-          body:
-            "We compared Apply Now behavior for all Job Explorer visitors against the cohorts who downloaded a resumé, and then against those who downloaded one tailored to the posting they were looking at.",
-          image: "assets/stories/ai-resume/applynow-funnel.png", w: 1089, h: 612,
-          alt:
-            "A FullStory conversion chart comparing Job Explorer Apply Now rates: 20.62% of all real users, 55.38% of users who downloaded a resumé, and 71.67% of users who downloaded a tailored resumé.",
-          caption: "FullStory conversion comparison, past 30 days."
+          type: "chapter",
+          group: "iterate",
+          nav: "Iterate",
+          label: "Iterate",
+          heading: "I made AI suggestions easy to choose, regenerate, or skip.",
+          flow: [
+            "During intake, I designed a step that offered **six suggested responsibilities at a time**, using a student’s job title and employer as context for more relevant language. The smaller set kept the decision manageable, especially on mobile. Students selected only statements that reflected their actual work.\n\n**Regenerating ideas didn’t erase the good ones.** Selected cards stayed at the top while the remaining slots filled with new suggestions. Students could also skip the step entirely and write their own descriptions later in the editor. The goal was to help with a blank canvas, not to decide what was true about someone else’s experience.",
+            {
+              width: "inset",
+              image: "assets/stories/ai-resume/intake-responsibilities.png", w: 870, h: 826,
+              alt:
+                "What did you do as an Assistant Manager at Walmart? Six suggested tasks as cards, two of them selected, a prompt to keep current selections and re-generate more items, and a checkbox to skip this step and write my own.",
+              notes: ["Six suggestions at a time", "Selections kept when regenerating", "Skip and write your own"]
+            }
+          ]
         },
 
         {
-          type: "metrics",
-          items: [
-            { value: "~21%", label: "Apply Now, all visitors" },
-            { value: "55%", label: "Apply Now with a generated resumé" },
-            { value: "72%", label: "Apply Now when tailored to the posting" }
-          ],
-          rule: false,
-          note: "Observed FullStory cohort behavior; not a controlled causal experiment."
+          type: "chapter",
+          group: "iterate",
+          heading: "I gave students a preview before any AI rewrite replaced their words.",
+          flow: [
+            "The editor opened on a **professional summary**. AI provided a first draft based on the student’s information, but the text was directly editable. Students could revise it themselves without using AI again.\n\nFor students who wanted help, I designed **“Use AI to enhance”** as an optional, section-level action. The proposed rewrite appeared separately so they could compare it with what they had, regenerate another suggestion, or explicitly **apply changes**. Their original text wasn’t overwritten simply because they asked for help.",
+            {
+              /* the two editor screenshots, sliced at matching rows: the
+                 expanded one sits 37px left and 3px below the collapsed one */
+              width: "inset",
+              unfold: {
+                w: 878,
+                switchLabel: "Use AI to enhance summary",
+                restFade: false,
+                barClosed: {
+                  src: "assets/stories/ai-resume/summary-bar-closed.png", h: 282,
+                  alt: "The professional summary, a first draft the student can edit directly, above a collapsed Use AI to enhance summary bar."
+                },
+                barOpen: { src: "assets/stories/ai-resume/summary-bar-open.png", h: 282 },
+                panel: {
+                  src: "assets/stories/ai-resume/summary-panel.png", h: 219,
+                  alt: "The expanded bar: a rewritten summary in its own box, with Regenerate and Apply changes. A tooltip says the AI tool helps enhance your writing while preserving your tone and style, and to review the AI-generated rewrite carefully for accuracy."
+                },
+                rest: { src: "assets/stories/ai-resume/summary-rest.png", h: 100 }
+              },
+              notes: ["Optional, section by section", "Rewrite shown separately", "Nothing changes until Apply changes"]
+            },
+            "I used the same pattern in work history. Even students who opted out of AI-generated responsibilities during intake could still request help polishing their own writing in the editor.",
+            {
+              width: "inset",
+              image: "assets/stories/ai-resume/editor-workhistory-ai.png", w: 862, h: 944,
+              alt:
+                "Edit work history for an Assistant Manager at Walmart: the student’s six-bullet description, and below it Use AI to enhance job tasks, expanded, with a rewritten list, Regenerate and Apply changes.",
+              caption: "Work history, with a rewrite of the job tasks open under the student’s own description."
+            }
+          ]
         },
 
         {
-          type: "annotated",
-          heading: "Shipped, then watched.",
-          body:
-            "The resumé generator got its own dashboard from day one, so adoption, drop-off and download behavior were visible without waiting for a readout.",
-          align: "center",
-          video: "assets/stories/ai-resume/Dashboard Zoom_Resume.mp4", w: 1280, h: 720,
-          alt:
-            "A screen recording panning across the resumé generator FullStory dashboard: unique visitors, traffic over 90 days, and the engagement and download funnel cards.",
-          callouts: [
-            "Adoption and unique visitors",
-            "Intake step drop-off",
-            "Download completion",
-            "Apply Now by cohort"
+          type: "chapter",
+          group: "scale",
+          nav: "Scale",
+          label: "Scale",
+          heading: "I expanded the same flow from a general job title to a real posting.",
+          flow: [
+            "The first version helped students create a resumé for a target job title from Career Profile. When we added job-specific tailoring, I retained the familiar intake and editor while using the **actual job posting** to shape suggestions. Students no longer had to provide the target title separately, and the work-history prompts could draw on details from the opportunity rather than relying only on generic occupational context.\n\nI also designed a layered skills selection: **skills already on the student’s profile that matched the posting**, additional skills named in the posting, and broader job-title skills as a fallback when descriptions offered little detail. Students could review and adjust the selection, balancing relevance with a resumé that wasn’t overloaded or too sparse.",
+            {
+              width: "wide",
+              toggle: {
+                switchLabel: "Skills step",
+                auto: true,
+                states: [
+                  {
+                    name: "Job title",
+                    src: "assets/stories/ai-resume/skills-jobtitle.png", w: 1278, h: 817,
+                    alt: "Let’s review your skills, for a target job title: six skills to highlight on the resumé, selected, and common skills for Assistant Managers to add. The steps start with Target title.",
+                    caption: "For a job title: skills that often appear in postings for that title, with more to add."
+                  },
+                  {
+                    name: "Job posting",
+                    src: "assets/stories/ai-resume/skills-jobposting.png", w: 1278, h: 1001,
+                    alt: "Let’s review your skills, for a job posting: seven Career Profile skills that match the posting, selected; additional skills from this job posting; and common skills for General Managers. The steps start with Work history, with no Target title step.",
+                    caption: "For a posting: matching profile skills first, then skills the posting names, then common skills for the title. No Target title step."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          type: "chapter",
+          group: "scale",
+          heading: "I placed resumé creation at the moment a student found a job.",
+          flow: [
+            "I added **“Generate resumé”** to the shared job-description experience. From Job Explorer, and from other Career Navigator surfaces using those same job-description components, a student could begin tailoring directly to an opportunity instead of leaving to find a separate tool.\n\nThis built on the connected-product foundation: **Career Profile supplied information the student had already shared**, and new work or education details entered through the resumé flow could be written back for future use.",
+            {
+              width: "inset",
+              image: "assets/stories/ai-resume/je-generate-resume.png", w: 732, h: 590,
+              alt: "A Job Explorer posting for CERIS Ops Supervisor at CorVel, with Apply now and, under it, Generate resumé, above the possible skills for the job and the student’s Skills Profile matches.",
+              caption: "Generate resumé, right under Apply now on a Job Explorer posting."
+            }
+          ]
+        },
+
+        {
+          type: "chapter",
+          group: "impact",
+          nav: "Impact",
+          label: "Impact",
+          heading: "I shipped the experience, then kept watching it.",
+          flow: [
+            "The launch wasn’t the end of my work. I monitored product behavior in FullStory and used the evidence to evaluate the flow and the connection between resumé completion and job exploration, rather than judging the feature by generator entry clicks alone.",
+            {
+              width: "wide",
+              video: "assets/stories/ai-resume/Dashboard Zoom_Resume.mp4", w: 1280, h: 720,
+              alt:
+                "A screen recording panning across the resumé generator FullStory dashboard: unique visitors, traffic over 90 days, and the engagement and download funnel cards.",
+              notes: ["Adoption and unique visitors", "Intake step drop-off", "Download completion", "Apply Now by cohort"]
+            }
+          ]
+        },
+
+        {
+          type: "chapter",
+          group: "impact",
+          heading: "I measured completed resumé downloads, not curiosity clicks.",
+          flow: [
+            "I wanted to understand whether people who finished making a resumé went on to pursue opportunities. So I used **downloads of completed resumés** as the meaningful completion signal rather than counting people who simply opened the generator or reached the editor.\n\nFullStory tracked the general-job-title and job-posting-tailored workflows with separate identifiers.",
+            {
+              width: "inset",
+              image: "assets/stories/ai-resume/applynow-funnel.png", w: 1089, h: 612,
+              alt:
+                "A FullStory conversion chart comparing Job Explorer Apply Now rates: 20.62% of all real users, 55.38% of users who downloaded a resumé, and 71.67% of users who downloaded a tailored resumé.",
+              caption: "FullStory conversion comparison, past 30 days."
+            }
           ]
         },
 
         {
           type: "impact",
-          heading: "The largest single move in Apply Now we ever made.",
-          primary: { value: "72%", label: "Apply Now when the resumé was tailored to the posting" },
+          label: "Apply Now, by cohort",
+          heading: "Finishing a usable resumé was closely associated with clicking Apply Now.",
+          primary: {
+            value: "72%",
+            label: "of users who downloaded a resumé tailored to a specific job posting clicked Apply Now"
+          },
           secondary: [
-            { value: "55%", label: "with a resumé generated for a target job title" },
-            { value: "~21%", label: "baseline across all visitors" }
+            { value: "55%", label: "downloaded a general-job-title resumé" },
+            { value: "~21%", label: "overall Job Explorer baseline" }
           ],
           body:
-            "No other release moved Job Explorer's Apply Now rate this far. It confirmed the reframe the whole product rested on: the barrier was never belief or timing, it was a missing document. This was also the first student-facing AI product at the university, and it set the interaction and disclosure patterns that later AI tools followed."
+            "**The relationship was strong, but observational.** People who completed a resumé may already have been more motivated to apply, and a downloaded document doesn’t prove which file they eventually used. We also didn’t establish that the two downloader segments were mutually exclusive."
         },
 
         {
-          type: "closing",
-          heading: "What I would have built next",
-          body:
-            "Adoption was the next problem. The tool worked far better than it was known, and awareness was where I'd have spent the following quarter.\n\nAfter that: a holistic review of the whole resumé rather than section-by-section assistance, multiple templates, and extending resumé-only control to work history and education the way we did for skills.",
-          end: "Remove the blocker, and people move on their own."
+          type: "chapter",
+          id: "next",
+          nav: "Next",
+          label: "What I would have built next",
+          heading: "I wanted to move from a functional resumé to one that felt personal and had been reviewed as a whole.",
+          flow: [
+            "**More personal presentation.** The first release had one basic template, a necessary MVP cut. I wanted to explore AI-generated templates shaped by how students described their preferred style, personality, or professional presentation, instead of relying on a fixed library of designs that would become dated.\n\n**A holistic review, not just section-by-section edits.** Our editor helped students work through individual pieces of a resumé, but it didn’t evaluate the whole document. I envisioned using **Super Phoebe**, our proposed agentic career companion, to review the complete resumé for clarity, consistency, and opportunities to strengthen it. That could provide useful guidance while a student waited for or prepared for a career-advisor appointment.\n\nNeither direction shipped as part of this work. Both came from the same ambition: **help students create something useful, make it their own, and feel more confident putting it in front of an employer.**"
+          ]
         }
       ]
     },

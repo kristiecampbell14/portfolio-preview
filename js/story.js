@@ -147,9 +147,6 @@
     }
   };
 
-  /* One screenshot that opens the way the product does: the bar, a panel
-     that unfolds under it, and the content it pushes down. Built from two
-     real states sliced at the same lines, so nothing in between is drawn. */
   /* A pill switch with a "Try it" arrow beside it. Without the arrow a
      switch reads as a label, not something to press. */
   const tryControls = (label, buttons) => `<div class="fig-controls">
@@ -160,11 +157,16 @@
         </p>
       </div>`;
 
+  /* One screenshot that opens the way the product does: the bar, a panel
+     that unfolds under it, and the content it pushes down. Built from two
+     real states sliced at the same lines, so nothing in between is drawn.
+     `rest` fades out at the bottom, as if the page carries on, unless
+     `restFade` is false. */
   function unfoldPlate(u) {
     const im = (s, cls) =>
       `<img${cls ? ` class="${cls}"` : ""} src="${e(s.src)}" alt="${e(s.alt || "")}" width="${u.w}" height="${s.h}" loading="lazy" decoding="async" />`;
     return `${tryControls(
-        "AI summary",
+        u.switchLabel || "AI summary",
         `<button type="button" aria-pressed="true" data-unfold-to="closed">Collapsed</button>
          <button type="button" aria-pressed="false" data-unfold-to="open">Expanded</button>`
       )}
@@ -174,8 +176,34 @@
           ${im(u.barOpen, "unfold__bar-open")}
         </div>
         <div class="unfold__panel" aria-hidden="true"><div>${im(u.panel)}</div></div>
-        <div class="unfold__rest">${im(u.rest)}</div>
+        <div class="unfold__rest${u.restFade === false ? " unfold__rest--plain" : ""}">${im(u.rest)}</div>
       </div>`;
+  }
+
+  /* Two or more real screens of the same step, one at a time, behind the
+     same switch. Screens of different heights resize the plate between
+     them rather than leaving a gap. With `auto`, it moves to the next
+     screen once on its own, the way the unfold opens itself. */
+  function toggleHTML(t) {
+    const start = t.start || 0;
+    const first = t.states[start];
+    const imgs = t.states
+      .map(
+        (s, i) => `<img class="${i === start ? "is-active" : ""}" src="${e(s.src)}" alt="${e(s.alt)}"
+          width="${s.w}" height="${s.h}" loading="lazy" decoding="async"${i === start ? "" : ' aria-hidden="true"'} />`
+      )
+      .join("");
+    return `<figure class="chapter__fig pick__answer" data-pick-root${t.auto ? " data-auto" : ""}>
+      ${t.label ? `<p class="chapter__fig-label">${e(t.label)}</p>` : ""}
+      ${tryControls(
+        t.switchLabel || "Compare",
+        t.states
+          .map((s, i) => `<button type="button" aria-pressed="${i === start}" data-pick="${i}" data-caption="${e(s.caption || "")}">${e(s.name)}</button>`)
+          .join("")
+      )}
+      <div class="plate pick__stack" data-fit style="aspect-ratio:${first.w} / ${first.h}">${imgs}</div>
+      <figcaption class="story-caption" data-pick-caption aria-live="polite">${e(first.caption || "")}</figcaption>
+    </figure>`;
   }
 
   /* A real question and its real answers. The rows of the question screenshot
@@ -261,6 +289,7 @@
       </div>`;
     if (f.carousel) return `<div class="chapter__media chapter__media--wide">${galleryHTML(f)}</div>`;
     if (f.picker) return `<div class="chapter__media chapter__media--wide">${pickerHTML(f.picker)}</div>`;
+    if (f.toggle) return `<div class="chapter__media chapter__media--${e(f.width || "wide")}">${toggleHTML(f.toggle)}</div>`;
     const items = f.items || [f];
     const ratio = f.ratio ? ` chapter__media--${e(f.ratio)}` : "";
     /* `stack` puts the items one under another, at one shared width */
@@ -714,39 +743,73 @@
     });
   }
 
-  /* Pickers: a row in the question or a button on the switch shows that
-     answer. Nothing changes on its own, since a reader is mid-sentence;
-     the arrow nudges once instead, when the pair comes into view. */
+  /* Pickers and toggles: a row in the question, or a button on the switch,
+     shows that screen. A picker never changes on its own, since a reader is
+     mid-sentence; the arrow nudges once instead, when it comes into view. A
+     toggle marked `data-auto` moves to its next screen once first. Either
+     only acts if it is still on screen after the pause, so a nav jump that
+     merely passes it changes nothing. */
   function wirePickers(scope) {
     scope.querySelectorAll("[data-pick-root]").forEach((root) => {
       const rows = [...root.querySelectorAll(".pick__row")];
       const btns = [...root.querySelectorAll(".fig-switch [data-pick]")];
       const imgs = [...root.querySelectorAll(".pick__stack img")];
+      const stack = root.querySelector(".pick__stack");
       const cap = root.querySelector("[data-pick-caption]");
+      const fit = stack.hasAttribute("data-fit");
+      let current = Math.max(0, btns.findIndex((b) => b.getAttribute("aria-pressed") === "true"));
+      let touched = false;
+
+      /* screens of different heights: the plate takes the height of the one shown */
+      const size = () => {
+        if (!fit) return;
+        const im = imgs[current];
+        stack.style.height = `${(stack.clientWidth * +im.getAttribute("height")) / +im.getAttribute("width")}px`;
+      };
       const select = (i) => {
+        current = i;
         const row = rows[i];
-        root.style.setProperty("--dot-x", row.dataset.dotX);
-        root.style.setProperty("--dot-y", row.dataset.dotY);
+        if (row) {
+          root.style.setProperty("--dot-x", row.dataset.dotX);
+          root.style.setProperty("--dot-y", row.dataset.dotY);
+        }
         [...rows, ...btns].forEach((b) => b.setAttribute("aria-pressed", String(+b.dataset.pick === i)));
         imgs.forEach((im, k) => {
           im.classList.toggle("is-active", k === i);
           if (k === i) im.removeAttribute("aria-hidden");
           else im.setAttribute("aria-hidden", "true");
         });
-        if (cap) cap.textContent = row.dataset.caption;
+        if (cap) cap.textContent = (row || btns[i]).dataset.caption;
+        size();
       };
-      [...rows, ...btns].forEach((b) => b.addEventListener("click", () => select(+b.dataset.pick)));
+      [...rows, ...btns].forEach((b) =>
+        b.addEventListener("click", () => {
+          touched = true;
+          select(+b.dataset.pick);
+        })
+      );
+      if (fit) {
+        stack.style.aspectRatio = "auto";
+        size();
+        window.addEventListener("resize", size);
+      }
 
       if (!("IntersectionObserver" in window)) return;
+      const auto = root.hasAttribute("data-auto") && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let timer = 0;
       const io = new IntersectionObserver(
         (entries) => {
+          clearTimeout(timer);
           if (!entries.some((entry) => entry.isIntersecting)) return;
-          io.disconnect();
-          setTimeout(() => root.classList.add("is-nudged"), 600);
+          timer = setTimeout(() => {
+            io.disconnect();
+            if (auto && !touched) select((current + 1) % btns.length);
+            setTimeout(() => root.classList.add("is-nudged"), auto ? 1000 : 0);
+          }, auto ? 900 : 600);
         },
         { threshold: 0.5 }
       );
-      io.observe(root.querySelector(".pick__answer"));
+      io.observe(root.querySelector(".pick__answer") || root);
     });
   }
 
@@ -791,10 +854,14 @@
     nav.innerHTML = `<ul>${links.map((l) => `<li><a href="#${e(l.id)}">${e(l.nav)}</a></li>`).join("")}</ul>`;
     header.insertBefore(nav, header.querySelector(".close-link"));
     document.documentElement.classList.add("has-story-nav");
-    window.wireNavSpy(nav, (a) => {
-      if (!a || nav.scrollWidth <= nav.clientWidth) return;
-      nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
-    });
+    window.wireNavSpy(
+      nav,
+      (a) => {
+        if (!a || nav.scrollWidth <= nav.clientWidth) return;
+        nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
+      },
+      { through: true }
+    );
   }
 
   function render() {
