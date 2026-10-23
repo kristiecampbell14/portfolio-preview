@@ -691,13 +691,18 @@
       });
 
       if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      /* a beat first, so the closed state registers before it opens; once
+         it has, the "try it" arrow nudges toward the switch. It only opens if
+         it is still on screen by then: a nav jump that merely passes it would
+         otherwise grow the page above wherever the jump lands. */
+      let timer = 0;
       const io = new IntersectionObserver(
         (entries) => {
-          if (!entries.some((entry) => entry.isIntersecting)) return;
-          io.disconnect();
-          /* a beat first, so the closed state registers before it opens; once
-             it has, the "try it" arrow nudges toward the switch */
-          setTimeout(() => {
+          const onScreen = entries.some((entry) => entry.isIntersecting);
+          clearTimeout(timer);
+          if (!onScreen) return;
+          timer = setTimeout(() => {
+            io.disconnect();
             if (touched) return;
             set(true);
             setTimeout(() => fig.classList.add("is-nudged"), 1000);

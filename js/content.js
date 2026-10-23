@@ -67,7 +67,7 @@ window.SITE = {
     {
       slug: "job-explorer",
       title: "Job Explorer",
-      /* chapters: numbered sections with anchors, a section nav in the bar,
+      /* chapters: anchored sections (grouped under the six nav items), a nav in the bar,
          and the reduced type scale in css/story-chapters.css */
       layout: "chapters",
       eyebrow: "Overview",
@@ -108,9 +108,9 @@ window.SITE = {
       blocks: [
         {
           type: "chapter",
-          id: "discover",
+          group: "discover",
           nav: "Discover",
-          label: "01 · Discover",
+          label: "Discover",
           heading: "I designed discovery around what students knew, not the titles they had to guess.",
           flow: [
             "My PM and I interviewed students about the **last time they searched for or applied to a job**. Many described typing broad terms like “remote jobs” or “entry-level jobs” into search engines and job boards. They often knew their constraints, but not the occupations their education was preparing them for.\n\nRather than require a search term, I designed a feed using occupational categories already associated with each student’s academic program. We used **Standard Occupational Classification (SOC)** mappings from Lightcast to surface program-aligned jobs, then showed possible matches to skills earned in class and, later, skills students identified through work history.",
@@ -142,9 +142,9 @@ window.SITE = {
 
         {
           type: "chapter",
-          id: "return",
-          nav: "Return",
-          label: "02 · Return",
+          group: "iterate",
+          nav: "Iterate",
+          label: "Iterate",
           heading: "I gave students a way to pick up where they left off.",
           flow: [
             "In ongoing interviews, students sometimes tried to find a job they had seen earlier, could not locate it again, and assumed the posting had closed.\n\n**Discovering a job and being ready to apply did not always happen in the same sitting.** Students balanced jobs, classes, and family commitments. They might browse on a lunch break or after a long day, then need time to prepare or tailor a résumé.\n\nI introduced **saved job postings** so students could keep interesting opportunities and return later. During false-door research, students said they expected to find saved postings in **Career Profile**, which informed where the saved list lived.",
@@ -169,9 +169,7 @@ window.SITE = {
 
         {
           type: "chapter",
-          id: "observe",
-          nav: "Observe",
-          label: "03 · Observe",
+          group: "iterate",
           heading: "I used behavioral data to decide where to look next.",
           flow: [
             "Job Explorer was never a launch-and-leave product. I continued interviewing students about what they had actually done in the product and used **FullStory behavioral data** to spot patterns worth investigating.\n\n**The dashboard did not tell us what to design. It told us where to look.** Interviews helped explain what was happening; behavioral data helped us decide which questions deserved attention as we kept iterating.",
@@ -187,9 +185,7 @@ window.SITE = {
 
         {
           type: "chapter",
-          id: "connect",
-          nav: "Connect",
-          label: "04 · Connect",
+          group: "iterate",
           heading: "I aligned job discovery with the careers students were actually targeting.",
           flow: [
             "When Career Plan introduced the ability to **target** a career, Job Explorer still filtered jobs using careers students had only **saved as interests**. I recognized the disconnect between the products and decided to change the filter.\n\nI replaced the saved-careers dropdown with an **“In My Career Plan” toggle** that used occupations associated with the student’s targeted career and job titles. Program-aligned jobs remained the default to meet compliance requirements. Students could choose the Career Plan view and save that preference in Career Profile.\n\nThe underlying job lists sometimes overlapped. The value was giving students control to explore the career they were actively pursuing, not just careers they had liked.",
@@ -204,9 +200,7 @@ window.SITE = {
 
         {
           type: "chapter",
-          id: "clarify",
-          nav: "Clarify",
-          label: "05 · Clarify",
+          group: "iterate",
           heading: "I introduced AI summaries to make inconsistent job descriptions easier to evaluate.",
           flow: [
             "Our job descriptions came from Lightcast, and the underlying content often arrived with confusing labels and unreliable structure. We repeatedly pursued cleaner source data. I also suggested formatting templates for the major job boards in the feed, but that path was more complex to maintain.\n\n**I proposed AI-generated summaries** as a practical way to organize information we could not fix at the source. I made the experience **optional and collapsed by default**, while keeping the original job description immediately below it so students could verify the source and decide for themselves.\n\nDuring proof-of-concept work, engineering developed four summary categories: **compensation and benefits, requirements and qualifications, skills, and responsibilities**. Engineering evaluated output quality and hallucination risk. I liked the structure and we used it in the experience.",
@@ -246,9 +240,9 @@ window.SITE = {
 
         {
           type: "chapter",
-          id: "scale",
+          group: "scale",
           nav: "Scale",
-          label: "06 · Scale",
+          label: "Scale",
           heading: "I designed a reusable job-card system that worked across Career Navigator.",
           flow: [
             "Job opportunities eventually appeared in more Career Navigator experiences, not only inside Job Explorer. I personally designed the **job-card component library, its states and variants, and the rules for how cards behaved in different contexts**.\n\n**Inside Job Explorer**, selecting a job card worked like choosing a tab: the details changed in the adjacent pane so students could browse without leaving the page. **Elsewhere in Career Navigator**, selecting a card opened a job-description modal so students could examine an opportunity without losing their place.",
@@ -297,9 +291,9 @@ window.SITE = {
 
         {
           type: "impact",
-          id: "outcome",
-          nav: "Outcome",
-          label: "07 · Outcome",
+          id: "impact",
+          nav: "Impact",
+          label: "Impact",
           heading: "Five years of iteration helped move Apply Now from 6% to 25%.",
           primary: {
             value: "6% → 25%",
