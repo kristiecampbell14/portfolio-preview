@@ -739,9 +739,9 @@ window.SITE = {
 
         {
           type: "chapter",
-          group: "iterate",
-          nav: "Iterate",
-          label: "Iterate",
+          group: "design",
+          nav: "Design",
+          label: "Design",
           heading: "I made AI suggestions easy to choose, regenerate, or skip.",
           flow: [
             "During intake, I designed a step that offered **six suggested responsibilities at a time**, using a student’s job title and employer as context for more relevant language. The smaller set kept the decision manageable, especially on mobile. Students selected only statements that reflected their actual work.\n\n**Regenerating ideas didn’t erase the good ones.** Selected cards stayed at the top while the remaining slots filled with new suggestions. Students could also skip the step entirely and write their own descriptions later in the editor. The goal was to help with a blank canvas, not to decide what was true about someone else’s experience.",
@@ -757,15 +757,15 @@ window.SITE = {
 
         {
           type: "chapter",
-          group: "iterate",
+          group: "design",
           heading: "I gave students a preview before any AI rewrite replaced their words.",
           flow: [
             "The editor opened on a **professional summary**. AI provided a first draft based on the student’s information, but the text was directly editable. Students could revise it themselves without using AI again.",
             {
               width: "wide",
-              image: "assets/stories/ai-resume/editor-full.png", w: 1381, h: 1140,
+              image: "assets/stories/ai-resume/editor-full.png", w: 1611, h: 1150,
               alt:
-                "The resumé editor for a Director of Operations posting: a resumé contents list for summary, work history, skills and education, a professional summary form with an editable AI-drafted summary and a collapsed Use AI to enhance summary bar, and a live resumé preview with a Download button.",
+                "The resumé editor for Assistant Managers: a resumé contents list for summary, work history, skills and education, a professional summary form with an editable AI-drafted summary and a collapsed Use AI to enhance summary bar, and a live resumé preview with a Download button.",
               caption: "The editor: one section at a time, a live preview beside it, and Download when the student is ready."
             },
             "For students who wanted help, I designed **“Use AI to enhance”** as an optional, section-level action. The proposed rewrite appeared separately so they could compare it with what they had, regenerate another suggestion, or explicitly **apply changes**. Their original text wasn’t overwritten simply because they asked for help.",
