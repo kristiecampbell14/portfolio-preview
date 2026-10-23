@@ -190,7 +190,7 @@
       <a class="card" href="story.html?id=${encodeURIComponent(p.slug)}">
         ${window.browserMock(p, p.cover)}
         <div class="card__meta">
-          <div><h3>${e(p.title)}</h3><p>${e(p.role)} · ${e(p.year)}</p></div>
+          <div><h3>${e(p.title)}</h3><p>${e(p.tagline)}</p></div>
           <span class="card__arrow" aria-hidden="true">→</span>
         </div>
       </a>`).join("");

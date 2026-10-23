@@ -116,7 +116,7 @@ function buildUI(stories) {
   ui.sync = () => {
     const s = stories[ui.active];
     ui.title.textContent = s.title;
-    ui.sub.textContent = `${s.role} · ${s.year}`;
+    ui.sub.textContent = s.tagline;
     ui.meta.href = `story.html?id=${encodeURIComponent(s.slug)}`;
     ui.dots.forEach((b, i) => b.setAttribute("aria-current", String(i === ui.active)));
     ui.prev.disabled = ui.active === 0;

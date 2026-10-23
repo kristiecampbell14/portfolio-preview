@@ -76,10 +76,10 @@ window.SITE = {
       intro:
         "The university needed to replace a retiring third-party job board. I worked with my product manager to turn that requirement into something more meaningful for working adults who did not always know which job titles to search for.",
 
-      /* card in the Work carousel */
+      /* card in the Work carousel; the tagline is the line under its title */
       role: "Lead product designer",
       year: "2021–2026",
-      tagline: "A job feed with no search bar, for people who don't know what to type.",
+      tagline: "A searchless job feed that helps students discover, save, and evaluate jobs.",
       cover: "assets/stories/job-explorer/cover.png",
       device: "monitor",
       screen: "assets/work/job-explorer.webp",
@@ -331,7 +331,7 @@ window.SITE = {
 
       role: "Lead product designer",
       year: "2021–2026",
-      tagline: "One place to keep your career data, and many places it pays off.",
+      tagline: "One shared profile of skills and experience behind the Career Navigator suite.",
       cover: "assets/stories/career-profile/career-profile-final.png",
       device: "laptop",
       screen: "assets/work/career-profile.webp",
@@ -668,7 +668,7 @@ window.SITE = {
 
       role: "Lead product designer",
       year: "2025",
-      tagline: "The first student-facing AI product, aimed at the one blocker nobody had named.",
+      tagline: "AI that helps working adults turn real experience into a resumé they control.",
       cover: "assets/stories/ai-resume/resume-editor.png",
       device: "laptop",
       screen: "assets/work/ai-resume.webp",
@@ -916,7 +916,7 @@ window.SITE = {
 
       role: "Lead UX designer",
       year: "2018–2020",
-      tagline: "A kiosk platform redesign, then a custom build for the world's largest storage operator.",
+      tagline: "A self-service rental kiosk, modernized and then custom-built for Public Storage.",
       cover: "assets/stories/kiosk-public-storage/cover.jpg",
       device: "kiosk",
       screen: "assets/work/kiosk-home.webp",
