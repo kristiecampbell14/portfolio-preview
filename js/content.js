@@ -760,7 +760,15 @@ window.SITE = {
           group: "iterate",
           heading: "I gave students a preview before any AI rewrite replaced their words.",
           flow: [
-            "The editor opened on a **professional summary**. AI provided a first draft based on the student’s information, but the text was directly editable. Students could revise it themselves without using AI again.\n\nFor students who wanted help, I designed **“Use AI to enhance”** as an optional, section-level action. The proposed rewrite appeared separately so they could compare it with what they had, regenerate another suggestion, or explicitly **apply changes**. Their original text wasn’t overwritten simply because they asked for help.",
+            "The editor opened on a **professional summary**. AI provided a first draft based on the student’s information, but the text was directly editable. Students could revise it themselves without using AI again.",
+            {
+              width: "wide",
+              image: "assets/stories/ai-resume/editor-full.png", w: 1381, h: 1140,
+              alt:
+                "The resumé editor for a Director of Operations posting: a resumé contents list for summary, work history, skills and education, a professional summary form with an editable AI-drafted summary and a collapsed Use AI to enhance summary bar, and a live resumé preview with a Download button.",
+              caption: "The editor: one section at a time, a live preview beside it, and Download when the student is ready."
+            },
+            "For students who wanted help, I designed **“Use AI to enhance”** as an optional, section-level action. The proposed rewrite appeared separately so they could compare it with what they had, regenerate another suggestion, or explicitly **apply changes**. Their original text wasn’t overwritten simply because they asked for help.",
             {
               /* the two editor screenshots, sliced at matching rows: the
                  expanded one sits 37px left and 3px below the collapsed one */
@@ -785,9 +793,9 @@ window.SITE = {
             "I used the same pattern in work history. Even students who opted out of AI-generated responsibilities during intake could still request help polishing their own writing in the editor.",
             {
               width: "inset",
-              image: "assets/stories/ai-resume/editor-workhistory-ai.png", w: 862, h: 944,
+              image: "assets/stories/ai-resume/editor-workhistory-ai.png", w: 862, h: 646,
               alt:
-                "Edit work history for an Assistant Manager at Walmart: the student’s six-bullet description, and below it Use AI to enhance job tasks, expanded, with a rewritten list, Regenerate and Apply changes.",
+                "A work history description in the student’s own six bullets, and below it Use AI to enhance job tasks, expanded, with a rewritten list, Regenerate and Apply changes.",
               caption: "Work history, with a rewrite of the job tasks open under the student’s own description."
             }
           ]
@@ -845,7 +853,7 @@ window.SITE = {
           group: "impact",
           nav: "Impact",
           label: "Impact",
-          heading: "I shipped the experience, then kept watching it.",
+          heading: "I measured completed resumé downloads, not curiosity clicks.",
           flow: [
             "The launch wasn’t the end of my work. I monitored product behavior in FullStory and used the evidence to evaluate the flow and the connection between resumé completion and job exploration, rather than judging the feature by generator entry clicks alone.",
             {
@@ -854,18 +862,10 @@ window.SITE = {
               alt:
                 "A screen recording panning across the resumé generator FullStory dashboard: unique visitors, traffic over 90 days, and the engagement and download funnel cards.",
               notes: ["Adoption and unique visitors", "Intake step drop-off", "Download completion", "Apply Now by cohort"]
-            }
-          ]
-        },
-
-        {
-          type: "chapter",
-          group: "impact",
-          heading: "I measured completed resumé downloads, not curiosity clicks.",
-          flow: [
+            },
             "I wanted to understand whether people who finished making a resumé went on to pursue opportunities. So I used **downloads of completed resumés** as the meaningful completion signal rather than counting people who simply opened the generator or reached the editor.\n\nFullStory tracked the general-job-title and job-posting-tailored workflows with separate identifiers.",
             {
-              width: "inset",
+              width: "wide",
               image: "assets/stories/ai-resume/applynow-funnel.png", w: 1089, h: 612,
               alt:
                 "A FullStory conversion chart comparing Job Explorer Apply Now rates: 20.62% of all real users, 55.38% of users who downloaded a resumé, and 71.67% of users who downloaded a tailored resumé.",
