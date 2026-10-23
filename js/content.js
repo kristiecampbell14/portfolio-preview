@@ -895,7 +895,7 @@ window.SITE = {
           id: "next",
           nav: "Next",
           label: "What I would have built next",
-          heading: "I wanted to move from a functional resumé to one that felt personal and had been reviewed as a whole.",
+          heading: "Make it personal. Review it whole.",
           flow: [
             "**More personal presentation.** The first release had one basic template, a necessary MVP cut. I wanted to explore AI-generated templates shaped by how students described their preferred style, personality, or professional presentation, instead of relying on a fixed library of designs that would become dated.\n\n**A holistic review, not just section-by-section edits.** Our editor helped students work through individual pieces of a resumé, but it didn’t evaluate the whole document. I envisioned using **Super Phoebe**, our proposed agentic career companion, to review the complete resumé for clarity, consistency, and opportunities to strengthen it. That could provide useful guidance while a student waited for or prepared for a career-advisor appointment.\n\nNeither direction shipped as part of this work. Both came from the same ambition: **help students create something useful, make it their own, and feel more confident putting it in front of an employer.**"
           ]
