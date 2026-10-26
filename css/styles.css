@@ -638,7 +638,8 @@ body.menu-open {
   position: absolute;
   z-index: 3;
   left: max(var(--gutter), calc((100% - var(--max)) / 2 + var(--gutter)));
-  top: 50%;
+  /* centred in the space under the fixed header, so a tall block can't ride up into it */
+  top: calc(50% + var(--header-h) / 2);
   width: min(44%, 560px);
   opacity: var(--about-o);
   transform: translateY(calc(-50% + var(--about-y)));
@@ -686,13 +687,18 @@ body.menu-open {
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: -0.02em;
-  font-size: clamp(26px, 3vw, 42px);
+  /* the svh term only bites on short laptop screens, where five lines at full size overflow */
+  font-size: clamp(26px, min(3vw, 4.9svh), 42px);
   line-height: 1.12;
+  text-wrap: balance;
   margin-bottom: 20px;
 }
 
 .about-body {
   color: var(--ink-soft);
+  /* full size from ~740px tall; the stage clips, so short screens trade a point of size for fit */
+  font-size: clamp(15px, 2.3svh, 17px);
+  text-wrap: pretty;
   margin-bottom: 14px;
   max-width: 46ch;
 }
@@ -788,16 +794,37 @@ body.menu-open {
     transform: translateY(var(--about-y));
   }
 
+  .about-layer .section-label {
+    margin-bottom: 16px;
+  }
+
   .about-lede {
-    font-size: clamp(24px, 6.6vw, 34px);
+    font-size: clamp(24px, 6.4vw, 34px);
+    margin-bottom: 14px;
   }
 
   .about-body {
     font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .about-layer .text-link {
+    margin-top: 4px;
   }
 
   .scroll-cue {
     display: none;
+  }
+}
+
+@media (max-width: 899px) and (max-height: 700px) {
+  .about-lede {
+    font-size: clamp(22px, 6vw, 34px);
+  }
+
+  .about-body {
+    font-size: 14px;
   }
 }
 
