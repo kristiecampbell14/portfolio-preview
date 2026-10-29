@@ -47,6 +47,13 @@ window.SITE = {
 
   /* -------------------------------------------------------------------
      WORK PASSWORD
+     workPasswordOn is the on/off switch for the whole password.
+       false: no password anywhere. Every story opens for everyone and the
+              "Password protected" badge on the homepage is hidden.
+       true:  the story pages ask for the password (once, for all of them)
+              and the badge comes back. The 3D work space stays open.
+     ?k= links already sent out work either way.
+
      Only a SHA-256 hash of the password is stored, not the password itself.
      Current password: H1R3-KC26 (not case sensitive)
      The gate lower-cases what is typed before hashing, so the hash below is
@@ -55,6 +62,7 @@ window.SITE = {
        await sha256Hex("your new password".toLowerCase())
      and paste the result below.
      ------------------------------------------------------------------- */
+  workPasswordOn: false,
   workPasswordHash: "97d96cda7fcc4a4dd3fa46eead00c090dc72f62bf943f09df1048a381fc35052",
 
   /* -------------------------------------------------------------------

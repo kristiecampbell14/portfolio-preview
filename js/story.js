@@ -517,7 +517,7 @@
         <form class="gate__card" data-gate-form>
           <svg class="gate__icon" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 91,26.5 91,73.5 50,97 9,73.5 9,26.5" /><rect x="36" y="48" width="28" height="22" rx="3" /><path d="M42 48v-7a8 8 0 0 1 16 0v7" /></svg>
           <h1 style="font-size:24px;margin-bottom:10px">This product story is password protected</h1>
-          <p>Enter the password to continue.</p>
+          <p>Enter the password you were given, or <a href="index.html#contact">reach out</a> for access. One password opens every story.</p>
           <div class="gate__row">
             <label class="sr-only" for="pw">Password</label>
             <div class="gate__pw-wrap">

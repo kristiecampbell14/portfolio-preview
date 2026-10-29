@@ -861,9 +861,9 @@ body.menu-open {
 }
 
 /* ---------------------------------------------------------------------
-   Unlocked: the blade becomes a 3D clay space
+   The blade is a 3D clay space, open with or without the password
    js/workspace.js adds the canvas and the bottom overlay. The section head
-   is the same markup as the locked state, recoloured for the dark room.
+   (label + lock badge) is the static markup, recoloured for the dark room.
    --------------------------------------------------------------------- */
 .work--3d {
   position: relative;
@@ -1091,41 +1091,8 @@ body.menu-open {
   }
 }
 
-/* Gate */
-.gate {
-  position: relative;
-  min-height: 440px;
-  display: grid;
-  place-items: center;
-}
-
-.gate__ghosts {
-  position: absolute;
-  inset: 0 var(--gutter);
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  overflow: hidden;
-  filter: blur(6px);
-  opacity: .7;
-  pointer-events: none;
-}
-
-.ghost {
-  flex: 0 0 min(60%, 620px);
-  aspect-ratio: 16 / 10;
-  border-radius: 14px;
-  background: linear-gradient(var(--paper-2) 0 28px, transparent 28px), linear-gradient(135deg, var(--forest), var(--vibrant));
-}
-
-.ghost:nth-child(2) {
-  background: linear-gradient(var(--paper-2) 0 28px, transparent 28px), linear-gradient(135deg, var(--mint), #e3f6ec);
-}
-
-.ghost:nth-child(3) {
-  background: linear-gradient(var(--paper-2) 0 28px, transparent 28px), var(--charcoal);
-}
-
+/* Gate: the password card on the story pages (js/story.js renders it).
+   The work space itself is open to everyone. */
 .gate__card {
   position: relative;
   z-index: 1;
@@ -1153,11 +1120,6 @@ body.menu-open {
   stroke: var(--offwhite);
   stroke-width: 5;
   stroke-linecap: round;
-}
-
-.gate__card h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
 }
 
 .gate__card p {
@@ -3575,7 +3537,7 @@ body.menu-open {
 }
 
 /* ---------------------------------------------------------------------
-   GATE / NOT FOUND (shared with the work carousel gate)
+   GATE / NOT FOUND
    --------------------------------------------------------------------- */
 .project-gate {
   min-height: 100svh;

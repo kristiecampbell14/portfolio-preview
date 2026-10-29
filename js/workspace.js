@@ -4,9 +4,10 @@
    others sit back in the fog. Clay versions of the brand shapes drift through
    the depth.
 
-   This replaces the unlocked Work carousel. main.js still owns the password
-   gate and the badge; it calls mount() once the gate opens, and we call its
-   workCarouselFallback() if the scene can't run (no WebGL, three.js missing).
+   This replaces the Work carousel and is open to everyone; when the password
+   is on, the story page a device opens asks for it. main.js owns the lock badge and
+   calls mount() on load, and we call its workCarouselFallback() if the scene
+   can't run (no WebGL, three.js missing).
 
    Loaded as a module, so it lands after main.js has already run. main.js
    leaves __workMountPending behind for us when that happens. */

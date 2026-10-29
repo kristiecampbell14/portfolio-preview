@@ -15,7 +15,7 @@ Preview: **https://kristiecampbell14.github.io/portfolio-preview/**
 | **Screen textures** | `assets/work/*.webp`, 1600px wide, in place of the 3200px PNGs — 2,074 KB down to 339 KB. `screen:` in `js/content.js` points at them. |
 | **Story hero** | Rebuilt as layers instead of one baked image: a CSS gradient, placed clay marks, and the device as its own transparent PNG (`css/story-hero2.css`, `js/story-hero2.js`, art in `assets/clay/`). |
 | **Resume snapshot** | Section removed, along with its two nav entries. The timeline block in `js/main.js` now waits on its markup being on the page. |
-| **Password** | Same gate as the live site. `?k=<password>` on any link unlocks on arrival, so the link to share is `https://kristiecampbell14.github.io/portfolio-preview/?k=…`. |
+| **Password** | **Off for now.** `workPasswordOn` in `js/content.js` is the switch: set it to `true`, push, and the story pages ask for the password again (once, for all of them) while the 3D work space stays open. `?k=<password>` links keep working either way: `https://kristiecampbell14.github.io/portfolio-preview/?k=…`. |
 | **Analytics** | Same Clarity project as the live site (`js/analytics.js`), since kristiecampbell.com now forwards here. |
 | **Search** | Both pages carry `noindex`. |
 

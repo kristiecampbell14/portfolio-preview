@@ -4,6 +4,8 @@
 
 (function () {
   const KEY = "kc-work-unlocked";
+  // the switch in js/content.js; anything but an explicit false keeps it on
+  const ON = window.SITE.workPasswordOn !== false;
 
   // Pure-JS SHA-256 fallback (crypto.subtle is unavailable on some file:// setups)
   function sha256Fallback(str) {
@@ -78,7 +80,9 @@
   };
 
   window.Gate = {
+    enabled: ON,
     isUnlocked() {
+      if (!ON) return true;
       // Stored value is the hash that unlocked it, not a bare flag, so rotating
       // workPasswordHash invalidates every previously-unlocked visitor automatically
       // (their stored hash no longer matches the current one) with no manual step.
@@ -87,10 +91,12 @@
     },
     async tryUnlock(password) {
       // case-folded before hashing, so the password works however it is typed
-      const hash = await window.sha256Hex(password.trim().toLowerCase());
+      const key = password.trim().toLowerCase();
+      const hash = await window.sha256Hex(key);
       if (hash === window.SITE.workPasswordHash) {
         window.__kcUnlocked = true;
-        store(() => localStorage.setItem(KEY, hash));
+        // whichever story they started on, the next one shouldn't ask again
+        if (!persistUnlock()) carryKeyOnLinks(key);
         return true;
       }
       return false;
@@ -112,13 +118,27 @@
     } catch (e) { /* history API unavailable or blocked */ }
   }
 
+  /* Did the unlock actually persist? Managed browsers and strict privacy
+     settings can block site storage, in which case localStorage keeps
+     nothing and the next page would gate the visitor all over again. */
+  function persistUnlock() {
+    return store(() => {
+      localStorage.setItem(KEY, window.SITE.workPasswordHash);
+      return localStorage.getItem(KEY) === window.SITE.workPasswordHash;
+    });
+  }
+
   /* Storage is unavailable, so the URL has to carry the unlock instead: stamp
      the key onto same-origin links, including the cards main.js and story.js
-     render after this runs. Attribute changes do not re-trigger a childList
-     observer, so rewriting hrefs here cannot loop. */
+     render after this runs, and the work space's story link, whose href
+     changes as the visitor moves between devices. Stamping skips links that
+     already carry the key, so its own href writes settle after one pass.
+     In-page #anchors never leave the page, and stamping them would turn the
+     story nav's jumps into full reloads, so they are left alone. */
   function carryKeyOnLinks(key) {
     const stamp = () => {
       document.querySelectorAll("a[href]").forEach((a) => {
+        if (a.getAttribute("href").startsWith("#")) return;
         let url;
         try { url = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
         if (url.origin !== location.origin || url.searchParams.has("k")) return;
@@ -135,7 +155,9 @@
     stamp();
     document.addEventListener("DOMContentLoaded", stamp);
     try {
-      new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
+      new MutationObserver(schedule).observe(document.documentElement, {
+        childList: true, subtree: true, attributes: true, attributeFilter: ["href"]
+      });
     } catch (e) { /* no MutationObserver */ }
   }
 
@@ -152,17 +174,12 @@
 
     window.__kcUnlocked = true;
 
-    /* Did the unlock actually persist? Managed browsers and strict privacy
-       settings can block site storage, in which case localStorage keeps
-       nothing and the next page would gate the visitor all over again. */
-    const persisted = store(() => {
-      localStorage.setItem(KEY, window.SITE.workPasswordHash);
-      return localStorage.getItem(KEY) === window.SITE.workPasswordHash;
-    });
-
-    if (persisted) {
-      /* Storage carries it from here, so take the password out of the address
-         bar, out of anything copied onward, and out of session replay. */
+    /* Saved even with the password off, so whoever arrived on a key link is
+       still let in if it is switched back on. */
+    if (persistUnlock() || !ON) {
+      /* Storage carries it from here (or nothing needs carrying), so take the
+         password out of the address bar, out of anything copied onward, and
+         out of session replay. */
       stripKey(params);
     } else {
       carryKeyOnLinks(key);

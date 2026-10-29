@@ -121,11 +121,11 @@
   });
 
   /* ===================================================================
-     WORK: password gate + carousel
+     WORK: 3D work space (carousel fallback) + lock badge
+     The work space is open to everyone. With workPasswordOn (js/content.js)
+     the stories behind it are gated: story.html asks for the password, and
+     one unlock opens them all. With it off, the badge stays hidden.
      =================================================================== */
-  const gate = document.querySelector("[data-gate]");
-  const gateForm = document.querySelector("[data-gate-form]");
-  const gateError = document.querySelector("[data-gate-error]");
   const badge = document.querySelector("[data-lock-badge]");
   const carousel = document.querySelector("[data-carousel]");
   const track = carousel.querySelector("[data-track]");
@@ -133,11 +133,11 @@
   const prevBtn = carousel.querySelector("[data-prev]");
   const nextBtn = carousel.querySelector("[data-next]");
 
-  function showWork(focus) {
-    gate.hidden = true;
-    badge.classList.add("is-open");
-    badge.querySelector("span").textContent = "Unlocked";
-    mountWork(focus);
+  function syncBadge() {
+    badge.hidden = !window.Gate.enabled;
+    const open = window.Gate.isUnlocked();
+    badge.classList.toggle("is-open", open);
+    badge.querySelector("span").textContent = open ? "Unlocked" : "Password protected";
   }
 
   // The 3D work space (js/workspace.js) takes it from here. Three ways it can
@@ -168,21 +168,6 @@
     buildCarousel();
     if (focus) track.querySelector(".card")?.focus({ preventScroll: true });
   };
-
-  gateForm.addEventListener("submit", async (ev) => {
-    ev.preventDefault();
-    const input = gateForm.querySelector("input");
-    if (await window.Gate.tryUnlock(input.value)) {
-      gateError.textContent = "";
-      showWork(true);
-    } else {
-      gateError.textContent = "That password didn't work. Try again?";
-      gateForm.classList.remove("shake");
-      void gateForm.offsetWidth;
-      gateForm.classList.add("shake");
-      input.select();
-    }
-  });
 
   let cards = [];
   function buildCarousel() {
@@ -257,7 +242,10 @@
   });
   track.addEventListener("dragstart", (ev) => ev.preventDefault());
 
-  if (window.Gate.isUnlocked()) showWork(false);
+  syncBadge();
+  // coming Back from a story page that just took the password
+  window.addEventListener("pageshow", syncBadge);
+  mountWork(false);
 
   /* ===================================================================
      RESUME TIMELINE
