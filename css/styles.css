@@ -2344,6 +2344,7 @@ body.menu-open {
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--ink-soft);
+  text-wrap: balance;
 }
 
 .footer__marks {
