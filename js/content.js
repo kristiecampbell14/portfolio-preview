@@ -40,7 +40,7 @@ window.SITE = {
     heading: "What's next?",
     body:
       "That's the story so far. If you're building something that needs clarity, craft, and a lot of curiosity, I'd love to hear about it.",
-    status: "Open to principal/staff and leadership roles",
+    status: "Open to senior, staff & principal product design roles",
     emailLabel: "Say hello",
     linkedinLabel: "Connect on LinkedIn"
   },
