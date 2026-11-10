@@ -57,13 +57,15 @@
     </div>`;
   }
 
-  /* a screenshot, optionally clipped when it is very tall (dashboards) */
+  /* a screenshot, optionally clipped when it is very tall (dashboards).
+     `zoom: false` keeps it from offering the enlarged view. */
   function plate(b, eager) {
     if (b.video) return film(b);
     if (!b.image) return "";
     const inner = `<div class="plate__shot">${img(b, eager)}</div>`;
-    if (!b.tall) return `<div class="plate${b.bare ? " plate--bare" : ""}">${inner}</div>`;
-    return `<div class="plate plate--tall">
+    const noZoom = b.zoom === false ? " data-no-zoom" : "";
+    if (!b.tall) return `<div class="plate${b.bare ? " plate--bare" : ""}"${noZoom}>${inner}</div>`;
+    return `<div class="plate plate--tall"${noZoom}>
       ${inner}
       <a class="plate__open" href="${e(b.image)}" target="_blank" rel="noopener">
         Open full screenshot <span aria-hidden="true">↗</span>
@@ -810,6 +812,7 @@
         });
         if (cap) cap.textContent = (row || btns[i]).dataset.caption;
         size();
+        syncZoom();
       };
       [...rows, ...btns].forEach((b) =>
         b.addEventListener("click", () => {
@@ -839,6 +842,154 @@
         { threshold: 0.5 }
       );
       io.observe(root.querySelector(".pick__answer") || root);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     ENLARGE: a screenshot opens on a dark backdrop at full sharpness
+     ------------------------------------------------------------------ */
+
+  /* A screenshot offers to enlarge only when the enlarged view would be
+     clearly bigger than it already is on the page, and it is never drawn
+     past its own pixels (natural size over screen density, up to 2x). So a
+     2x capture opens big and sharp on a laptop, while a small early
+     screenshot already shown at full size doesn't pretend it can. */
+  const ZOOM_GAIN = 1.25;
+  const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let syncZoom = () => {};
+
+  /* a switch's stack shows one of several screens; a plain plate has one */
+  const shownImg = (plate) =>
+    plate.classList.contains("pick__stack") ? plate.querySelector("img.is-active") : plate.querySelector(".plate__shot img");
+
+  function zoomBox(img) {
+    const small = window.innerWidth < 600;
+    const padX = small ? 12 : 72;
+    const padY = small ? 64 : 56;
+    const density = Math.min(window.devicePixelRatio || 1, 2);
+    const maxW = img.naturalWidth / density;
+    const maxH = img.naturalHeight / density;
+    const scale = Math.min((window.innerWidth - padX * 2) / maxW, (window.innerHeight - padY * 2) / maxH, 1);
+    return { w: Math.round(maxW * scale), h: Math.round(maxH * scale) };
+  }
+
+  /* one dialog for the page, so only one screenshot is ever open */
+  let lightbox = null;
+  function getLightbox() {
+    if (lightbox) return lightbox;
+    const dialog = document.createElement("dialog");
+    dialog.className = "lightbox";
+    dialog.tabIndex = -1;
+    dialog.setAttribute("aria-label", "Enlarged screenshot");
+    dialog.innerHTML = `<button type="button" class="lightbox__close" aria-label="Close">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M15 5 5 15M5 5l10 10" /></svg>
+      </button>
+      <img class="lightbox__img" alt="" />`;
+    document.body.appendChild(dialog);
+    const big = dialog.querySelector(".lightbox__img");
+    let from = null;
+    let timer = 0;
+
+    const size = () => {
+      const img = from && shownImg(from);
+      if (!img) return;
+      const { w, h } = zoomBox(img);
+      big.style.width = `${w}px`;
+      big.style.height = `${h}px`;
+    };
+    /* `byKey`: opened from the keyboard, so focus lands on Close; a mouse
+       or touch opening focuses the dialog itself, with no ring to explain */
+    const open = (plate, byKey) => {
+      const img = shownImg(plate);
+      if (!img) return;
+      from = plate;
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      size();
+      clearTimeout(timer);
+      dialog.classList.remove("is-in");
+      /* the page can't scroll behind it; padding stands in for the
+         scrollbar it hides, so nothing behind shifts sideways */
+      const root = document.documentElement;
+      root.style.setProperty("--scrollbar-w", `${window.innerWidth - root.clientWidth}px`);
+      root.classList.add("lightbox-open");
+      dialog.showModal();
+      (byKey ? dialog.querySelector(".lightbox__close") : dialog).focus();
+      if (reducedMotion()) dialog.classList.add("is-in");
+      else requestAnimationFrame(() => requestAnimationFrame(() => dialog.classList.add("is-in")));
+    };
+    const close = () => {
+      if (!dialog.open) return;
+      dialog.classList.remove("is-in");
+      clearTimeout(timer);
+      timer = setTimeout(() => dialog.close(), reducedMotion() ? 0 : 200);
+    };
+
+    /* Esc, the close button, or anywhere on the backdrop; focus goes back
+       to the screenshot's own button */
+    dialog.addEventListener("cancel", (ev) => {
+      ev.preventDefault();
+      close();
+    });
+    dialog.addEventListener("click", (ev) => {
+      if (ev.target === dialog) close();
+    });
+    /* Close is the only control, so Tab stays on it instead of wandering off */
+    dialog.addEventListener("keydown", (ev) => {
+      if (ev.key !== "Tab") return;
+      ev.preventDefault();
+      dialog.querySelector(".lightbox__close").focus();
+    });
+    dialog.querySelector(".lightbox__close").addEventListener("click", close);
+    dialog.addEventListener("close", () => {
+      document.documentElement.classList.remove("lightbox-open");
+      const back = from && from.querySelector(".zoom-btn");
+      from = null;
+      big.removeAttribute("src");
+      if (back && !back.hidden) back.focus({ preventScroll: true });
+    });
+    window.addEventListener("resize", () => dialog.open && size());
+
+    lightbox = { open };
+    return lightbox;
+  }
+
+  function wireZoom(scope) {
+    /* recordings, placeholders, figures whose clicks already do something,
+       and screenshots marked `zoom: false` stay as they are */
+    const plates = [...scope.querySelectorAll(".plate")].filter(
+      (p) => !p.matches(".plate--film, .plate--pending, .unfold__plate, .pick__plate, [data-no-zoom]") && p.querySelector("img")
+    );
+    if (!plates.length) return;
+
+    const sync = (p) => {
+      const img = shownImg(p);
+      const ok = !!img && img.complete && img.naturalWidth > 0 &&
+        zoomBox(img).w >= img.getBoundingClientRect().width * ZOOM_GAIN;
+      p.classList.toggle("is-zoomable", ok);
+      p.querySelector(".zoom-btn").hidden = !ok;
+    };
+    plates.forEach((p) => {
+      p.insertAdjacentHTML(
+        "beforeend",
+        `<button type="button" class="zoom-btn" aria-haspopup="dialog" aria-label="Enlarge screenshot" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-6.5 6.5M10 20H4v-6M4 20l6.5-6.5" /></svg>
+        </button>`
+      );
+      p.querySelectorAll("img").forEach((im) => im.addEventListener("load", () => sync(p)));
+    });
+    syncZoom = () => plates.forEach(sync);
+    syncZoom();
+    let frame = 0;
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(syncZoom);
+    });
+
+    scope.addEventListener("click", (ev) => {
+      const plate = ev.target.closest(".plate.is-zoomable");
+      /* a click with no pointer behind it (detail 0) came from Enter or Space */
+      if (plate && (ev.target.closest(".zoom-btn") || ev.target.tagName === "IMG")) getLightbox().open(plate, ev.detail === 0);
     });
   }
 
@@ -967,6 +1118,7 @@
     wireUnfolds(root);
     wirePickers(root);
     wireCarousels(root);
+    wireZoom(root);
     if (chaptered) buildNav(p);
     window.scrollTo(0, 0);
   }

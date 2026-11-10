@@ -88,7 +88,7 @@ window.SITE = {
       role: "Lead product designer",
       year: "2021–2026",
       tagline: "A searchless job feed that helps students discover, save, and evaluate jobs.",
-      cover: "assets/stories/job-explorer/cover.png",
+      cover: "assets/stories/job-explorer/cover-final.png",
       device: "monitor",
       screen: "assets/work/job-explorer.webp",
       accent: "forest",
@@ -141,9 +141,9 @@ window.SITE = {
               width: "wide",
               label: "The filter bar, later",
               strip: true,
-              image: "assets/stories/job-explorer/filters-mature.png", w: 1065, h: 102,
+              image: "assets/stories/job-explorer/filters-mature.png", w: 998, h: 90,
               alt:
-                "The Job Explorer filter bar: an In my Career Plan toggle, a Remote toggle, a City field and an Experience level menu set to Entry-level (0-1 years)."
+                "The Job Explorer filter bar: an In my Career Plan toggle, a Remote toggle, a City field set to Phoenix, AZ and an Experience level menu set to All levels."
             }
           ]
         },
@@ -161,8 +161,8 @@ window.SITE = {
               items: [
                 {
                   label: "Save from the feed",
-                  image: "assets/stories/job-explorer/saved-card.png", w: 460, h: 310,
-                  alt: "A Job Explorer job card with a save heart, under a legend reading: heart equals Saved job posting."
+                  image: "assets/stories/job-explorer/saved-card.png", w: 422, h: 206,
+                  alt: "A Job Explorer job card for VP Information Technology at Republic Services, its heart filled in to show it's saved."
                 },
                 {
                   label: "Save from the description",
@@ -199,7 +199,7 @@ window.SITE = {
             "When Career Plan introduced the ability to **target** a career, Job Explorer still filtered jobs using careers students had only **saved as interests**. I recognized the disconnect between the products and decided to change the filter.\n\nI replaced the saved-careers dropdown with an **“In My Career Plan” toggle** that used occupations associated with the student’s targeted career and job titles. Program-aligned jobs remained the default to meet compliance requirements. Students could choose the Career Plan view and save that preference in Career Profile.\n\nThe underlying job lists sometimes overlapped. The value was giving students control to explore the career they were actively pursuing, not just careers they had liked.",
             {
               width: "inset",
-              image: "assets/stories/job-explorer/filter-career-plan.png", w: 512, h: 102,
+              image: "assets/stories/job-explorer/filter-career-plan.png", w: 481, h: 90,
               alt: "The In my Career Plan toggle, switched off, beside the Remote toggle in the Job Explorer filter bar.",
               notes: ["Default: program-aligned jobs", "Optional: targeted-career jobs"]
             }
@@ -260,14 +260,14 @@ window.SITE = {
               items: [
                 {
                   label: "Inside Job Explorer: the pane changes",
-                  image: "assets/stories/job-explorer/side-pane.png", w: 1380, h: 508,
+                  image: "assets/stories/job-explorer/side-pane.png", w: 1292, h: 472,
                   alt:
                     "Job Explorer with a selected job card on the left, marked by a red edge, and that job's details in the pane beside it: Apply now, Generate resumé and possible skills."
                 },
                 {
                   label: "Elsewhere: a modal opens",
-                  image: "assets/stories/job-explorer/modal-board.png", w: 600, h: 456,
-                  alt: "The Job Description Modal frames from the Figma component file, in four variants."
+                  image: "assets/stories/job-explorer/modal-description.png", w: 1184, h: 900,
+                  alt: "A job-description modal open over the Career Navigator home page: Business Office Manager in Santa Monica, CA, with Apply now and Generate resumé, possible skills for the job with two Skills Profile matches, and the start of the posting’s description."
                 }
               ]
             },
@@ -422,7 +422,7 @@ window.SITE = {
                 },
                 {
                   label: "Job Explorer",
-                  image: "assets/stories/career-profile/je-skill-match.png", w: 770, h: 385,
+                  image: "assets/stories/career-profile/je-skill-match.png", w: 702, h: 360,
                   alt: "A Job Explorer posting's possible skills, with the skills already on the student's profile checked as Skills Profile matches.",
                   caption: "Profile skills that match a posting are checked."
                 }
@@ -512,7 +512,7 @@ window.SITE = {
                 caption: "Students chose the statement that fit their career situation.",
                 prompt: {
                   src: "assets/stories/career-profile/persona-modal.png", w: 640, h: 625,
-                  alt: "A modal over My Skills asking “Would you like a personalized career suggestion, Kristie?” with five career-situation statements to choose from and a Submit button."
+                  alt: "A modal over My Skills asking “Would you like a personalized career suggestion, Valerie?” with five career-situation statements to choose from and a Submit button."
                 },
                 answerLabel: "The follow-up",
                 switchLabel: "Career situation",
@@ -523,7 +523,7 @@ window.SITE = {
                     statement: "I have little to no work experience and am interested in creating a plan to start my career.",
                     row: [238, 292], dot: [71, 252],
                     src: "assets/stories/career-profile/persona-followup-starter.png",
-                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Kristie, as a starter, you may have more skills than you think; past job titles or life experiences count, babysitting included.",
+                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Valerie, as a starter, you may have more skills than you think; past job titles or life experiences count, babysitting included.",
                     caption: "Starting out: you may have more skills than you think."
                   },
                   {
@@ -531,7 +531,7 @@ window.SITE = {
                     statement: "I’m looking for additional knowledge and education to enhance my current career.",
                     row: [296, 350], dot: [71, 310],
                     src: "assets/stories/career-profile/persona-followup-enhancer.png",
-                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Kristie, as an enhancer, it’s important to take inventory of what you bring to the table; you’ve worked hard for your skills, so put them to work.",
+                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Valerie, as an enhancer, it’s important to take inventory of what you bring to the table; you’ve worked hard for your skills, so put them to work.",
                     caption: "Enhancing: put the skills you worked hard for to work."
                   },
                   {
@@ -539,7 +539,7 @@ window.SITE = {
                     statement: "I’m interested in changing my career path and want to create a plan to make the switch.",
                     row: [354, 408], dot: [71, 368],
                     src: "assets/stories/career-profile/persona-followup-switcher.png",
-                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Kristie, as a switcher, it’s important to take inventory of the skills you bring to the table that can be translated into your new career.",
+                    alt: "Great! Here’s what we suggest: add your self-identified skills to the Skills Profile. Valerie, as a switcher, it’s important to take inventory of the skills you bring to the table that can be translated into your new career.",
                     caption: "Switching careers: find the skills that carry over."
                   }
                 ]
@@ -576,7 +576,7 @@ window.SITE = {
             {
               width: "inset",
               image: "assets/stories/career-profile/work-history-inferred-skills.png", w: 923, h: 743,
-              alt: "The Career Profile work history form for a Graphic Designer, with ten related skills offered as chips. Typography and Social Media are selected; the other eight are not.",
+              alt: "The Career Profile work history form for a Product Designer, with ten related skills offered as chips. Interaction Design, User Research, Wireframing and User Interface (UI) are selected; the other six are not.",
               caption: "Work history with suggested skills. Only the ones a student selects are added to their profile."
             },
             {
@@ -755,9 +755,9 @@ window.SITE = {
             "During intake, I designed a step that offered **six suggested responsibilities at a time**, using a student’s job title and employer as context for more relevant language. The smaller set kept the decision manageable, especially on mobile. Students selected only statements that reflected their actual work.\n\n**Regenerating ideas didn’t erase the good ones.** Selected cards stayed at the top while the remaining slots filled with new suggestions. After launch, I noticed “re-generate more items” returned near-duplicates of what students had already seen. Nothing on screen needed to change; I worked with engineering so it generated genuinely new material. Students could also skip the step entirely and write their own descriptions later in the editor. The goal was to help with a blank canvas, not to decide what was true about someone else’s experience.",
             {
               width: "inset",
-              image: "assets/stories/ai-resume/intake-responsibilities.png", w: 870, h: 826,
+              image: "assets/stories/ai-resume/intake-responsibilities.png", w: 870, h: 786,
               alt:
-                "What did you do as an Assistant Manager at Walmart? Six suggested tasks as cards, two of them selected, a prompt to keep current selections and re-generate more items, and a checkbox to skip this step and write my own.",
+                "What did you do as a Cashier at Walmart? Six suggested tasks as cards, three of them selected, a prompt to keep current selections and re-generate more items, and a checkbox to skip this step and write my own.",
               notes: ["Six suggestions at a time", "Selections kept when regenerating", "Skip and write your own"]
             }
           ]
@@ -771,15 +771,14 @@ window.SITE = {
             "The editor opened on a **professional summary**. AI provided a first draft based on the student’s information, but the text was directly editable. Students could revise it themselves without using AI again.",
             {
               width: "wide",
-              image: "assets/stories/ai-resume/editor-full.png", w: 1611, h: 1150,
+              image: "assets/stories/ai-resume/editor-full.png", w: 1440, h: 1155,
               alt:
-                "The resumé editor for Assistant Managers: a resumé contents list for summary, work history, skills and education, a professional summary form with an editable AI-drafted summary and a collapsed Use AI to enhance summary bar, and a live resumé preview with a Download button.",
+                "The resumé editor for Product Designers: a resumé contents list for summary, work history, skills and education, a professional summary form with an editable AI-drafted summary and a collapsed Use AI to enhance summary bar, and a live resumé preview with a Download button.",
               caption: "The editor: one section at a time, a live preview beside it, and Download when the student is ready."
             },
             "For students who wanted help, I designed **“Use AI to enhance”** as an optional, section-level action. The proposed rewrite appeared separately so they could compare it with what they had, regenerate another suggestion, or explicitly **apply changes**. Their original text wasn’t overwritten simply because they asked for help.",
             {
-              /* the two editor screenshots, sliced at matching rows: the
-                 expanded one sits 37px left and 3px below the collapsed one */
+              /* the two editor screenshots (2×), sliced at matching rows */
               width: "inset",
               unfold: {
                 w: 878,
@@ -792,7 +791,7 @@ window.SITE = {
                 barOpen: { src: "assets/stories/ai-resume/summary-bar-open.png", h: 282 },
                 panel: {
                   src: "assets/stories/ai-resume/summary-panel.png", h: 219,
-                  alt: "The expanded bar: a rewritten summary in its own box, with Regenerate and Apply changes. A tooltip says the AI tool helps enhance your writing while preserving your tone and style, and to review the AI-generated rewrite carefully for accuracy."
+                  alt: "The expanded bar: a rewritten summary in its own box, with Regenerate and Apply changes."
                 },
                 rest: { src: "assets/stories/ai-resume/summary-rest.png", h: 100 }
               },
@@ -825,14 +824,14 @@ window.SITE = {
                 states: [
                   {
                     name: "Job title",
-                    src: "assets/stories/ai-resume/skills-jobtitle.png", w: 1278, h: 817,
-                    alt: "Let’s review your skills, for a target job title: six skills to highlight on the resumé, selected, and common skills for Assistant Managers to add. The steps start with Target title.",
+                    src: "assets/stories/ai-resume/skills-jobtitle.png", w: 1278, h: 897,
+                    alt: "Let’s review your skills, for a target job title: eight skills to highlight on the resumé, selected, and common skills for Security Intelligence Analysts to add. The steps start with Target title.",
                     caption: "For a job title: skills that often appear in postings for that title, with more to add."
                   },
                   {
                     name: "Job posting",
-                    src: "assets/stories/ai-resume/skills-jobposting.png", w: 1278, h: 1001,
-                    alt: "Let’s review your skills, for a job posting: seven Career Profile skills that match the posting, selected; additional skills from this job posting; and common skills for General Managers. The steps start with Work history, with no Target title step.",
+                    src: "assets/stories/ai-resume/skills-jobposting.png", w: 1278, h: 1162,
+                    alt: "Let’s review your skills, for a job posting: sixteen Career Profile skills that match the posting, selected; additional skills from this job posting; and common skills for Vice Presidents of Strategy. The steps start with Work history, with no Target title step.",
                     caption: "For a posting: matching profile skills first, then skills the posting names, then common skills for the title. No Target title step."
                   }
                 ]
@@ -849,8 +848,8 @@ window.SITE = {
             "I added **“Generate resumé”** to the shared job-description experience. From Job Explorer, and from other Career Navigator surfaces using those same job-description components, a student could begin tailoring directly to an opportunity instead of leaving to find a separate tool.\n\nThis built on the connected-product foundation: **Career Profile supplied information the student had already shared**, and new work or education details entered through the resumé flow could be written back for future use.",
             {
               width: "inset",
-              image: "assets/stories/ai-resume/je-generate-resume.png", w: 732, h: 590,
-              alt: "A Job Explorer posting for CERIS Ops Supervisor at CorVel, with Apply now and, under it, Generate resumé, above the possible skills for the job and the student’s Skills Profile matches.",
+              image: "assets/stories/ai-resume/je-generate-resume.png", w: 744, h: 696,
+              alt: "A Job Explorer posting for Contracts Specialist II at the City of Phoenix, with Apply now and, under it, Generate resumé, above the skills the employer invites candidates to have and short notes on Talent Match and Tuition Benefit.",
               caption: "Generate resumé, right under Apply now on a Job Explorer posting."
             }
           ]
@@ -1078,14 +1077,14 @@ window.SITE = {
               width: "wide",
               items: [
                 {
-                  image: "assets/stories/kiosk-public-storage/error-new-rental.jpg", w: 900, h: 650,
+                  image: "assets/stories/kiosk-public-storage/error-new-rental.png", w: 1080, h: 780, zoom: false,
                   alt:
                     "Kiosk error modal with a red icon: “Hmm… let's try something else. We couldn't find your reservation, but that's okay! You can easily start a rental right here,” with Close & Exit and Start a New Rental buttons.",
                   caption:
                     "Error: the reservation still can't be found, so the kiosk stops asking for retries and offers a new rental instead."
                 },
                 {
-                  image: "assets/stories/kiosk-public-storage/warning-live-person.jpg", w: 900, h: 650,
+                  image: "assets/stories/kiosk-public-storage/warning-live-person.png", w: 1080, h: 780, zoom: false,
                   alt:
                     "Kiosk warning modal with a yellow icon: “Well, that doesn't happen everyday… The space you reserved is no longer available. We're connecting you to a live person who can help get you set up with a space,” with a Connecting indicator and a Close & Exit button.",
                   caption:
@@ -1108,13 +1107,13 @@ window.SITE = {
               width: "wide",
               items: [
                 {
-                  image: "assets/stories/kiosk-public-storage/heatmap-original.jpg", w: 812, h: 740,
+                  image: "assets/stories/kiosk-public-storage/heatmap-original.jpg", w: 812, h: 740, zoom: false,
                   alt:
                     "Usability-test click heat map on the original home-screen treatment: four tiles in a single navy color with illustrated icons, for New Customer, Complete Rental, Existing Customer and Purchase a Lock, with most clicks on New Customer. 83% click success.",
                   caption: "The original approach, one tile color throughout: 83% click success."
                 },
                 {
-                  image: "assets/stories/kiosk-public-storage/heatmap-multicolor.jpg", w: 812, h: 740,
+                  image: "assets/stories/kiosk-public-storage/heatmap-multicolor.jpg", w: 812, h: 740, zoom: false,
                   alt:
                     "Usability-test click heat map on the multi-color treatment Public Storage requested: New Customer in orange, Complete Rental in navy and the remaining tiles in gray, with line icons and most clicks on New Customer. 91% click success.",
                   caption: "The multi-color tiles Public Storage asked for: 91% click success."
@@ -1138,7 +1137,7 @@ window.SITE = {
             "**Customers were walking away mid-task, so I went to find out why.** The customized kiosk launched in the second quarter of 2020 in a **12-facility test group** across the country. Public Storage was concerned about how many customers were walking away before finishing.\n\nI compiled a walk-away report covering about a month at three facilities and **watched the replay videos of 28 customers** at the kiosk. Part of the problem wasn't the interface at all: **Public Storage's own staff had been playing with the kiosks and skewing the data**. That led to a hidden tap in the bottom-left corner that starts a session without recording it.\n\nThe real sessions showed where customers needed clearer explanations, and where the information Public Storage asked for during validation was tripping them up. I **presented the findings and recommendations to Public Storage's C-suite executives and VPs**.",
             {
               width: "wide",
-              image: "assets/stories/kiosk-public-storage/walkaway-reservations.jpg", w: 1600, h: 900,
+              image: "assets/stories/kiosk-public-storage/walkaway-reservations.jpg", w: 1600, h: 900, zoom: false,
               alt:
                 "Slide from the July 2020 kiosk walk-away readout for Public Storage, on the Reservation Completion flow: a pie chart showing 67% of walk-aways were reservations not found and 33% were reservations not available, beside suggestions to label why a reservation wasn't found, add error modals with Live Help, support product substitution, and suggest a new rental after the second failed attempt.",
               caption:
