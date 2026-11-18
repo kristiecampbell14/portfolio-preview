@@ -922,7 +922,7 @@ window.SITE = {
       intro:
         "I redesigned OpenTech's self-service kiosk after nearly 14 years without meaningful change, then partnered directly with Public Storage, the world's largest self-storage operator, on a version customized for its business.",
 
-      role: "Lead UX designer",
+      role: "Solo UX designer",
       year: "2018–2020",
       tagline: "A self-service rental kiosk, modernized and then custom-built for Public Storage.",
       cover: "assets/stories/kiosk-public-storage/cover.jpg",
@@ -934,7 +934,7 @@ window.SITE = {
         {
           label: "My role",
           body:
-            "Lead UX designer. Responsible for research, interaction design, usability testing, client collaboration and design QA, working with product, engineering, business analysts and Public Storage leadership."
+            "OpenTech's only UX designer, responsible for research, interaction design, usability testing, client collaboration and design QA, working with product, engineering, business analysts and Public Storage leadership."
         },
         {
           label: "At a glance",
@@ -967,7 +967,7 @@ window.SITE = {
           type: "chapter",
           heading: "I modernized a 14-year-old product without losing what worked.",
           flow: [
-            "OpenTech's INSOMNIAC kiosks let self-storage customers **rent a unit, make a payment and manage their account without an employee present**. They pair a touchscreen with physical hardware such as card readers, cash acceptors and ID scanners, and connect to whichever property management system the operator runs, each with its own limitations.\n\nThe first kiosk was designed without a product or UX designer, then left alone: it stayed **virtually unchanged for nearly 14 years**. As Lead UX Designer, I worked across Product, Engineering, Business Analysis and company leadership to **modernize it without breaking the business rules operators depended on**.",
+            "OpenTech's INSOMNIAC kiosks let self-storage customers **rent a unit, make a payment and manage their account without an employee present**. They pair a touchscreen with physical hardware such as card readers, cash acceptors and ID scanners, and connect to whichever property management system the operator runs, each with its own limitations.\n\nThe first kiosk was designed without a product or UX designer, then left alone: it stayed **virtually unchanged for nearly 14 years**. As OpenTech's first and only designer, I worked across Product, Engineering, Business Analysis and company leadership to **modernize it without breaking the business rules operators depended on**.",
             {
               width: "inset",
               image: "assets/stories/kiosk-public-storage/original-home.png", w: 562, h: 425,
@@ -1038,7 +1038,7 @@ window.SITE = {
           group: "redesign",
           heading: "I expanded the kiosk redesign for Public Storage's enterprise pilot.",
           flow: [
-            "**Public Storage needed more than a reskin.** Kiosk 20 had been very successful with smaller operators. Then Public Storage, **the world's largest self-storage operator** with more than 2,200 locations at the time, approached OpenTech about a kiosk of its own. Its business didn't fit the box model of the 20 series, and we didn't expect it to. For the first time, **the kiosk's flow itself would be customized**.\n\nAs lead UX designer on the initiative, I **worked directly with Public Storage's CIO and VP of Application Development**, along with their development and marketing teams and third-party vendors, to gather requirements and get design approval, alongside OpenTech's own product and engineering teams.\n\nThe work was **translating enterprise requirements into an experience** that met Public Storage's needs while still running within the capabilities and constraints of the underlying kiosk platform.",
+            "**Public Storage needed more than a reskin.** Kiosk 20 had been very successful with smaller operators. Then Public Storage, **the world's largest self-storage operator** with more than 2,200 locations at the time, approached OpenTech about a kiosk of its own. Its business didn't fit the box model of the 20 series, and we didn't expect it to. For the first time, **the kiosk's flow itself would be customized**.\n\nAs the only designer on the initiative, I **worked directly with Public Storage's CIO and VP of Application Development**, along with their development and marketing teams and third-party vendors, to gather requirements and get design approval, alongside OpenTech's own product and engineering teams.\n\nThe work was **translating enterprise requirements into an experience** that met Public Storage's needs while still running within the capabilities and constraints of the underlying kiosk platform.",
             {
               width: "inset",
               maxw: 380,
@@ -1231,13 +1231,13 @@ window.SITE = {
     },
     {
       year: "2017",
-      title: "Lead UX/UI Designer",
+      title: "User Experience Designer",
       company: "OpenTech Alliance",
       dates: "2017 – 2021",
       points: [
-        "Led end-to-end UX strategy, research, and design across a multi-surface product portfolio spanning self-service kiosks, access-control systems, and B2B2C e-commerce experiences",
+        "As OpenTech's first and only designer, led end-to-end UX strategy, research, and design across a multi-surface product portfolio spanning self-service kiosks, access-control systems, and B2B2C e-commerce experiences",
         "Led the redesign of OpenTech's self-service kiosk platform and its adaptation for Public Storage, working directly with Public Storage's CIO and VP-level stakeholders as well as Product, Engineering, Marketing, and business leadership",
-        "Improved successful click-through in kiosk usability testing from 83% to 91% and supported the Public Storage experience through a 12-facility pilot"
+        "A/B tested my own objection to the kiosk home screen Public Storage requested; their design won (91% vs. 83% click success), and the Public Storage build went to a 12-facility pilot"
       ]
     },
     {
@@ -1247,8 +1247,8 @@ window.SITE = {
       dates: "2021 – 2024",
       points: [
         "Led end-to-end product design within a Product, Design, and Engineering trio for career experiences serving approximately 24,000 students and alumni each month",
-        "Designed and launched multiple 0-to-1 experiences, including Job Explorer, Career Profile, and an AI Resumé Generator that transformed existing career information into structured, user-editable resumé content",
-        "Increased Apply Now conversion from 6% to 25% by addressing friction within job discovery and using behavioral signals across the broader customer journey to identify higher-leverage opportunities, including resumé creation, profile completion, skills development, and job-search filtering"
+        "Designed and launched 0-to-1 experiences, including Job Explorer and Career Profile, a shared foundation for the Career Navigator product suite",
+        "Over five years of owning Job Explorer, grew Apply Now conversion from about 6% to 25% by addressing friction within job discovery and using behavioral signals across the broader customer journey to identify higher-leverage opportunities, including resumé creation, profile completion, skills development, and job-search filtering"
       ]
     },
     {
@@ -1258,8 +1258,8 @@ window.SITE = {
       dates: "2024 – 2026",
       points: [
         "Led, hired, and developed a team of six senior product designers and content writers across an interconnected portfolio of customer-facing, B2B2C, and B2B products while remaining hands-on as Design Lead for a core career product team",
-        "Directed experience strategy for Super Phoebe and a career-focused AI sub-agent, shaping conversational and adaptive interactions, identifying opportunities to replace legacy self-service journeys, and balancing automation with legal requirements, user control, and trust",
-        "Fostered responsible adoption of AI across the UX organization in alignment with enterprise IT standards while continuing to design and scale AI-enabled customer experiences"
+        "Guided experience strategy for Super Phoebe and a career-focused AI sub-agent, shaping conversational and adaptive interactions, identifying opportunities to replace legacy self-service journeys, and balancing automation with legal requirements, user control, and trust",
+        "Fostered responsible adoption of AI across the UX organization in alignment with enterprise IT standards while designing AI-enabled experiences myself, including the AI Resumé Generator, which turned existing career information into structured, user-editable resumé content"
       ]
     }
   ],
