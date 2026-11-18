@@ -271,7 +271,7 @@ window.SITE = {
                 }
               ]
             },
-            "I worked with our sister product team to explain and implement those patterns across the ecosystem. This was a **Career Navigator-specific reusable component library**, not a formal part of our central MUI design system, although decisions here informed shared conventions for **chips, card shadows, and modals**.\n\nBringing these job cards into more product experiences created additional opportunities for students to encounter relevant openings as part of their broader career journey.",
+            "I worked with our sister product team to explain and implement those patterns across the ecosystem. This was **Career Navigator's own component library**, built alongside our central MUI design system, and its decisions shaped shared conventions for **chips, card shadows, and modals**.\n\nBringing these job cards into more product experiences created additional opportunities for students to encounter relevant openings as part of their broader career journey.",
             {
               carousel: true,
               items: [
@@ -1029,7 +1029,8 @@ window.SITE = {
                   }
                 ]
               }
-            }
+            },
+            "Kiosk 20 had to wear every operator's brand, so **I set the rules for what could change**. Operators could theme colors, imagery, tiles and the page-title bar. They couldn't change the error colors or the navigation bar with Home, Facility Info and Live Help, so **an error always looked like an error**, and a way home or to help was always in the same place."
           ]
         },
 
